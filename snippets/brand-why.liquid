@@ -1,0 +1,83 @@
+{%- comment -%}
+  "Why I carry [Brand]" box on the product page.
+  Source: product.metafields.custom.brand_why_i_carry -> metaobject with fields:
+  - brand_name (single line text, optional – defaults to the product vendor)
+  - heading    (single line text, optional – overrides the block heading)
+  - text       (multi-line text or rich text)
+  - link_label (single line text, optional – overrides the block link label)
+  - link_url   (url or page reference, optional – defaults to the vendor collection)
+  - icon       (file / image, optional – overrides the block icon)
+  [brand] in headings and labels is replaced with the brand name.
+
+  Accepts:
+  - entry: the metaobject
+  - block: the section block
+  - product: the product
+{%- endcomment -%}
+{%- liquid
+  assign brand_name = product.vendor
+  if entry.brand_name != blank
+    assign brand_name = entry.brand_name.value
+  endif
+
+  assign brand_heading = block.settings.heading
+  if entry.heading != blank
+    assign brand_heading = entry.heading.value
+  endif
+  assign brand_heading = brand_heading | replace: '[brand]', brand_name | replace: '[Brand]', brand_name | replace: '[BRAND]', brand_name
+
+  assign brand_link_label = block.settings.link_label
+  if entry.link_label != blank
+    assign brand_link_label = entry.link_label.value
+  endif
+  assign brand_link_label = brand_link_label | replace: '[brand]', brand_name | replace: '[Brand]', brand_name | replace: '[BRAND]', brand_name
+
+  assign brand_link_url = product.vendor | url_for_vendor
+  if entry.link_url != blank
+    assign brand_link_url = entry.link_url.value
+    if brand_link_url.url != blank
+      assign brand_link_url = brand_link_url.url
+    endif
+  endif
+
+  assign brand_icon = block.settings.icon
+  if entry.icon != blank
+    assign brand_icon = entry.icon.value
+  endif
+-%}
+<div class="brand-why">
+  <div class="brand-why__icon">
+    {%- if brand_icon.media_type == 'image' or brand_icon.src != blank -%}
+      {{ brand_icon | image_url: width: 160 | image_tag: loading: 'lazy', srcset: nil, alt: brand_heading }}
+    {%- elsif brand_icon.url != blank -%}
+      <img src="{{ brand_icon.url }}" alt="{{ brand_heading | escape }}" loading="lazy">
+    {%- else -%}
+      <svg aria-hidden="true" focusable="false" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+        <path d="M16 3 5 7v8c0 7 4.7 12.3 11 14 6.3-1.7 11-7 11-14V7z"/>
+        <path d="m11 16 3.5 3.5L21 13"/>
+      </svg>
+    {%- endif -%}
+  </div>
+  <div class="brand-why__content">
+    {%- if brand_heading != blank -%}
+      <p class="brand-why__heading">{{ brand_heading | escape }}</p>
+    {%- endif -%}
+    {%- if entry.text != blank -%}
+      <div class="brand-why__text">
+        {%- if entry.text.type == 'rich_text_field' -%}
+          {{ entry.text | metafield_tag }}
+        {%- else -%}
+          {{ entry.text.value | escape | newline_to_br }}
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+    {%- if brand_link_label != blank and brand_link_url != blank -%}
+      <a class="brand-why__link" href="{{ brand_link_url }}">
+        <span>{{ brand_link_label | escape }}</span>
+        <svg aria-hidden="true" focusable="false" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+          <path d="M4 10h12M11 5l5 5-5 5"/>
+        </svg>
+      </a>
+    {%- endif -%}
+  </div>
+</div>

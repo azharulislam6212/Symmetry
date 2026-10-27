@@ -373,6 +373,14 @@
               </div>
             {%- endif -%}
 
+          {% when 'brand_why_i_carry' %}
+            {%- assign brand_why = product.metafields.custom.brand_why_i_carry.value -%}
+            {%- if brand_why != blank -%}
+              <div class="brand-why-block{% unless block.settings.show_in_quickbuy %} not-in-quickbuy{% endunless %}" style="--brand-why-bg: {{ block.settings.background_color }};" {{ block.shopify_attributes }}>
+                {% render 'brand-why', entry: brand_why, block: block, product: product %}
+              </div>
+            {%- endif -%}
+
           {% when 'description' %}
             {%- if product.description != blank -%}
               <div class="{% unless block.settings.show_in_quickbuy %}not-in-quickbuy{% endunless %}{% if block.settings.show_in_tab %} product-info-accordion{% endif %}" {{ block.shopify_attributes }}>
@@ -1631,6 +1639,48 @@
           "id": "background_color",
           "label": "Background color",
           "default": "#fdf3ea"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_in_quickbuy",
+          "label": "Show in quick buy",
+          "default": false
+        }
+      ]
+    },
+    {
+      "type": "brand_why_i_carry",
+      "name": "Why I carry brand",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "Content comes from the product metafield custom.brand_why_i_carry (metaobject reference with fields: brand_name, heading, text, link_label, link_url, icon). Hidden when empty. Use [brand] to insert the brand name."
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Why I carry [brand]"
+        },
+        {
+          "type": "text",
+          "id": "link_label",
+          "label": "Link label",
+          "info": "Links to the metaobject link_url, or the brand's vendor collection",
+          "default": "About [brand]"
+        },
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon",
+          "info": "Used when the metaobject has no icon. Falls back to the default shield icon."
+        },
+        {
+          "type": "color",
+          "id": "background_color",
+          "label": "Background color",
+          "default": "#f3f6f9"
         },
         {
           "type": "checkbox",

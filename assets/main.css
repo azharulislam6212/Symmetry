@@ -11463,3 +11463,88 @@ body:has(.drawer):has(.boost-sd__modal){
 .buy-buttons-extra__guide:hover {
     text-decoration: none;
 }
+
+/* Why I carry [brand] block (metafield custom.brand_why_i_carry) */
+.brand-why-block {
+    margin: 24px 0;
+}
+
+.brand-why {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 28px 32px;
+    border-radius: 12px;
+    background: var(--brand-why-bg, #f3f6f9);
+}
+
+.brand-why__icon {
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+}
+
+.brand-why__icon svg,
+.brand-why__icon img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.brand-why__heading {
+    margin: 0 0 8px;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.brand-why__text {
+    line-height: 1.6;
+}
+
+.brand-why__text p {
+    margin: 0;
+}
+
+.brand-why__text p + p {
+    margin-top: 0.5em;
+}
+
+.brand-why__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 16px;
+    color: inherit;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.brand-why__link span {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.brand-why__link svg {
+    width: 18px;
+    height: 18px;
+    transition: transform 0.2s;
+}
+
+.brand-why__link:hover svg {
+    transform: translateX(3px);
+}
+
+@media (max-width: 767px) {
+    .brand-why {
+        gap: 14px;
+        padding: 20px 18px;
+    }
+
+    .brand-why__icon {
+        width: 28px;
+        height: 28px;
+    }
+}

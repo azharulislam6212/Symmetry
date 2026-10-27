@@ -76,6 +76,15 @@
             "guide_label": "Read the buyer's guide before you choose"
           }
         },
+        "brand_why_i_carry": {
+          "type": "brand_why_i_carry",
+          "settings": {
+            "heading": "Why I carry [brand]",
+            "link_label": "About [brand]",
+            "background_color": "#f3f6f9",
+            "show_in_quickbuy": false
+          }
+        },
         "description": {
           "type": "description",
           "disabled": true,
@@ -104,6 +113,7 @@
         "variant-picker",
         "fit_sentence",
         "buy-buttons",
+        "brand_why_i_carry",
         "description",
         "kiwi_size_chart_recommender_kiwi_sizing_yycANm"
       ],
