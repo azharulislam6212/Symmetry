@@ -16,6 +16,14 @@
 
   assign product_form_id = 'product-form-' | append: section.id | append: '-' | append: product.id
 
+  # Per-product video, shown as the last gallery item
+  assign product_video = product.metafields.custom.product_video_url
+  assign product_video_id = 'product-video-' | append: product.id
+  assign gallery_count = product.media.size
+  if product_video.value != blank
+    assign gallery_count = gallery_count | plus: 1
+  endif
+
   assign enable_media_grouping = false
   if section.settings.enable_media_grouping
     for variant in product.variants
@@ -27,7 +35,7 @@
   endif
 -%}
 
-{%- if product.media.size > 1 -%}
+{%- if gallery_count > 1 -%}
   <script src="{{ 'slideshow.js' | asset_url }}" defer></script>
 {%- endif -%}
 
@@ -40,7 +48,7 @@
 {% endif %}
 
 <product-form class="js-product product-info quickbuy-content spaced-row container">
-  <media-gallery class="media-gallery media-gallery--layout-{{ section.settings.gallery_layout }} media-gallery-size-{{ section.settings.gallery_size }} product-column-left {% if product.media.size > 1 %}has-thumbnails{% endif %}"
+  <media-gallery class="media-gallery media-gallery--layout-{{ section.settings.gallery_layout }} media-gallery-size-{{ section.settings.gallery_size }} product-column-left {% if gallery_count > 1 %}has-thumbnails{% endif %}"
     {%- if enable_media_grouping %}
       data-media-grouping-enabled
     {%- endif %}
@@ -71,7 +79,7 @@
               {%- for media in product.media -%}
                 <div class="slider__item{% if forloop.index0 == initial_slide %} is-active{% endif %}"
                   role="group" aria-roledescription="{{ 'sections.slideshow.slide' | t }}"
-                  aria-label="{{ forloop.index }} {{ 'general.slider.of' | t }} {{ forloop.length }}"
+                  aria-label="{{ forloop.index }} {{ 'general.slider.of' | t }} {{ gallery_count }}"
                   {%- unless forloop.index0 == initial_slide %} tabindex="-1"{% endunless %}
                   {%- if request.design_mode %} data-index="{{ forloop.index0 }}"{% endif %}
                   data-media-id="{{ media.id }}">
@@ -96,10 +104,20 @@
 
                 </div>
               {%- endfor -%}
+              {%- if product_video.value != blank -%}
+                <div class="slider__item"
+                  role="group" aria-roledescription="{{ 'sections.slideshow.slide' | t }}"
+                  aria-label="{{ gallery_count }} {{ 'general.slider.of' | t }} {{ gallery_count }}"
+                  tabindex="-1"
+                  {%- if request.design_mode %} data-index="{{ product.media.size }}"{% endif %}
+                  data-media-id="{{ product_video_id }}">
+                  {% render 'product-video', video: product_video, mode: 'slide', product: product %}
+                </div>
+              {%- endif -%}
             </div>
           </div>
 
-          {%- if product.media.size > 1 -%}
+          {%- if gallery_count > 1 -%}
             <div class="slider-nav slider-nav--floating desktop-only js-only">
               <button type="button" class="slider-nav__btn slider-nav__btn--style-2 has-ltr-icon" name="prev" aria-controls="slider-{{ section.id }}">
                 <span class="visually-hidden">{{ 'general.slider.previous' | t }}</span>
@@ -135,6 +153,11 @@
                 {%- endif -%}
               </div>
             {%- endfor -%}
+            {%- if product_video.value != blank -%}
+              <div class="product-media-collage__item" data-media-id="{{ product_video_id }}">
+                {% render 'product-video', video: product_video, mode: 'collage', product: product %}
+              </div>
+            {%- endif -%}
           </div>
         {%- endif -%}
 
@@ -162,7 +185,7 @@
         {% render 'product-label-detail', product: product, current_variant: current_variant %}
       </div>
 
-      {% if product.media.size > 1 %}
+      {% if gallery_count > 1 %}
         <carousel-slider class="carousel block thumbnails{% unless section.settings.gallery_layout contains 'carousel' %} mobile-only{% endunless %}">
           <div class="slider slider--no-scrollbar">
             <ul class="slider__grid">
@@ -187,6 +210,13 @@
                   </a>
                 </li>
               {% endfor %}
+              {%- if product_video.value != blank -%}
+                <li class="slider__item" data-media-id="{{ product_video_id }}">
+                  <a class="thumbnail thumbnail--media-video thumbnail--product-video" href="#" aria-label="{{ 'products.product.media.play_video' | t | escape }}">
+                    {% render 'product-video', video: product_video, mode: 'thumb', product: product %}
+                  </a>
+                </li>
+              {%- endif -%}
             </ul>
           </div>
         </carousel-slider>
@@ -238,10 +268,36 @@
                   {%- endif -%}
                 }
               {%- endfor -%}
+              {%- if product_video.value != blank -%}
+                {%- if product.media.size > 0 -%},{%- endif -%}
+                "{{ product_video_id }}": { "group": true, "position": "end" }
+              {%- endif -%}
             }
           }
         </script>
       {%- endif -%}
+    {%- endif -%}
+
+    {%- if product_video.value != blank -%}
+      <script>
+        {%- comment -%} Autoplay the product video (iframe embeds) whenever its slide becomes active {%- endcomment -%}
+        (function() {
+          var activeSelector = '.main-image .slider__item.is-active[data-media-id^="product-video-"] iframe';
+          var playActiveVideo = function() {
+            document.querySelectorAll(activeSelector).forEach(function(frame) {
+              if (frame.matches('.js-youtube')) {
+                frame.contentWindow.postMessage('{ "event": "command", "func": "playVideo", "args": "" }', '*');
+              } else if (frame.matches('.js-vimeo')) {
+                frame.contentWindow.postMessage('{ "method": "play" }', '*');
+              }
+            });
+          };
+          document.addEventListener('on:media-gallery:change', playActiveVideo);
+          document.querySelectorAll('.main-image [data-media-id^="product-video-"] iframe').forEach(function(frame) {
+            frame.addEventListener('load', function() { setTimeout(playActiveVideo, 300); });
+          });
+        })();
+      </script>
     {%- endif -%}
   </media-gallery>
 

@@ -11548,3 +11548,25 @@ body:has(.drawer):has(.boost-sd__modal){
         height: 28px;
     }
 }
+
+/* Product video in main gallery (metafield custom.product_video_url) */
+.product-video__frame video {
+    object-fit: contain;
+    background: transparent;
+}
+
+.product-video-thumb {
+    display: block;
+    width: 100%;
+    overflow: hidden;
+    background: #f2f2f2;
+}
+
+.product-video-thumb img,
+.product-video-thumb video {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    pointer-events: none;
+}

@@ -1,0 +1,84 @@
+{%- comment -%}
+  Per-product video added as the last item of the main product gallery.
+  Source: product.metafields.custom.product_video_url
+  - URL metafield: YouTube, Vimeo or a direct video file (.mp4 etc.)
+  - File metafield: a video uploaded to Shopify
+
+  Plays muted + looped automatically when it becomes the active slide
+  (in collage layouts it autoplays straight away).
+
+  Accepts:
+  - video: the metafield
+  - mode: 'slide', 'collage' or 'thumb'
+  - product: the product
+{%- endcomment -%}
+{%- liquid
+  assign video_value = video.value
+  assign video_kind = 'file'
+  assign video_src = video_value
+
+  if video_value.media_type == 'video'
+    assign video_kind = 'shopify'
+  elsif video_value contains 'youtu'
+    assign video_kind = 'youtube'
+    if video_value contains 'youtu.be/'
+      assign video_id = video_value | split: 'youtu.be/' | last | split: '?' | first
+    elsif video_value contains 'v='
+      assign video_id = video_value | split: 'v=' | last | split: '&' | first
+    else
+      assign video_id = video_value | split: '?' | first | split: '/' | last
+    endif
+  elsif video_value contains 'vimeo.com'
+    assign video_kind = 'vimeo'
+    assign video_id = video_value | split: '?' | first | split: '/' | last
+  endif
+
+  if mode == 'collage'
+    assign video_autoplay = 1
+    assign video_autoplay_bool = true
+  else
+    assign video_autoplay = 0
+    assign video_autoplay_bool = false
+  endif
+
+  assign video_label = 'products.product.media.play_video' | t
+-%}
+
+{%- if mode == 'thumb' -%}
+  {%- assign thumb_aspect_ratio = product.featured_media.preview_image.aspect_ratio | default: 1 | at_least: 0.6 -%}
+  <span class="product-video-thumb" style="aspect-ratio: {{ thumb_aspect_ratio }};">
+    {%- case video_kind -%}
+      {%- when 'shopify' -%}
+        {{ video_value.preview_image | image_url: width: 160 | image_tag: loading: 'lazy', srcset: nil, alt: video_label }}
+      {%- when 'youtube' -%}
+        <img src="https://i.ytimg.com/vi/{{ video_id }}/mqdefault.jpg" alt="{{ video_label | escape }}" loading="lazy" width="320" height="180">
+      {%- when 'file' -%}
+        <video src="{{ video_src }}#t=0.1" muted playsinline preload="metadata" aria-hidden="true"></video>
+      {%- else -%}
+        {%- if product.featured_media -%}
+          {{ product.featured_media.preview_image | image_url: width: 160 | image_tag: loading: 'lazy', srcset: nil, alt: video_label }}
+        {%- endif -%}
+    {%- endcase -%}
+  </span>
+  <div class="thumbnail__badge">
+    {% render 'icon-video-badge-full-color' %}
+  </div>
+
+{%- else -%}
+  <div class="product-media-wrapper product-video" data-video-kind="{{ video_kind }}">
+    {%- comment -%} Match the gallery image height (same min ratio as the images); the video keeps its own ratio inside {%- endcomment -%}
+    {%- assign frame_aspect_ratio = product.featured_media.preview_image.aspect_ratio | default: 1 | at_least: 0.6 -%}
+    <div class="product-media product-media--frame product-video__frame" style="--video-ar-pad: {{ 1.0 | divided_by: frame_aspect_ratio | times: 100 }}%;">
+      {%- case video_kind -%}
+        {%- when 'shopify' -%}
+          {{ video_value | video_tag: playsinline: true, muted: true, loop: true, controls: true, autoplay: video_autoplay_bool, preload: 'metadata' }}
+        {%- when 'youtube' -%}
+          <iframe class="js-youtube" src="https://www.youtube.com/embed/{{ video_id }}?autoplay={{ video_autoplay }}&mute=1&loop=1&playlist={{ video_id }}&playsinline=1&rel=0&enablejsapi=1" title="{{ product.title | escape }}" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>
+        {%- when 'vimeo' -%}
+          <iframe class="js-vimeo" src="https://player.vimeo.com/video/{{ video_id }}?autoplay={{ video_autoplay }}&muted=1&loop=1&playsinline=1&dnt=1" title="{{ product.title | escape }}" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+        {%- else -%}
+          <video src="{{ video_src }}" muted loop playsinline controls preload="metadata"{% if mode == 'collage' %} autoplay{% endif %}></video>
+      {%- endcase -%}
+    </div>
+  </div>
+{%- endif -%}
