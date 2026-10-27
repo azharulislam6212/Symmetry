@@ -1,0 +1,203 @@
+<div class="guide_content brandlist_overview"> 
+
+    <div class="guide_content_wrapper mobile">
+        {% for block in section.blocks %}
+        <div class="row">
+           
+            <div class="col-md-6 flex-box-row white">
+              <img src="{{ block.settings.badge_image | img_url: '500x'}}" alt="">
+               </div>                  
+  
+          <div class="col-md-6 flex-box box-padding grey">
+              <h2 class="heading-text">{{block.settings.heading_title}}</h2>
+              <div class="badge-desc">{{block.settings.badge_desc}}</div>
+          </div>
+
+         
+         
+      </div>     
+        {% endfor %}
+       
+    </div>
+
+
+
+
+      <div class="guide_content_wrapper desktop">
+          {% for block in section.blocks %}
+          <div class="row">
+              {% if block.settings.layout == "left" %}
+              <div class="col-md-6 flex-box-row white">
+                <img src="{{block.settings.badge_image | img_url: '500x'}}" alt="">
+                 </div>                  
+              {% endif %}
+            <div class="col-md-6 flex-box box-padding grey">
+                <h2 class="heading-text">{{block.settings.heading_title}}</h2>
+                <div class="badge-desc">{{block.settings.badge_desc}}</div>
+            </div>
+
+            {% if block.settings.layout == "right" %}
+                <div class="col-md-6 flex-box-row white">
+                    <img src="{{block.settings.badge_image | img_url: 'large'}}" alt="">
+                </div>
+            {% endif %}
+           
+        </div>     
+          {% endfor %}
+         
+      </div>
+  </div>
+
+  {% style %}
+    .mobile {
+    display: none;
+}
+    .desktop {
+    display: block;
+}
+.flex-box-row {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+}
+.flex-box {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+    align-items: start;
+}
+.box-padding {
+    padding: 80px 9%;
+}
+
+h2.heading-text {
+    font-size: 30px;
+    font-weight: bold;
+    font-style: italic;
+    width: 100%;
+}
+.badge-desc {
+    font-size: 18px;
+    line-height: 28px;
+}
+@media only screen and (max-width: 640px) {
+    .mobile {
+        display: block;
+    }
+
+     .desktop {
+    display: none;
+}
+    .col-md-6.flex-box-row.white {
+        padding: 45px 45px;
+    }
+
+        .badge-desc {
+        font-size: 18px;
+        line-height: 28px;
+        text-align: left;
+        padding: 0px 25px;
+    }
+  }
+
+
+@media only screen and (max-width: 768px) {
+    .guide_content_wrapper {
+        text-align: center;
+    }
+}
+
+.brandlist_overview {
+    margin-top: 74px;
+}
+
+
+@media only screen and (max-width: 1023px) {
+    .brandlist_overview {
+        margin-top: 40px;
+    }
+}
+
+
+.box-padding {
+    padding: 80px 9%;
+}
+.white {
+    background-color: #ffffff;
+}
+.grey {
+    background-color: #D8D8D8;
+}
+
+
+.row {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+}
+
+@media (min-width: 768px) {
+    .col-md-6 {
+        -ms-flex: 0 0 50%;
+        flex: 0 0 50%;
+        max-width: 50%;
+    }
+}
+  {% endstyle %}
+  
+
+  {% schema %}
+  {
+      "name": "Certified Badges",
+      "blocks": [
+         {
+            "name": "Badges",
+            "type": "text",
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "heading_title",
+                    "label": "Add Heading"
+                },
+                {
+                    "type": "richtext",
+                    "id": "badge_desc",
+                    "label": "Add Content"
+                },
+                {
+                    "type": "image_picker",
+                    "id":"badge_image",
+                    "label": "Add Image"
+                },
+                {
+                    "type": "select",
+                    "id": "layout",
+                    "label": "Image alignment",
+                    "default": "left",
+                    "options": [
+                    {
+                        "value": "left",
+                        "label": "Left"
+                    },
+                    {
+                        "value": "right",
+                        "label": "Right"
+                    }
+                    ]
+                }
+            ]
+         }
+      ] ,
+       "presets": [
+    {
+      "name": "Certified Badges"
+    }
+  ]
+  }
+  {% endschema %}

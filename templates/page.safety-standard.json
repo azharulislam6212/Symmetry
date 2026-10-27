@@ -1,0 +1,233 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "show_page_title": true,
+        "full_width": false
+      }
+    },
+    "image_with_text_overlay_VVGGLb": {
+      "type": "image-with-text-overlay",
+      "blocks": {
+        "heading_wLryej": {
+          "type": "heading",
+          "settings": {
+            "title": "Safety Standards",
+            "heading_max_width": 15,
+            "title_size": 60,
+            "title_size_mobile": 32,
+            "use_h1": false
+          }
+        }
+      },
+      "block_order": [
+        "heading_wLryej"
+      ],
+      "name": "Image with text overlay",
+      "settings": {
+        "image": "shopify:\/\/shop_images\/Safety-Standards.png",
+        "height": "fixed",
+        "height_desktop": 420,
+        "height_mobile": 360,
+        "image_link": "",
+        "full_width": true,
+        "text_alignment": "bottom left",
+        "mobile_overlay_under": false,
+        "overlay_style": "shadow"
+      }
+    },
+    "rich_text_xKtbgM": {
+      "type": "rich-text",
+      "blocks": {
+        "text_UHXGET": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Body protector, horse riding air vest, and equestrian helmet safety is controlled by the use of standards and certification marks.<\/p><p><strong>How do body protectors and air vests help? <\/strong><\/p><p>Body protectors and air vests are designed to offer protection to a rider by absorbing the high levels of energy created when falling off a horse or being kicked or stepped on by a horse.<\/p>",
+            "enlarge_text": true
+          }
+        }
+      },
+      "block_order": [
+        "text_UHXGET"
+      ],
+      "name": "Rich text",
+      "settings": {
+        "height": "medium",
+        "text_alignment": "left",
+        "full_width": true,
+        "color_scheme": "default"
+      }
+    },
+    "custom_content_LFQtEP": {
+      "type": "custom-content",
+      "blocks": {
+        "text_FmikDi": {
+          "type": "text",
+          "settings": {
+            "width": "half",
+            "text_alignment": "left",
+            "center_on_mobile": true,
+            "icon": "",
+            "icon_color": "rgba(0,0,0,0)",
+            "subheading": "",
+            "title": "Body Protectors And Air Vests do",
+            "title_size": 26,
+            "title_size_mobile": 26,
+            "text": "<ul><li>Protect the abdomen and internal organs<\/li><li>Protect the thorax (chest and ribs)<\/li><li>Prevent against soft tissue injuries, including bruising, lacerations\/cuts, abrasions\/contact burn<\/li><li>Stabilize the neck (air vests)<\/li><li>Reduce injury<\/li><\/ul>",
+            "button_label": "",
+            "button_link": "",
+            "button_style": "primary"
+          }
+        },
+        "text_EGNgty": {
+          "type": "text",
+          "settings": {
+            "width": "half",
+            "text_alignment": "left",
+            "center_on_mobile": true,
+            "icon": "",
+            "icon_color": "rgba(0,0,0,0)",
+            "subheading": "",
+            "title": "Body Protectors and Air Vests Do Not",
+            "title_size": 26,
+            "title_size_mobile": 26,
+            "text": "<ul><li>Offer direct spinal protection<\/li><li>Protect from crushing of the body<\/li><li>Protect against injuries involving severe torsion, flexion or extension<\/li><\/ul>",
+            "button_label": "",
+            "button_link": "",
+            "button_style": "primary"
+          }
+        }
+      },
+      "block_order": [
+        "text_FmikDi",
+        "text_EGNgty"
+      ],
+      "name": "Custom content",
+      "settings": {
+        "spacing": "medium",
+        "alignment": "top",
+        "color_scheme": "default"
+      }
+    },
+    "rich_text_qHgWXP": {
+      "type": "rich-text",
+      "blocks": {
+        "text_kWpWd4": {
+          "type": "text",
+          "settings": {
+            "text": "<p><strong>How Do Mips Helmets Help?<\/strong><\/p><p>MIPS: Founded in 1996 by a neurosurgeon and a researcher from the Royal Institute of Technology in Sweden, the Multi-directional Impact Protection System (MIPS) is designed to add protection against rotational motion transmitted to the brain from angled impacts to the head. Rotational motion is a combination of rotational energy and rotational forces from angular acceleration that both increase the risk for brain injuries. MIPS’ added protection has been independently proven to reduce rotational motion by redirecting energies and forces that would otherwise be transmitted to the brain. Data and info provided by MIPS. For more information, visit <a href=\"http:\/\/www.mipsprotection.com\" target=\"_blank\" title=\"http:\/\/www.mipsprotection.com\">www.mipsprotection.com<\/a>.<\/p><p>All riding helmet manufacturers have to produce helmets to meet one of three international equestrian safety standards or marks: PAS015:2011, VG1 01.040 2014-12 and ASTM F1163:2015. Some may even produce helmets to meet all of them.<\/p><p>Each standard stringently tests different impacts and accident scenarios involving a horse, so the more the better. Cycling and motorbike helmets do not offer the same level of protection and are unsuitable for horse riding.<\/p><p><strong>What are the safety standards? <\/strong><\/p><p><em><strong>Body Protectors & Equestrian Air Vests<\/strong><\/em><\/p><p>• There are three international equestrian safety standards for foam-based body protectors: CE EN 13158, ASTM F1937 and ASTM F2681. <\/p><p>• There is currently one specification for air-inflatable equestrian body protectors: Satra M38, although they are often also certified to CE EN 13158.<\/p><p>• Motorcycle body protector standards are sometimes used for equestrian body protection: EN 1621-2, EN 1621-3 and EN 1621-4. However, these are not typically the same as the risks they test for are quite different from those that an equestrian faces in the event of a fall.<\/p><p>• Unlike other certification marks, the CE mark is simply a design test that allows items to be sold in Europe.<\/p><p><em><strong>Equestrian Riding Helmets<\/strong><\/em><\/p><p>When determining helmet safety and assessing if a helmet will pass, each of the individual standards have their own criteria and tests that place more or less emphasis on different helmets and various types of injuries.<\/p><p>For example, they will examine how much of the head a helmet covers, how a rider falls and onto what type of surface, how a helmet moves, and how severe an injury riders can expect to receive from that fall.<\/p><p>Safety testing is conducted to ensure that helmets meet one or more international equestrian safety standards.<\/p><p>The amount of times a batch of riding helmets is tested varies between the different certifications.<\/p><p>The BSI Kitemark (PAS015 and VG1) checks one of every 200 helmets from a batch of 800 to 3,200 before they will issue an approval label. If the helmets do not pass the standard, then the entire batch must be destroyed.<\/p><p>SEI (Safety Equipment Institute, based outside Washington, DC) will test a batch every 12 months to ensure quality.<\/p><p>All of the certification schemes require the helmets to pass an initial design test.<\/p><p>The CE mark (the European safety certification scheme) does not require any further testing after initial approval unless the helmet is modified from its original design.<\/p><p>Helmets are traditionally tested by measuring the peak acceleration of a helmeted steel head form falling onto a flat steel surface from a specified height.<\/p><p><strong>Certification Organizations<\/strong><\/p><p>These organizations manage the standards and test products to ensure they meet their requirements of safety for riders.<\/p>",
+            "enlarge_text": true
+          }
+        }
+      },
+      "block_order": [
+        "text_kWpWd4"
+      ],
+      "name": "Rich text",
+      "settings": {
+        "height": "medium",
+        "text_alignment": "left",
+        "full_width": true,
+        "color_scheme": "default"
+      }
+    },
+    "safety-standard-logo-block": {
+      "type": "safety-standard-logo-block",
+      "blocks": {
+        "1599790297892": {
+          "type": "text",
+          "settings": {
+            "heading_title": "BETA",
+            "badge_desc": "<p>BETA maintains the EN equestrian standards. <\/p><p>EN 13158 is a body protector standard with <strong>three<\/strong> primary components:<\/p><p>• It controls the area of the body that must be covered tests impact performance both on flat ground and fence rails measures security of attachment to the wearer.<\/p><p>• Impact testing is conducted at ambient temperatures, and an optional 30°C impact test is also available.<\/p><p>• Body protector manufacturers conforming to the BETA standards are required to annually re-test their approved products to ensure ongoing consistency in the quality of manufacture and of the shock-absorbing foams used in the construction of their garments.<\/p>",
+            "badge_image": "shopify:\/\/shop_images\/logo.JPG",
+            "layout": "right"
+          }
+        },
+        "1599792330679": {
+          "type": "text",
+          "settings": {
+            "heading_title": "LEVELS OF PROTECTION",
+            "badge_desc": "<p>In 1995, BETA Level 1, 2, and 3 safety standards were introduced, with 1 being the lowest and 3 being the highest level of protection offered.<\/p><p>There are three levels of protection to cater for different riding activities. The latest European safety standard is EN 13158 and BETA 2018.<\/p><p>No body protector can prevent serious injury in certain accidents, but you can improve your chances of staying safe by choosing the highest safety standard.<\/p><p><strong>Level 1 (GREEN LABEL) <\/strong><\/p><p>Body protectors certified to Level 1 provide a lower level of impact protection that is only considered appropriate for racing where weight is of over-riding importance and there are no requirements in place for a great level of protection.<\/p><p><strong> Level 2 (ORANGE LABEL) <\/strong><\/p><p>Body protectors certified to Level 2 provide a lower than normal level of protection that is only considered appropriate for use in low risk situations.<\/p><p>These DO NOT include riding on roads or other hard surfaces, riding over jumps, riding young or excitable horses or riding while inexperienced. This level is now used by many jockeys while racing.<\/p><p><strong>Level 3 (BLUE LABEL)<\/strong><\/p><p>Body protectors certified to Level 3 provide a level of protection that is considered appropriate for normal horse riding, competitors and for working with horses. Protectors to this level should prevent minor bruising that would have produced stiffness and pain, reduce soft tissue injuries and bruising, and prevent a limited number of rib fractures. This level is required by many exercise riders for race horses.<\/p><p><strong>Level 3 – Carriage driving (BLUE LABEL) <\/strong><\/p><p>Body protectors designed to meet the needs of horse drivers. Navigators are best wearing a standard level 3. It does not provide adequate coverage of the back for those riding horses or those working with them.<\/p>",
+            "badge_image": "shopify:\/\/shop_images\/third.JPG",
+            "layout": "right"
+          }
+        },
+        "1599792241951": {
+          "type": "text",
+          "settings": {
+            "heading_title": "SEI (ASTM)",
+            "badge_desc": "<p>SEI maintains ASTM standards.<\/p><p>ASTM F1937 is a standard that specifies:<\/p><p>• Requirements for the body protector assembly the extent and form of the protective material used the attachments<\/p><p>• The dimension, sizing and body coverage provided. Testing procedures include a shock attenuation test, a penetration and deformation test, an impact sites test, a padding separation test, and a closure test.<\/p><p>These tests are done in four conditions: ambient temperature, low temperature, high temperature, and water immersion.<\/p><p>ASTM F2681 is a standard for body protectors that covers the minimum performance criteria and outlines test methods for body protectors that will be used specifically for horse racing.<\/p><p>ASTM 1163-15 is the standard specification for protective headgear used in horse sports and horseback riding. This most recent standard test on different head shapes.<\/p>",
+            "badge_image": "shopify:\/\/shop_images\/second.JPG",
+            "layout": "left"
+          }
+        },
+        "1601213875435": {
+          "type": "text",
+          "settings": {
+            "heading_title": "SATRA M38:Issue 3 February 2015 Air Vest Standard",
+            "badge_desc": "<p>Some air vests are tested to the SATRA M38:Issue 3 February 2015 air vest standard.<\/p><p>Following a detailed research project funded by the Injured Jockeys Fund and conducted by independent test house SATRA in conjunction with the British Racehorse Authority a standard was established for the use of air bag vests by jockeys, and an amended version covering the use of air bag vests for riders across all other equestrian disciplines.<\/p><p>SATRA M38: February 2013 – Requirements for air-vests, for use in horse riding, intended to give protection in the event of a fall to ground SATRA M39: February 2013 - Requirements for jockeys&#x27; body protectors additionally incorporating airbag technology.<\/p><p>The SATRA Standards cover ergonomics, total area covered by the air bag, impact attenuation, activation force, lanyard strength, lanyard length, inflation speed and pressures and have been adopted by most of the major air jacket manufacturers.<\/p>",
+            "badge_image": "shopify:\/\/shop_images\/Satra.jpg",
+            "layout": "right"
+          }
+        },
+        "1601497299807": {
+          "type": "text",
+          "settings": {
+            "heading_title": "CRITTSports et Loisirs",
+            "badge_desc": "<p>CRITT Sport Loisirs is authorized to perform a &quot;EC&quot; type for masks and visors to protect the face, mouth guards, breastplates, and protective shells (Opinion of 24 July 2010 Official Journal of the Ministry of Economy, Industry and Employment on the application of the code of sport).<\/p><p><\/p><p><strong>Nature of tests:<\/strong><\/p><p>Mechanical tests<\/p><p>Impact tests<\/p><p>Dimensions, sizes<\/p><p>Load tests<\/p><p>Markings, Etc.<\/p><p><\/p><p><strong>Quality approach:<\/strong><\/p><p><br\/>As part of its quality assurance program, CRITT Sport Loisirs accredited by the COFRAC as No. 1-1570 accordance with the ISO 17025 standard on several test programs whose scope is available www.cofrac.fr<\/p>",
+            "badge_image": "shopify:\/\/shop_images\/CRITT.png",
+            "layout": "left"
+          }
+        },
+        "47451e22-2974-4f3e-b870-e13e515fb5e2": {
+          "type": "text",
+          "settings": {
+            "heading_title": "BSI",
+            "badge_desc": "<p>PAS standards are managed by the BSI (British Standard Institute) and reviewed every 2 years.<\/p><p>PAS stands for “Product Approval Specification” and was developed in response to concerns of how long it was taking to develop what would become the up-to-date EN1384 standard. The first version of the PAS015 standard was formulated by looking at the drafts for the European standard and testing against the highest option in each case.<\/p><p>The most current standard of the PAS015 was revised in 2011. Since the original PAS015 standard was launched in 1998, tests were improved further by the helmets being testing for improved protection from 30% greater heights, 20% stronger impact forces and 27% greater crush resistance.<\/p><p>All riding helmets carrying the PAS015 must carry the BSI Kitemark – this indicates that the manufacturer complies with the rigorous system of regulation and testing. Riding hats are only released for sale once randomly chosen samples have been batch and audit tested and are deemed to meet the specification.<\/p><p>On the 4th of November 2014, the European Commission decided to withdraw the EN 1384:2012 “protective helmets for equestrian sports” standard.<\/p><p>Following several months of deliberation, the European authorities concluded by introducing the new standard, named “CE VG1 01.040 2014-12” (this is the only official reference introduced by European authorities, except for France where a consortium of manufacturers and French certification laboratories have collaborated to produce a slightly less demanding set of technical specifications named “CE à dire d’expert”).<\/p><p>This development is composed of a few technical modifications which aim to improve upon the already extremely safe EN1384-2012 standard.<\/p>",
+            "badge_image": "shopify:\/\/shop_images\/pas015_banner.png",
+            "layout": "right"
+          }
+        },
+        "6f84b0ac-e93d-4697-82c0-d63b92962cd0": {
+          "type": "text",
+          "settings": {
+            "heading_title": "AFNOR",
+            "badge_desc": "<p>Established in 1926, AFNOR is an association governed by the law of 1901, consisting of nearly 2500 member companies. Its aim is to lead and coordinate the standards development process and to promote the application of those standards.<\/p><p>While waiting for European harmonization, the new norm NF S72- 800-2021 promises horse riders using air vests increased protection regarding the area protected, the inflation speed and because all vests are subject to more stringent impact tests.<\/p>",
+            "badge_image": "shopify:\/\/shop_images\/logo-mobile.png",
+            "layout": "left"
+          }
+        }
+      },
+      "block_order": [
+        "1599790297892",
+        "1599792330679",
+        "1599792241951",
+        "1601213875435",
+        "1601497299807",
+        "47451e22-2974-4f3e-b870-e13e515fb5e2",
+        "6f84b0ac-e93d-4697-82c0-d63b92962cd0"
+      ],
+      "settings": {}
+    },
+    "newsletter_twViYe": {
+      "type": "newsletter",
+      "name": "Newsletter",
+      "settings": {
+        "title": "Subscribe to our newsletter",
+        "subheading": "<p>Subscribe to get special offers, free giveaways, and once-in-a-lifetime deals.<\/p>",
+        "color_scheme": "1"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "image_with_text_overlay_VVGGLb",
+    "rich_text_xKtbgM",
+    "custom_content_LFQtEP",
+    "rich_text_qHgWXP",
+    "safety-standard-logo-block",
+    "newsletter_twViYe"
+  ]
+}

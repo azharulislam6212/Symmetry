@@ -1,0 +1,104 @@
+{
+  "type": "footer",
+  "name": "Footer Group",
+  "sections": {
+    "cross-page-promos": {
+      "type": "cross-page-promos",
+      "blocks": {
+        "1478526632862": {
+          "type": "icon",
+          "settings": {
+            "icon": "truck",
+            "image": "shopify:\/\/shop_images\/1.png",
+            "text": "Free US shipping over $300",
+            "link_url": "shopify:\/\/pages\/shipping-policy"
+          }
+        },
+        "1478526645605": {
+          "type": "icon",
+          "settings": {
+            "icon": "map_pin",
+            "image": "shopify:\/\/shop_images\/2.png",
+            "text": "Price Match Any U.S. Store In Stock",
+            "link_url": "shopify:\/\/pages\/contact-us"
+          }
+        },
+        "1478526647261": {
+          "type": "icon",
+          "settings": {
+            "icon": "price_tag",
+            "image": "shopify:\/\/shop_images\/3_690822e2-7b4f-43b7-89cb-1c0ade17e643.png",
+            "text": "100% secure payments",
+            "link_url": ""
+          }
+        }
+      },
+      "block_order": [
+        "1478526632862",
+        "1478526645605",
+        "1478526647261"
+      ],
+      "disabled": true,
+      "settings": {
+        "cross_page_promo_bg": "#ffffff",
+        "cross_page_promo_color": "#454564",
+        "show_on_home_page": true
+      }
+    },
+    "footer": {
+      "type": "footer",
+      "blocks": {
+        "1601308671932": {
+          "type": "menu",
+          "settings": {
+            "title": "SHOP",
+            "menu": "equestrian-apparel"
+          }
+        },
+        "menu_DDiPX3": {
+          "type": "menu",
+          "settings": {
+            "title": "ABOUT",
+            "menu": "about"
+          }
+        },
+        "menu_MQTgPj": {
+          "type": "menu",
+          "settings": {
+            "title": "POLICIES",
+            "menu": "policies"
+          }
+        },
+        "text_yfpTg8": {
+          "type": "text",
+          "settings": {
+            "title": "",
+            "text": "",
+            "image": "shopify:\/\/shop_images\/logo-dark-01.png",
+            "image_width": 200,
+            "show_social_icons": true,
+            "soc_icons_large": true,
+            "enable_follow_on_shop": false
+          }
+        }
+      },
+      "block_order": [
+        "1601308671932",
+        "menu_DDiPX3",
+        "menu_MQTgPj",
+        "text_yfpTg8"
+      ],
+      "settings": {
+        "lower_menu": "",
+        "show_powered_by": true,
+        "show_payment_icons": true,
+        "enable_country_selector": true,
+        "enable_language_selector": true
+      }
+    }
+  },
+  "order": [
+    "cross-page-promos",
+    "footer"
+  ]
+}

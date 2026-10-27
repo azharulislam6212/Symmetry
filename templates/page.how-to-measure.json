@@ -1,0 +1,69 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "settings": {
+        "show_page_title": true,
+        "full_width": false
+      }
+    },
+    "collapsible_tabs_eDYYeb": {
+      "type": "collapsible-tabs",
+      "blocks": {
+        "question_bHnxXj": {
+          "type": "question",
+          "disabled": true,
+          "settings": {
+            "image": "shopify:\/\/shop_images\/ESport-155_480x480_cedd3435-23d5-4188-8438-407199ab83bc.webp",
+            "title": "How to Measure",
+            "answer": "<p>Measuring accurately for your safety equipment is critically important. Here are the measurements needed and the instructions for measurement for equestrian air vests, body protectors, and helmets.<\/p><p><em><strong>Once you have completed your measurements, please submit them by clicking on the following button:<\/strong><\/em><\/p>",
+            "link_image": "shopify:\/\/shop_images\/Submit_Button.jpg",
+            "link": "https:\/\/www.rideequisafe.com\/pages\/submit-measurements",
+            "video_url": ""
+          }
+        },
+        "question_NdEjyU": {
+          "type": "question",
+          "settings": {
+            "title": "Air Vests",
+            "answer": "<p>Measurements needed for an equestrian air vest include:<\/p><ul><li>Height<\/li><li>Weight<\/li><li>Chest at the widest point<\/li><li>Waist at narrowest point<\/li><li>Hips just below the beltline<\/li><li>Back - measure from the base of your C7 vertebra, which is the vertebra that sticks out at the base of your neck, down to your SI joint, which is the dimple above your butt crack (sorry, no elegant way to say that). This should estimate one hand-width between the bottom of the vest and the base of your saddle.<\/li><\/ul><p>Please also let us know the following:<\/p><ul><li>What types of layers do you wear in winter to keep warm while riding?<\/li><li>Do you prefer a slimmer or more relaxed fit in your riding tops?<\/li><li>Do you have any bone density issues or implanted electrical devices?<\/li><\/ul>",
+            "link": "",
+            "video_url": "https:\/\/www.youtube.com\/embed\/4rmHOJtysuU\""
+          }
+        },
+        "question_fJ4Vp8": {
+          "type": "question",
+          "settings": {
+            "title": "Body Protectors",
+            "answer": "<p>Measurements needed for an equestrian body protector include:<\/p><ul><li>Height<\/li><li>Weight<\/li><li>Chest - Measure the circumference of your chest by wrapping the tape measure under your arms and around the widest part.<\/li><li>Waist starting an inch or so below your last rib on the front. Measure the circumference of your waist by wrapping the measuring tape around your waist. This measurement is important to ensure the body protector does not shift on the body.<\/li><li>Over the shoulder, measured from the point that you took your waist measurement, over your shoulder, to the same level on your back.<\/li><li>Back, measuring from the base of C7, which is the vertebra that sticks out at the base of your neck, down to your SI joint, which is the dimple above your rear crevice. With this measurement, we're trying to get to one hand width between the seat of your saddle and the base of the vest. If you can take the measurement while sitting in a saddle, that's ideal. If you take it while sitting in a chair, then you'll want to use 1 1\/2 hand widths because your saddle slopes upwards from the cantle while your chair doesn't.<\/li><\/ul><p>Use this checklist to ensure your body protector fits properly.<\/p><ol><li>Snug fit on the waist with more room on the chest<\/li><li>Able to take a deep breath in without feeling restricted<\/li><li>Fully covers your rib cage but not your belly button, which is the bend point on your body<\/li><li>To test that your body protector is the correct length, try bending forward at the waist. If your body protector digs into your stomach uncomfortably, it is likely too long<\/li><li>Adjust your shoulder straps so that they lay midway between the point of the shoulder and the base of the neck<\/li><li>There should be around three inches between the bottom of the back of the body protector and the cantle of your saddle. If the body protector is longer, it may interfere with the saddle<\/li><\/ol>",
+            "link": "",
+            "video_url": "https:\/\/www.youtube.com\/embed\/ET6dMSp5hsw?si=yw20b0VWqhSU7Cty"
+          }
+        },
+        "question_nMmcWU": {
+          "type": "question",
+          "settings": {
+            "title": "Helmets",
+            "answer": "<p>How to measure for a horseback riding helmet:<br\/><br\/><\/p>",
+            "link": "",
+            "video_url": "https:\/\/www.youtube.com\/embed\/6y69Ood15wA"
+          }
+        }
+      },
+      "block_order": [
+        "question_bHnxXj",
+        "question_NdEjyU",
+        "question_fJ4Vp8",
+        "question_nMmcWU"
+      ],
+      "name": "Collapsible tabs",
+      "settings": {
+        "title": ""
+      }
+    }
+  },
+  "order": [
+    "main",
+    "collapsible_tabs_eDYYeb"
+  ]
+}

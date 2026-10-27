@@ -1,0 +1,261 @@
+<div
+  id="section-id-{{ section.id }}"
+  class="{% if section.settings.color_scheme != 'default' %}use-color-scheme use-color-scheme--{{ section.settings.color_scheme }} fully-padded-row--{{ section.settings.spacing }}{% else %}fully-spaced-row--{{ section.settings.spacing }}{% endif %} section-id-{{ section.id }}"
+>
+  <div class="container">
+ 
+    
+<div class="brand_list">
+  <div class="hero_width">
+    {% if section.blocks.size > 0 %}
+    <ul class="user_logo_bar logo-bar brand_active">
+      {% for block in section.blocks %}
+      <li class="user_logo logo_item" id="content_{{forloop.index}}" {{ block.shopify_attributes }}>
+        
+         {% if block.settings.image != blank %}
+          {{ block.settings.image | img_url: '160x160', scale: 2 | img_tag: block.settings.image.alt, 'logo-bar__image' }}
+           {% endif %}
+          
+      </li>
+        
+      {% endfor %}
+    </ul>
+    {% endif %}
+
+    {% if section.blocks.size == 0 %}
+    {% include 'no-blocks' %}
+    {% endif %}
+  </div>
+</div>
+<div class="content-display hero_width">
+  {% for block in section.blocks %}
+    {% if block.settings.link != blank   %}
+        <div class="content_{{forloop.index}}" style="display:none">
+           {% if block.settings.link != blank %}
+              {{ block.settings.link }}
+               {% endif %}
+              {% if block.settings.show_video %}
+              {% if block.settings.video_title %}
+                <p>{{block.settings.video_title}}</p>
+              {% endif %} 
+              <iframe
+                src="https://www.youtube.com/embed/{{block.settings.video_link}}">
+                </iframe>
+              {% endif %}  
+          </div>
+        {% endif %}
+    {% endfor %}
+</div>
+<script>
+
+  $(document).ready(function () {
+  $(document).on('click', '.user_logo:not(.slick-cloned)', function (event) {
+
+  console.log('User logo tapped:', this.id);
+
+    var id = this.id;
+    $('.content-display div').hide();
+    $('.' + id).show();
+  });
+
+  $(window).on('load resize', function () {
+    $('.brand_active').not('.slick-initialized').slick({
+      swipeToSlide: true,
+      arrows: true,
+      prevArrow: '<span class="slick_arrow arrow_prev fa fa-angle-left"></span>',
+      nextArrow: '<span class="slick_arrow arrow_next fa fa-angle-right"></span>',
+      infinite: false,
+      speed: 300,
+      slidesToShow: 6,
+      slidesToScroll: 1,
+      responsive: [
+        { breakpoint: 1450, settings: { slidesToShow: 5 } },
+        { breakpoint: 1024, settings: { slidesToShow: 3 } },
+        { breakpoint: 600, settings: { slidesToShow: 2 } },
+        { breakpoint: 480, settings: { slidesToShow: 1 } }
+      ]
+    });
+  });
+});
+
+
+
+// $(document).ready(function() {
+// $('.user_logo').click((event)=>{
+//  var target = event.target || event.srcElement;
+// var id = event.currentTarget.id
+// $('.content-display div').hide();
+//   $('.'+id).show();
+// });
+// });
+//   $(window).on('load resize', function(){
+//     $('.brand_active').not('.slick-initialized').slick({
+//       swipeToSlide: true,
+//       arrows: true,
+//       prevArrow: '<span class="slick_arrow arrow_prev fa fa-angle-left"></span>',
+//       nextArrow: '<span class="slick_arrow arrow_next fa fa-angle-right"></span>',
+//       infinite: false,
+//       speed: 300,
+//       slidesToShow: 6,
+//       slidesToScroll: 1,
+//       responsive: [
+//         {
+//           breakpoint: 1450,
+//           settings: {
+//             slidesToShow: 5
+//           }
+//         },
+//         {
+//           breakpoint: 1024,
+//           settings: {
+//             slidesToShow: 3
+//           }
+//         },
+//         {
+//           breakpoint: 600,
+//           settings: {
+//             slidesToShow: 2
+//           }
+//         },
+//         {
+//           breakpoint: 480,
+//           settings: {
+//             slidesToShow: 1
+//           }
+//         }
+//       ]
+//     });
+//   })
+</script>
+
+
+{% style %}
+iframe {
+    width: 100%;
+    min-height: 520px;
+    max-width: 640px;
+}
+
+{% endstyle %}
+
+   
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Brand Logo",
+  "settings": [
+    {
+      "type": "select",
+      "id": "spacing",
+      "label": "Above/below spacing",
+      "default": "medium",
+      "options": [
+        {
+          "value": "small",
+          "label": "Small"
+        },
+        {
+          "value": "medium",
+          "label": "Medium"
+        },
+        {
+          "value": "large",
+          "label": "Large"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "default",
+      "options": [
+        {
+          "value": "default",
+          "label": "Default"
+        },
+        {
+          "value": "1",
+          "label": "1"
+        },
+        {
+          "value": "2",
+          "label": "2"
+        }
+      ]
+    }
+  ],
+  "blocks": [
+    {
+      "type": "logo_image",
+      "name": "Logo",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "richtext",
+          "id": "link",
+          "label": "Link"
+        },
+        {
+          "type": "header",
+          "content": "Video"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_video",
+          "label": "Show video",
+          "default": false
+        },
+        {
+          "type": "text",
+          "id": "video_title",
+          "label": "video title"
+        },
+        {
+          "type": "text",
+          "id": "video_link",
+          "label": "Video id",
+          "default": "_9VUPq3SxOc"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Brand Logo",
+      "blocks": [
+        {
+          "type": "logo_image"
+        },
+        {
+          "type": "logo_image"
+        },
+        {
+          "type": "logo_image"
+        },
+        {
+          "type": "logo_image"
+        },
+        {
+          "type": "logo_image"
+        },
+        {
+          "type": "logo_image"
+        },
+        {
+          "type": "logo_image"
+        },
+        {
+          "type": "logo_image"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

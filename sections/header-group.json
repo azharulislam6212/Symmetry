@@ -1,0 +1,247 @@
+{
+  "type": "header",
+  "name": "Header Group",
+  "sections": {
+    "announcement-bar": {
+      "type": "announcement-bar",
+      "blocks": {
+        "announcement-1": {
+          "type": "announcement",
+          "settings": {
+            "text": "Your Equestrian Safety and Style Superstore!",
+            "show_countdown": false,
+            "hide_on_end": false,
+            "end_date": "",
+            "end_time": "",
+            "number_font": "base",
+            "countdown_separator": "box",
+            "use_custom_colors": false,
+            "bg_color": "#202020",
+            "bg_gradient": "",
+            "text_color": "#ffffff"
+          }
+        }
+      },
+      "block_order": [
+        "announcement-1"
+      ],
+      "settings": {
+        "message_font_size": 16,
+        "announcement_bar_col": "#b29e64",
+        "announcement_bar_gradient": "",
+        "announcement_text_col": "#ffffff",
+        "show_social_icons": true,
+        "menu": "",
+        "enable_country_selector": true,
+        "enable_language_selector": true
+      }
+    },
+    "header": {
+      "type": "header",
+      "blocks": {
+        "promotion_with_submenu_nLLgz7": {
+          "type": "promotion-with-submenu",
+          "settings": {
+            "dropdown_link_title": "Categories",
+            "image": "shopify:\/\/shop_images\/Air_Vests_2f293785-f8c3-4f6c-b189-4683482e634f.png",
+            "title": "Air Vests",
+            "link_url": "shopify:\/\/collections\/air-vests",
+            "block_menu": "categories"
+          }
+        },
+        "menu_promotion_small_GzbRia": {
+          "type": "menu-promotion-small",
+          "settings": {
+            "dropdown_link_title": "Categories",
+            "image": "shopify:\/\/shop_images\/Air_Vest_Clothing.png",
+            "title": "Air Vest Clothing",
+            "link_url": "shopify:\/\/collections\/air-vest-clothing"
+          }
+        },
+        "menu_promotion_small_HGTMhT": {
+          "type": "menu-promotion-small",
+          "settings": {
+            "dropdown_link_title": "Categories",
+            "image": "shopify:\/\/shop_images\/Apparel_fbd41926-6ee0-4447-a868-1f7d26376b14.png",
+            "title": "Apparel",
+            "link_url": "shopify:\/\/collections\/apparel"
+          }
+        },
+        "menu_promotion_small_zMcFfW": {
+          "type": "menu-promotion-small",
+          "settings": {
+            "dropdown_link_title": "Categories",
+            "image": "shopify:\/\/shop_images\/Body_Protectors_6e8d1556-a7ee-4df6-af8e-2723e12dc87e.png",
+            "title": "Body Protectors",
+            "link_url": "shopify:\/\/collections\/body-protectors"
+          }
+        },
+        "menu_promotion_small_hk3FhQ": {
+          "type": "menu-promotion-small",
+          "settings": {
+            "dropdown_link_title": "Categories",
+            "image": "shopify:\/\/shop_images\/Helmets_2c1cdda6-c1a5-4e4b-9409-435c2b0b37fb.png",
+            "title": "Helmets",
+            "link_url": "shopify:\/\/collections\/helmets"
+          }
+        },
+        "menu_promotion_small_KEakah": {
+          "type": "menu-promotion-small",
+          "settings": {
+            "dropdown_link_title": "Categories",
+            "image": "shopify:\/\/shop_images\/Safety_Stirrups_441a7224-1b70-4843-9af4-91a9da039e7d.png",
+            "title": "Safety Stirrups",
+            "link_url": "shopify:\/\/collections\/safety-stirrups"
+          }
+        },
+        "menu_promotion_small_AJp7ER": {
+          "type": "menu-promotion-small",
+          "disabled": true,
+          "settings": {
+            "dropdown_link_title": "Categories",
+            "image": "shopify:\/\/shop_images\/Accessories.png",
+            "title": "Accessories",
+            "link_url": ""
+          }
+        },
+        "promotion_with_submenu_Wnf6VL": {
+          "type": "promotion-with-submenu",
+          "settings": {
+            "dropdown_link_title": "Categories",
+            "image": "shopify:\/\/shop_images\/Accessories.png",
+            "title": "Accessories",
+            "link_url": "shopify:\/\/collections\/accessories",
+            "block_menu": "accessories"
+          }
+        },
+        "menu_promotion_small_jKm49k": {
+          "type": "menu-promotion-small",
+          "settings": {
+            "dropdown_link_title": "faq",
+            "image": "shopify:\/\/shop_images\/FAQ_Menu.zip_-_Apparel.png",
+            "title": "Equestrian Safety Blog",
+            "link_url": "\/blogs\/news"
+          }
+        },
+        "menu_promotion_small_gBYPXR": {
+          "type": "menu-promotion-small",
+          "settings": {
+            "dropdown_link_title": "faq",
+            "image": "shopify:\/\/shop_images\/FAQ_Menu.zip_-_Body_Protectors.png",
+            "title": "News",
+            "link_url": "shopify:\/\/blogs\/news"
+          }
+        },
+        "menu_promotion_small_pthwBE": {
+          "type": "menu-promotion-small",
+          "settings": {
+            "dropdown_link_title": "faq",
+            "image": "shopify:\/\/shop_images\/FAQ_Menu.zip_-_Air_Vests.png",
+            "title": "Research, Data, & Studies",
+            "link_url": "\/pages\/studies"
+          }
+        },
+        "menu_promotion_small_eJAL7j": {
+          "type": "menu-promotion-small",
+          "settings": {
+            "dropdown_link_title": "faq",
+            "image": "shopify:\/\/shop_images\/EquiSale_3d5cb1e7-01c0-4d28-88ee-e8c0bddc9e06.png",
+            "title": "Air Vest Compatible Brands",
+            "link_url": "shopify:\/\/pages\/air-vest-compatible-garment-brands"
+          }
+        },
+        "menu_promotion_small_63XaiP": {
+          "type": "menu-promotion-small",
+          "settings": {
+            "dropdown_link_title": "FAQ",
+            "image": "shopify:\/\/shop_images\/EquiSale_png.png",
+            "title": "Air Vest Reset Instructions",
+            "link_url": "https:\/\/youtube.com\/playlist?list=PLbrDsiQ6MVUkJxKf_FFCK3HGTbwygWG09&si=kd4Fiz5_UZy4lfLm"
+          }
+        },
+        "menu_promotion_small_4LM7bL": {
+          "type": "menu-promotion-small",
+          "settings": {
+            "dropdown_link_title": "faq",
+            "image": "shopify:\/\/shop_images\/FAQ_Menu.zip_-_EquiSale.png",
+            "title": "How to Measure for Safety Equipment",
+            "link_url": "\/pages\/how-to-measure"
+          }
+        }
+      },
+      "block_order": [
+        "promotion_with_submenu_nLLgz7",
+        "menu_promotion_small_GzbRia",
+        "menu_promotion_small_HGTMhT",
+        "menu_promotion_small_zMcFfW",
+        "menu_promotion_small_hk3FhQ",
+        "menu_promotion_small_KEakah",
+        "menu_promotion_small_AJp7ER",
+        "promotion_with_submenu_Wnf6VL",
+        "menu_promotion_small_jKm49k",
+        "menu_promotion_small_gBYPXR",
+        "menu_promotion_small_pthwBE",
+        "menu_promotion_small_eJAL7j",
+        "menu_promotion_small_63XaiP",
+        "menu_promotion_small_4LM7bL"
+      ],
+      "settings": {
+        "logo": "shopify:\/\/shop_images\/Ride-E-Horseplate_53ad461d-d581-4ddd-a0c6-6419a2cb3ceb.png",
+        "logo_img_width_int": 295,
+        "mobile_logo_img_width_int": 100,
+        "logo_h1": true,
+        "enable_sticky": true,
+        "enable_transparent": true,
+        "transparent_logo": "shopify:\/\/shop_images\/Ride-E-Horseplate.png",
+        "transparent_color": "#ffffff",
+        "transparent_fade": "#000000",
+        "transparent_fade_strength": 0,
+        "menu_linklist": "main-menu-new",
+        "menu_layout": "inline-menu-left",
+        "nav_featured_link": "Sale",
+        "menu_linklist_mobile": "",
+        "mobile_expand_with_entire_link": true,
+        "enable_mobile_promo_carousel": true,
+        "enable_nav_mob_products": false,
+        "nav_mob_products_title": "Best Sellers",
+        "nav_mob_products_collection": "",
+        "enable_search": true,
+        "search_recommendations_title": "",
+        "search_recommendations_menu": "",
+        "icon_strategy": "icons_cart_search",
+        "cart_icon": "basket"
+      }
+    },
+    "store-messages": {
+      "type": "store-messages",
+      "blocks": {
+        "1601308104445": {
+          "type": "message",
+          "settings": {
+            "heading": "",
+            "subheading": "Free shipping on orders over $300",
+            "link_url": ""
+          }
+        }
+      },
+      "block_order": [
+        "1601308104445"
+      ],
+      "disabled": true,
+      "settings": {
+        "head_not_home_only": false,
+        "head_not_col_bg": "#f4f6f8",
+        "head_not_col_txt1": "#171717",
+        "head_not_col_txt2": "#4c4c4b",
+        "head_not_mob_show": true,
+        "head_not_mob_text": "Free shipping on orders over $100",
+        "head_not_mob_url": ""
+      }
+    }
+  },
+  "order": [
+    "announcement-bar",
+    "header",
+    "store-messages"
+  ]
+}

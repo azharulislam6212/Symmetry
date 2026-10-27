@@ -1,0 +1,57 @@
+{
+  "sections": {
+    "image_with_text_overlay_7AJXzH": {
+      "type": "image-with-text-overlay",
+      "name": "Image with text overlay",
+      "settings": {
+        "image": "shopify:\/\/shop_images\/Contact-Us-Banner-Image.jpg",
+        "height": "fixed",
+        "height_desktop": 600,
+        "height_mobile": 460,
+        "image_link": "",
+        "full_width": true,
+        "text_alignment": "center center",
+        "mobile_overlay_under": false,
+        "overlay_style": "shadow"
+      }
+    },
+    "main": {
+      "type": "main-contact",
+      "blocks": {
+        "name": {
+          "type": "name_input",
+          "settings": {
+            "half_width": true
+          }
+        },
+        "email": {
+          "type": "email_input",
+          "settings": {
+            "half_width": true
+          }
+        },
+        "message": {
+          "type": "message_input",
+          "settings": {
+            "half_width": false
+          }
+        }
+      },
+      "block_order": [
+        "name",
+        "email",
+        "message"
+      ],
+      "settings": {
+        "show_page_title": true,
+        "use_columns": false,
+        "contact_title": "Contact us",
+        "contact_text": ""
+      }
+    }
+  },
+  "order": [
+    "image_with_text_overlay_7AJXzH",
+    "main"
+  ]
+}

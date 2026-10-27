@@ -1,0 +1,411 @@
+{
+  "sections": {
+    "image_with_text_overlay_e3eFAx": {
+      "type": "image-with-text-overlay",
+      "blocks": {
+        "heading_kjdUYw": {
+          "type": "heading",
+          "settings": {
+            "title": "User Guides",
+            "heading_max_width": 15,
+            "title_size": 60,
+            "title_size_mobile": 32,
+            "use_h1": false
+          }
+        }
+      },
+      "block_order": [
+        "heading_kjdUYw"
+      ],
+      "name": "Image with text overlay",
+      "settings": {
+        "image": "shopify:\/\/shop_images\/User-Guide.png",
+        "height": "fixed",
+        "height_desktop": 420,
+        "height_mobile": 360,
+        "image_link": "",
+        "full_width": true,
+        "text_alignment": "bottom left",
+        "mobile_overlay_under": false,
+        "overlay_style": "shadow"
+      }
+    },
+    "rich_text_NW8YGA": {
+      "type": "rich-text",
+      "blocks": {
+        "text_FMqGC7": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Whether it’s clipping your air vest lanyard to your saddle correctly or replacing your air canister, we want to make sure it’s done right. Click on the brand of your product for user guides and how-to videos.<br\/><br\/>For information about flying with your CO2 canisters, select the \"Flying with Canisters\" icon.<\/p><p>PLEASE NOTE: Please refer to the manufacturers’ guidance on maintenance to ensure the functionality of your safety equipment.<\/p>",
+            "enlarge_text": true
+          }
+        }
+      },
+      "block_order": [
+        "text_FMqGC7"
+      ],
+      "name": "Rich text",
+      "settings": {
+        "height": "small",
+        "text_alignment": "left",
+        "full_width": true,
+        "color_scheme": "default"
+      }
+    },
+    "image_with_text_xfqC7L": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading_CnCWaf": {
+          "type": "heading",
+          "settings": {
+            "title": "Resetting Your Air Vest",
+            "use_h1": false
+          }
+        },
+        "text_4brPQD": {
+          "type": "text",
+          "settings": {
+            "text": "<p>To ensure that your vest functions properly, please watch the instructional video for how to reset your specific vest.<\/p>",
+            "enlarge_text": false
+          }
+        },
+        "button_YARrzQ": {
+          "type": "button",
+          "settings": {
+            "button_label": "Watch Video",
+            "button_link": "https:\/\/youtube.com\/playlist?list=PLbrDsiQ6MVUkJxKf_FFCK3HGTbwygWG09&si=kd4Fiz5_UZy4lfLm",
+            "button_style": "primary"
+          }
+        }
+      },
+      "block_order": [
+        "heading_CnCWaf",
+        "text_4brPQD",
+        "button_YARrzQ"
+      ],
+      "name": "Image with text",
+      "settings": {
+        "image": "shopify:\/\/shop_images\/EquiSale_png.png",
+        "image_width": 700,
+        "image_link": "https:\/\/youtube.com\/playlist?list=PLbrDsiQ6MVUkJxKf_FFCK3HGTbwygWG09&si=kd4Fiz5_UZy4lfLm",
+        "image_position": "left",
+        "text_alignment": "center",
+        "color_scheme": "default"
+      }
+    },
+    "brand_logo_AKDwtL": {
+      "type": "brand-logo",
+      "blocks": {
+        "c9143b17-d51b-4c7e-8b5c-035dc2b47dbc": {
+          "type": "logo_image",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/Picture1.png",
+            "link": "<p><a href=\"https:\/\/cdn.shopify.com\/s\/files\/1\/0473\/0568\/7191\/files\/Screen_Shot_2020-11-11_at_9.24.39_AM.png?v=1605106890\" title=\"https:\/\/cdn.shopify.com\/s\/files\/1\/0473\/0568\/7191\/files\/Screen_Shot_2020-11-11_at_9.24.39_AM.png?v=1605106890\" target=\"_blank\">Flying with CO2 canisters<\/a><\/p>",
+            "show_video": false,
+            "video_title": "",
+            "video_link": "_9VUPq3SxOc"
+          }
+        },
+        "1599730116874": {
+          "type": "logo_image",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/ho.png",
+            "link": "<p><a href=\"https:\/\/communication463938.typeform.com\/to\/TNPO5Za7\" target=\"_blank\" title=\"Twist'Air Warranty Registration\">Twist'Air Warranty Registration<\/a><\/p><p><a href=\"https:\/\/cdn.shopify.com\/s\/files\/1\/0473\/0568\/7191\/files\/Brochure_Airbag.pdf?v=1611416503\" target=\"_blank\" title=\"https:\/\/cdn.shopify.com\/s\/files\/1\/0473\/0568\/7191\/files\/Brochure_Airbag.pdf?v=1611416503\">Air Vest Overview<\/a><\/p><p><a href=\"https:\/\/youtu.be\/oefrMnBjfc8\" target=\"_blank\" title=\"https:\/\/youtu.be\/oefrMnBjfc8\">Original Reloading Your Gas Cartridge<\/a><\/p><p><a href=\"https:\/\/player.vimeo.com\/video\/725559071?h=221db88f00\" target=\"_blank\" title=\"https:\/\/player.vimeo.com\/video\/725559071?h=221db88f00\">Twist'Air Reloading Your Gas Cartridge<\/a><\/p><p><a href=\"https:\/\/www.youtube.com\/watch?v=h25Ft-IxRa8\" title=\"https:\/\/www.youtube.com\/watch?v=h25Ft-IxRa8\">Air Vest maintenance<\/a> <\/p><p><a href=\"https:\/\/cdn.shopify.com\/s\/files\/1\/0473\/0568\/7191\/files\/User-Manual-Horse-Riding-Inmotion-Airbag-Vest-FR-EN-2019-V4.pdf?v=1600976454\" target=\"_blank\" title=\"https:\/\/cdn.shopify.com\/s\/files\/1\/0473\/0568\/7191\/files\/User-Manual-Horse-Riding-Inmotion-Airbag-Vest-FR-EN-2019-V4.pdf?v=1600976454\">Original User Guide<\/a><\/p><p><a href=\"https:\/\/cdn.shopify.com\/s\/files\/1\/0473\/0568\/7191\/files\/en-user-guide-equestrian-airbag-vest-twistair-horse-pilot.pdf?v=1657494898\" target=\"_blank\" title=\"https:\/\/cdn.shopify.com\/s\/files\/1\/0473\/0568\/7191\/files\/en-user-guide-equestrian-airbag-vest-twistair-horse-pilot.pdf?v=1657494898\">Twist'Air User Guide<\/a><\/p>",
+            "show_video": false,
+            "video_title": "",
+            "video_link": "h25Ft-IxRa8"
+          }
+        },
+        "4d0c2404-3ea9-4748-9c86-f586d26629ae": {
+          "type": "logo_image",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/Equitheme_logo.png",
+            "link": "<p><a href=\"https:\/\/www.freejumpsystem.com\/en\/products-registration\/\" target=\"_blank\" title=\"https:\/\/www.freejumpsystem.com\/en\/products-registration\/\">Product Registration<\/a><\/p><p><a href=\"https:\/\/www.youtube.com\/watch?v=NLuKJ5vPKWQ\" target=\"_blank\" title=\"https:\/\/www.youtube.com\/watch?v=NLuKJ5vPKWQ\">How to Reset Your Trigger - <strong>ZipAir<\/strong> & <strong>Air<\/strong> Models<\/a><\/p><p><a href=\"https:\/\/youtu.be\/X8gavUqzPr8\" target=\"_blank\" title=\"https:\/\/youtu.be\/X8gavUqzPr8\">How to Rest Your Trigger - <strong>AirSafe <\/strong>and <strong>Air2<\/strong> Models<\/a><\/p>",
+            "show_video": false,
+            "video_title": "",
+            "video_link": "_9VUPq3SxOc"
+          }
+        },
+        "55f01cea-dc58-46c8-81c2-7c2bf136949f": {
+          "type": "logo_image",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/logo_freejump2019.jpg",
+            "link": "<p><a href=\"https:\/\/www.freejumpsystem.com\/en\/products-registration\/\" target=\"_blank\" title=\"https:\/\/www.freejumpsystem.com\/en\/products-registration\/\">Product Registration<\/a><\/p><p><a href=\"https:\/\/youtu.be\/X8gavUqzPr8\" target=\"_blank\" title=\"https:\/\/youtu.be\/X8gavUqzPr8\">Resetting Your Trigger and Changing Your Gas Cartridge<\/a><\/p><p><a href=\"https:\/\/cdn.shopify.com\/s\/files\/1\/0473\/0568\/7191\/files\/Crash_Policy_US.pdf?v=1742842861\" target=\"_blank\" title=\"https:\/\/cdn.shopify.com\/s\/files\/1\/0473\/0568\/7191\/files\/Crash_Policy_US.pdf?v=1742842861\">Helmet Crash Policy<\/a><\/p>",
+            "show_video": false,
+            "video_title": "",
+            "video_link": "_9VUPq3SxOc"
+          }
+        },
+        "b6fad1df-5553-4f52-a036-8c97559a07e1": {
+          "type": "logo_image",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/penelope-store-logo-1610531380.jpg",
+            "link": "<p><a href=\"https:\/\/www.freejumpsystem.com\/en\/products-registration\/\" target=\"_blank\" title=\"https:\/\/www.freejumpsystem.com\/en\/products-registration\/\">Product Registration<\/a><\/p><p><a href=\"https:\/\/youtu.be\/X8gavUqzPr8\" target=\"_blank\" title=\"https:\/\/youtu.be\/X8gavUqzPr8\">How to Reset Your Air Vest Trigger<\/a><\/p>",
+            "show_video": false,
+            "video_title": "",
+            "video_link": "_9VUPq3SxOc"
+          }
+        },
+        "logo_image_P4Hq6a": {
+          "type": "logo_image",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/racesafe-logo.png",
+            "link": "<p><a href=\"https:\/\/www.racesafe.co\/blogs\/custom-product-guides\/veloair-servicing-care-accessories?_pos=8&_sid=da44c0117&_ss=r\" target=\"_blank\" title=\"RaceSafe Warranty\">Warranty Registration <\/a><\/p><p><a href=\"https:\/\/youtu.be\/2xEujDtcgtQ?is=DkBc9oMxN2ixxLBo\" target=\"_blank\" title=\"Trigger Reset RaceSafe VeloAir\">How to Reset Your Trigger<\/a><\/p>",
+            "show_video": false,
+            "video_title": "",
+            "video_link": "_9VUPq3SxOc"
+          }
+        },
+        "57b73245-448d-422c-9ab6-76d6355ce93c": {
+          "type": "logo_image",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/cavalleria-toscana_1200x1200_60dfd8c5-841a-4d6d-a50f-9518fbf33b66.jpg",
+            "link": "<p><a href=\"https:\/\/www.youtube.com\/watch?v=mCXstg8WTMc&feature=youtu.be\" target=\"_blank\" title=\"https:\/\/www.youtube.com\/watch?v=mCXstg8WTMc&feature=youtu.be\">How to Reset Your Trigger<\/a><\/p><p><a href=\"https:\/\/seaverhorse.com\/safe-ride\" target=\"_blank\" title=\"https:\/\/seaverhorse.com\/safe-ride\">Seaver SafeRide Application<\/a><\/p>",
+            "show_video": false,
+            "video_title": "",
+            "video_link": "_9VUPq3SxOc"
+          }
+        },
+        "logo_image_9G68YQ": {
+          "type": "logo_image",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/Animo_Logo.jpg",
+            "link": "<p><a href=\"https:\/\/my.helite.com\/register\" target=\"_blank\" title=\"https:\/\/my.helite.com\/register\">Warranty Registration<\/a><\/p><p><a href=\"https:\/\/youtu.be\/wmjQIH_0IJE?si=ksZHKKfuZaBB_SNn\" target=\"_blank\" title=\"https:\/\/youtu.be\/wmjQIH_0IJE?si=ksZHKKfuZaBB_SNn\">Trigger Reset<\/a><\/p>",
+            "show_video": false,
+            "video_title": "",
+            "video_link": "_9VUPq3SxOc"
+          }
+        },
+        "1601479979941": {
+          "type": "logo_image",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/hit-air.png",
+            "link": "<p><a href=\"https:\/\/cdn.shopify.com\/s\/files\/1\/0473\/0568\/7191\/files\/manual_hr-aio-y-e.pdf?v=1601480176\" title=\"https:\/\/cdn.shopify.com\/s\/files\/1\/0473\/0568\/7191\/files\/manual_hr-aio-y-e.pdf?v=1601480176\">Hit Air Original User Guide<\/a> <\/p><p><a href=\"https:\/\/cdn.shopify.com\/s\/files\/1\/0473\/0568\/7191\/files\/manual_hr-aio-b-e.pdf?v=1601480408\" title=\"https:\/\/cdn.shopify.com\/s\/files\/1\/0473\/0568\/7191\/files\/manual_hr-aio-b-e.pdf?v=1601480408\">Hit Air Kids, Hit Air Pro, Hit Air Advantage User Guide<\/a><\/p><p><a href=\"https:\/\/www.hitairequestrian.com\/product-category\/hit-air-inspection\/\" target=\"_blank\" title=\"https:\/\/www.hitairequestrian.com\/product-category\/hit-air-inspection\/\">Hit Air Annual Inspection & Servicing<\/a><\/p>",
+            "show_video": true,
+            "video_title": "Hit Air - Attaching the saddle strap and changing the canister",
+            "video_link": "6qbj_LtRpG0"
+          }
+        },
+        "logo_image_9z7BjV": {
+          "type": "logo_image",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/EQUILINE-LOGO_Colour_Clear_OK.png",
+            "link": "<p><a href=\"https:\/\/youtu.be\/lDyEShs5u1o?si=GqeAUKfqiCrRg241\" target=\"_blank\" title=\"https:\/\/youtu.be\/lDyEShs5u1o?si=GqeAUKfqiCrRg241\">Trigger Reset<\/a><\/p>",
+            "show_video": false,
+            "video_title": "",
+            "video_link": "_9VUPq3SxOc"
+          }
+        },
+        "1102df15-4b16-4864-832c-08326d500fd9": {
+          "type": "logo_image",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/SeaverLogo.jpg",
+            "link": "<p><a href=\"https:\/\/youtu.be\/jjdXbqd4lFM?si=a4EXXZM7sS0D53mu\" target=\"_blank\" title=\"https:\/\/youtu.be\/jjdXbqd4lFM?si=a4EXXZM7sS0D53mu\">How to Reset Your Trigger<\/a><\/p><p><a href=\"https:\/\/seaverhorse.com\/safe-ride\" target=\"_blank\" title=\"https:\/\/seaverhorse.com\/safe-ride\">SafeRide Application<\/a><\/p><p><a href=\"https:\/\/seaverhorse.helpdocs.io\/l\/en\" target=\"_blank\" title=\"https:\/\/seaverhorse.helpdocs.io\/l\/en\">SafeFit FAQ<\/a><\/p>",
+            "show_video": false,
+            "video_title": "",
+            "video_link": "_9VUPq3SxOc"
+          }
+        },
+        "1599730076841": {
+          "type": "logo_image",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/point.png",
+            "link": "<p><a href=\"https:\/\/www.rideequisafe.com\/pages\/point-two-how-to-fit-sizing-guide\" title=\"https:\/\/www.rideequisafe.com\/pages\/point-two-how-to-fit-sizing-guide\">Fitting Guide<\/a> <\/p><p><a href=\"https:\/\/cdn.shopify.com\/s\/files\/1\/0473\/0568\/7191\/files\/PROAIR2_Multi_Language_User_Guide.pdf?v=1602768363\" title=\"https:\/\/cdn.shopify.com\/s\/files\/1\/0473\/0568\/7191\/files\/PROAIR2_Multi_Language_User_Guide.pdf?v=1602768363\">User Guide<\/a><\/p><p><a href=\"https:\/\/www.rideequisafe.com\/pages\/point-two-how-to-reset-trigger\" title=\"https:\/\/www.rideequisafe.com\/pages\/point-two-how-to-reset-trigger\">Trigger Reset Instructions<\/a><\/p><p>To register your product, send email to manager@pointtwousa.com and include name, address, email, phone and the serial number of your product.<\/p>",
+            "show_video": false,
+            "video_title": "",
+            "video_link": ""
+          }
+        },
+        "logo_image_zFJEbk": {
+          "type": "logo_image",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/spark-logo.png",
+            "link": "<p><a href=\"https:\/\/smartrider.co.il\/wp-content\/uploads\/2023\/02\/Spark-2-user-guid-EN.pdf\" target=\"_blank\" title=\"https:\/\/smartrider.co.il\/wp-content\/uploads\/2023\/02\/Spark-2-user-guid-EN.pdf\">User Guide<\/a><\/p><p><a href=\"https:\/\/youtu.be\/kQIy7QTO_3c?si=B84bbEMLtggqyb5O\" target=\"_blank\" title=\"https:\/\/youtu.be\/kQIy7QTO_3c?si=B84bbEMLtggqyb5O\">Reset Video<\/a><\/p>",
+            "show_video": false,
+            "video_title": "",
+            "video_link": "_9VUPq3SxOc"
+          }
+        }
+      },
+      "block_order": [
+        "c9143b17-d51b-4c7e-8b5c-035dc2b47dbc",
+        "1599730116874",
+        "4d0c2404-3ea9-4748-9c86-f586d26629ae",
+        "55f01cea-dc58-46c8-81c2-7c2bf136949f",
+        "b6fad1df-5553-4f52-a036-8c97559a07e1",
+        "logo_image_P4Hq6a",
+        "57b73245-448d-422c-9ab6-76d6355ce93c",
+        "logo_image_9G68YQ",
+        "1601479979941",
+        "logo_image_9z7BjV",
+        "1102df15-4b16-4864-832c-08326d500fd9",
+        "1599730076841",
+        "logo_image_zFJEbk"
+      ],
+      "name": "Brand Logo",
+      "settings": {
+        "spacing": "medium",
+        "color_scheme": "default"
+      }
+    },
+    "logo_list_LX8nTY": {
+      "type": "logo-list",
+      "blocks": {
+        "logo_zynUrP": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/Picture1.png",
+            "image_width": 160,
+            "link": "",
+            "title": ""
+          }
+        },
+        "logo_mbC64G": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/ho.png",
+            "image_width": 160,
+            "link": "",
+            "title": ""
+          }
+        },
+        "logo_fNCpya": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/Equitheme_logo.png",
+            "image_width": 160,
+            "link": "",
+            "title": ""
+          }
+        },
+        "logo_XLY9jG": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/logo_freejump2019.jpg",
+            "image_width": 160,
+            "link": "",
+            "title": ""
+          }
+        },
+        "logo_mYiLUp": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/penelope-store-logo-1610531380.jpg",
+            "image_width": 160,
+            "link": "",
+            "title": ""
+          }
+        },
+        "logo_KUKUmJ": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/cavalleria-toscana_1200x1200_60dfd8c5-841a-4d6d-a50f-9518fbf33b66.jpg",
+            "image_width": 160,
+            "link": "",
+            "title": ""
+          }
+        },
+        "logo_naGfCd": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/Animo_Logo.jpg",
+            "image_width": 160,
+            "link": "",
+            "title": ""
+          }
+        },
+        "logo_byHWkU": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/hit-air.png",
+            "image_width": 160,
+            "link": "",
+            "title": ""
+          }
+        },
+        "logo_bKz68e": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/EQUILINE-LOGO_Colour_Clear_OK.png",
+            "image_width": 160,
+            "link": "",
+            "title": ""
+          }
+        },
+        "logo_a7wGf8": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/SeaverLogo.jpg",
+            "image_width": 160,
+            "link": "",
+            "title": ""
+          }
+        },
+        "logo_qrE9DQ": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/point.png",
+            "image_width": 160,
+            "link": "",
+            "title": ""
+          }
+        },
+        "logo_Arit8C": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/spark-logo.png",
+            "image_width": 160,
+            "link": "",
+            "title": ""
+          }
+        }
+      },
+      "block_order": [
+        "logo_zynUrP",
+        "logo_mbC64G",
+        "logo_fNCpya",
+        "logo_XLY9jG",
+        "logo_mYiLUp",
+        "logo_KUKUmJ",
+        "logo_naGfCd",
+        "logo_byHWkU",
+        "logo_bKz68e",
+        "logo_a7wGf8",
+        "logo_qrE9DQ",
+        "logo_Arit8C"
+      ],
+      "disabled": true,
+      "name": "Logo list",
+      "settings": {
+        "title": "",
+        "image_opacity": 100,
+        "color_scheme": "default"
+      }
+    },
+    "main": {
+      "type": "main-page",
+      "settings": {
+        "show_page_title": true,
+        "full_width": false
+      }
+    },
+    "newsletter_TADxmP": {
+      "type": "newsletter",
+      "name": "Newsletter",
+      "settings": {
+        "title": "Subscribe to our newsletter",
+        "subheading": "<p>Subscribe to get special offers, free giveaways, and once-in-a-lifetime deals.<\/p>",
+        "color_scheme": "1"
+      }
+    }
+  },
+  "order": [
+    "image_with_text_overlay_e3eFAx",
+    "rich_text_NW8YGA",
+    "image_with_text_xfqC7L",
+    "brand_logo_AKDwtL",
+    "logo_list_LX8nTY",
+    "main",
+    "newsletter_TADxmP"
+  ]
+}

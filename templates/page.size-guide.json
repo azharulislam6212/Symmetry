@@ -1,0 +1,668 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "show_page_title": true,
+        "full_width": false
+      }
+    },
+    "image_with_text_overlay_Cxa6Ba": {
+      "type": "image-with-text-overlay",
+      "blocks": {
+        "heading_CCXaJx": {
+          "type": "heading",
+          "settings": {
+            "title": "Safety Standards",
+            "heading_max_width": 15,
+            "title_size": 60,
+            "title_size_mobile": 32,
+            "use_h1": false
+          }
+        }
+      },
+      "block_order": [
+        "heading_CCXaJx"
+      ],
+      "name": "Image with text overlay",
+      "settings": {
+        "image": "shopify:\/\/shop_images\/Sizing-Guide-Hero-Banner.png",
+        "height": "fixed",
+        "height_desktop": 420,
+        "height_mobile": 360,
+        "image_link": "",
+        "full_width": true,
+        "text_alignment": "bottom left",
+        "mobile_overlay_under": false,
+        "overlay_style": "shadow"
+      }
+    },
+    "rich_text_gPVeHA": {
+      "type": "rich-text",
+      "blocks": {
+        "text_mUbgeJ": {
+          "type": "text",
+          "settings": {
+            "text": "<p>The correct sizing and fit is crucial to the effectiveness of all safety products. To view product size guides and fitting instructions, find your brand below to access sizing and fitting information.<\/p>",
+            "enlarge_text": true
+          }
+        }
+      },
+      "block_order": [
+        "text_mUbgeJ"
+      ],
+      "name": "Rich text",
+      "settings": {
+        "height": "medium",
+        "text_alignment": "center",
+        "full_width": true,
+        "color_scheme": "default"
+      }
+    },
+    "logo_list_8cc4n6": {
+      "type": "logo-list",
+      "blocks": {
+        "logo_tWgWYd": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/acavallo-2.png",
+            "image_width": 160,
+            "link": "",
+            "title": ""
+          }
+        },
+        "logo_CAdBck": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/champion.png",
+            "image_width": 160,
+            "link": "",
+            "title": ""
+          }
+        },
+        "logo_AcfM8H": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/Charles_Owen_New_Logo-black-landscape.png",
+            "image_width": 160,
+            "link": "",
+            "title": ""
+          }
+        },
+        "logo_CinTLY": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/dada.png",
+            "image_width": 160,
+            "link": "",
+            "title": ""
+          }
+        },
+        "logo_z9crdT": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/free.png",
+            "image_width": 160,
+            "link": "",
+            "title": ""
+          }
+        },
+        "logo_766tVz": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/he.png",
+            "image_width": 160,
+            "link": "",
+            "title": ""
+          }
+        },
+        "logo_yPRjpz": {
+          "type": "logo",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/ti.png",
+            "image_width": 160,
+            "link": "",
+            "title": ""
+          }
+        }
+      },
+      "block_order": [
+        "logo_tWgWYd",
+        "logo_CAdBck",
+        "logo_AcfM8H",
+        "logo_CinTLY",
+        "logo_z9crdT",
+        "logo_766tVz",
+        "logo_yPRjpz"
+      ],
+      "name": "Logo list",
+      "settings": {
+        "title": "",
+        "image_opacity": 100,
+        "color_scheme": "default"
+      }
+    },
+    "gallery_Vd79xJ": {
+      "type": "gallery",
+      "blocks": {
+        "media_RpV8Ej": {
+          "type": "media",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/1_ab478b2a-aa74-462d-849e-e1e691662cd9.png",
+            "enlarge_media": true,
+            "subheading": "",
+            "title": "",
+            "button_label": "",
+            "link": "",
+            "text_alignment": "bottom left"
+          }
+        }
+      },
+      "block_order": [
+        "media_RpV8Ej"
+      ],
+      "name": "Gallery",
+      "settings": {
+        "grid_desktop": 2,
+        "grid_mobile": "1",
+        "height": "fixed",
+        "desktop_image_height": 790,
+        "mobile_image_height": 470,
+        "title_size": 30,
+        "title_size_mobile": 22,
+        "enable_margin": true,
+        "enable_row_spacing": true,
+        "full_width": false,
+        "color_scheme": "1",
+        "enable_carousel": true,
+        "overlay_style": "no_background",
+        "overlay_padding": "standard",
+        "button_style": "primary"
+      }
+    },
+    "multi_column_XiqabE": {
+      "type": "multi-column",
+      "blocks": {
+        "text_block_KQaCgb": {
+          "type": "text_block",
+          "settings": {
+            "enable_media": true,
+            "image": "shopify:\/\/shop_images\/logo-tip.png",
+            "title": "",
+            "text": "<p>Selecting the right size for your riding vest is an important part of the purchasing process. Click on the<br\/>link below to view how to fit each vest.<br\/><\/p>",
+            "button_label": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "text_block_KQaCgb"
+      ],
+      "name": "Multi-column",
+      "settings": {
+        "title": "",
+        "media_aspect_ratio": "s",
+        "media_width": 330,
+        "text_alignment": "center",
+        "button_style": "primary",
+        "color_scheme": "default"
+      }
+    },
+    "multi_column_K3wifU": {
+      "type": "multi-column",
+      "blocks": {
+        "text_block_NHHMeT": {
+          "type": "text_block",
+          "settings": {
+            "enable_media": true,
+            "image": "shopify:\/\/shop_images\/logo-point.png",
+            "title": "",
+            "text": "<p>Watch and learn how to fit your Point Two jacket<\/p>",
+            "button_label": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "text_block_NHHMeT"
+      ],
+      "name": "Multi-column",
+      "settings": {
+        "title": "",
+        "media_aspect_ratio": "s",
+        "media_width": 180,
+        "text_alignment": "center",
+        "button_style": "primary",
+        "color_scheme": "1"
+      }
+    },
+    "video_4KVg6n": {
+      "type": "video",
+      "blocks": {
+        "play_button_tVcdwn": {
+          "type": "play-button",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "play_button_tVcdwn"
+      ],
+      "name": "Video",
+      "settings": {
+        "video_external": "https:\/\/www.youtube.com\/watch?v=0jmXcfRXjDI",
+        "video_description": "",
+        "placeholder_image": "shopify:\/\/shop_images\/1920_36f0def0-8c8d-44c5-91ca-5445f139a4c0.jpg",
+        "text_alignment": "center center",
+        "full_width": false,
+        "overlay_style": "full image-overlay--bg-shadow"
+      }
+    },
+    "rich_text_NyJKa4": {
+      "type": "rich-text",
+      "blocks": {
+        "image_7UhWW3": {
+          "type": "image",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/logo-champ.png",
+            "image_width": 310,
+            "url": ""
+          }
+        },
+        "text_zya7rD": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Watch a Video on how to measure and fit a Champion Ti22 Body Protector<\/p>",
+            "enlarge_text": true
+          }
+        }
+      },
+      "block_order": [
+        "image_7UhWW3",
+        "text_zya7rD"
+      ],
+      "name": "Rich text",
+      "settings": {
+        "height": "medium",
+        "text_alignment": "center",
+        "full_width": true,
+        "color_scheme": "default"
+      }
+    },
+    "video_8UPeCg": {
+      "type": "video",
+      "blocks": {
+        "play_button_Wkp6Lk": {
+          "type": "play-button",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "play_button_Wkp6Lk"
+      ],
+      "name": "Video",
+      "settings": {
+        "video_external": "https:\/\/www.youtube.com\/watch?v=Cr8xuQjCzLk",
+        "video_description": "",
+        "text_alignment": "center center",
+        "full_width": false,
+        "overlay_style": "full"
+      }
+    },
+    "rich_text_inBn46": {
+      "type": "rich-text",
+      "blocks": {
+        "image_xy8WmW": {
+          "type": "image",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/logo-airo.png",
+            "image_width": 310,
+            "url": ""
+          }
+        },
+        "heading_rwV4EB": {
+          "type": "heading",
+          "settings": {
+            "title": "How to Fit a Body Protector",
+            "use_h1": false
+          }
+        },
+        "text_yVCExj": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Airowear body protectors have been designed to fit every rider, regardless of shape, size, age or gender,<br\/>into a perfectly fitted body protector right off the shelf.<br\/><br\/>With the many sizes and styles available within our range, we suggest reviewing the following guide to<br\/>ensure that you find the best model and size to suit your body type and personal preferences.<\/p>",
+            "enlarge_text": true
+          }
+        }
+      },
+      "block_order": [
+        "image_xy8WmW",
+        "heading_rwV4EB",
+        "text_yVCExj"
+      ],
+      "name": "Rich text",
+      "settings": {
+        "height": "medium",
+        "text_alignment": "center",
+        "full_width": true,
+        "color_scheme": "default"
+      }
+    },
+    "multi_column_BppHKT": {
+      "type": "multi-column",
+      "blocks": {
+        "text_block_Hm8cEd": {
+          "type": "text_block",
+          "settings": {
+            "enable_media": false,
+            "title": "WOMEN",
+            "text": "<p>Women’s body protectors include a wide range of features allowing all body types with a range of back lengths. This allows petite, plus-sized, curvy or tall riders to all fit into the range with ease. Our body protectors are created to comfortably accommodate bust as the chest measurement increases without changing the back length to be sure that the body protector fits correctly.<br\/><\/p>",
+            "button_label": "",
+            "link": ""
+          }
+        },
+        "text_block_Hqfqfh": {
+          "type": "text_block",
+          "settings": {
+            "enable_media": false,
+            "title": "MEN",
+            "text": "<p>Our men’s body protector range reflect the typical features of a man’s body shape, taking into consideration tailoring over the shoulders and offering a generous cut across the rib cage. As the chest sizes increase, back lengths can remain the same to ensure that the body protector remains proportionate.<\/p>",
+            "button_label": "",
+            "link": ""
+          }
+        },
+        "text_block_FHKfRA": {
+          "type": "text_block",
+          "settings": {
+            "enable_media": false,
+            "title": "CHILDREN",
+            "text": "<p>Young riders have the opportunity to be fitted in the body protector that best suits their needs as they grow up in the saddle. Our kids body protectors offer standard sizes for those whose chest and waist measurements are the same and are sized with approximate age ranges. They are also available in short, regular, long and extra-long back lengths.<\/p>",
+            "button_label": "",
+            "link": ""
+          }
+        },
+        "text_block_ixmPm4": {
+          "type": "text_block",
+          "settings": {
+            "enable_media": false,
+            "title": "TEENAGERS",
+            "text": "<p>Teenagers also have unique sizing within our body protector range to provide a neat fit. Our adjustable body protectors are designed to accommodate a growing teenager.<\/p>",
+            "button_label": "",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "text_block_Hm8cEd",
+        "text_block_Hqfqfh",
+        "text_block_FHKfRA",
+        "text_block_ixmPm4"
+      ],
+      "name": "Multi-column",
+      "settings": {
+        "title": "",
+        "media_aspect_ratio": "s",
+        "media_width": 700,
+        "text_alignment": "center",
+        "button_style": "secondary",
+        "color_scheme": "default"
+      }
+    },
+    "custom_content_7FPRKx": {
+      "type": "custom-content",
+      "blocks": {
+        "text_fyi6dP": {
+          "type": "text",
+          "settings": {
+            "width": "half",
+            "text_alignment": "left",
+            "center_on_mobile": true,
+            "icon": "",
+            "icon_color": "rgba(0,0,0,0)",
+            "subheading": "",
+            "title": "STEP 1",
+            "title_size": 26,
+            "title_size_mobile": 26,
+            "text": "<p>Your body protector should be fitted over light clothing and heavier garments worn over the top.<\/p>",
+            "button_label": "",
+            "button_link": "",
+            "button_style": "primary"
+          }
+        },
+        "text_XqWLne": {
+          "type": "text",
+          "settings": {
+            "width": "half",
+            "text_alignment": "left",
+            "center_on_mobile": true,
+            "icon": "",
+            "icon_color": "rgba(0,0,0,0)",
+            "subheading": "",
+            "title": "STEP 4",
+            "title_size": 26,
+            "title_size_mobile": 26,
+            "text": "<p>Fasten djustable straps snug but a comfortable fit is achieved, ensuring the contrast orange velcro markers are covered. This step determines whether a smaller or larger size is required (if the orange cannot be completely covered, the body protector is too small). If the velcro fastenings can’t be closed enough to ensure a snug fit, then the body protector is too large.<br\/><br\/><\/p>",
+            "button_label": "",
+            "button_link": "",
+            "button_style": "primary"
+          }
+        },
+        "text_kRUpCy": {
+          "type": "text",
+          "settings": {
+            "width": "half",
+            "text_alignment": "left",
+            "center_on_mobile": true,
+            "icon": "",
+            "icon_color": "rgba(0,0,0,0)",
+            "subheading": "",
+            "title": "STEP 2",
+            "title_size": 26,
+            "title_size_mobile": 26,
+            "text": "<p>Take the chest and back length measurements and select the corresponding size from within the chart. A women’s fit may be better achieved by choosing one size smaller than the actual chest measurement.<\/p>",
+            "button_label": "",
+            "button_link": "",
+            "button_style": "primary"
+          }
+        },
+        "text_rCwqCH": {
+          "type": "text",
+          "settings": {
+            "width": "half",
+            "text_alignment": "left",
+            "center_on_mobile": true,
+            "icon": "",
+            "icon_color": "rgba(0,0,0,0)",
+            "subheading": "",
+            "title": "STEP 5",
+            "title_size": 26,
+            "title_size_mobile": 26,
+            "text": "<p>Adjust the shoulders so the neckline lies flat against the body. If this cannot be achieved, a shorter back length may be needed.<\/p>",
+            "button_label": "",
+            "button_link": "",
+            "button_style": "primary"
+          }
+        },
+        "text_YBiAyk": {
+          "type": "text",
+          "settings": {
+            "width": "half",
+            "text_alignment": "left",
+            "center_on_mobile": true,
+            "icon": "",
+            "icon_color": "rgba(0,0,0,0)",
+            "subheading": "",
+            "title": "STEP 3",
+            "title_size": 26,
+            "title_size_mobile": 26,
+            "text": "<p>Before trying on, loosen the chest and waist straps of the body protector. Once on, insert thumbs into the armholes to bring the two panels together to make it easier to zip the body protector.<\/p>",
+            "button_label": "",
+            "button_link": "",
+            "button_style": "primary"
+          }
+        },
+        "text_Th9FhW": {
+          "type": "text",
+          "settings": {
+            "width": "half",
+            "text_alignment": "left",
+            "center_on_mobile": true,
+            "icon": "",
+            "icon_color": "rgba(0,0,0,0)",
+            "subheading": "",
+            "title": "STEP 6",
+            "title_size": 26,
+            "title_size_mobile": 26,
+            "text": "<p>If possible, check the back length by sitting on a saddle and ensuring there is approximately a hand’s width between the saddle and base of the body protector. At the front, the body protector should reach the breastbone at the top and cover the bottom rib at mid-chest by approximately 2.5 cm but should not cover the belly button<br\/><br\/><\/p>",
+            "button_label": "",
+            "button_link": "",
+            "button_style": "primary"
+          }
+        }
+      },
+      "block_order": [
+        "text_fyi6dP",
+        "text_XqWLne",
+        "text_kRUpCy",
+        "text_rCwqCH",
+        "text_YBiAyk",
+        "text_Th9FhW"
+      ],
+      "name": "Custom content",
+      "settings": {
+        "spacing": "medium",
+        "alignment": "top",
+        "color_scheme": "default"
+      }
+    },
+    "video_xmXYej": {
+      "type": "video",
+      "blocks": {
+        "play_button_6UVpb9": {
+          "type": "play-button",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "play_button_6UVpb9"
+      ],
+      "name": "Video",
+      "settings": {
+        "video_external": "https:\/\/www.youtube.com\/watch?v=0jmXcfRXjDI",
+        "video_description": "",
+        "placeholder_image": "shopify:\/\/shop_images\/1920_36f0def0-8c8d-44c5-91ca-5445f139a4c0.jpg",
+        "text_alignment": "center center",
+        "full_width": false,
+        "overlay_style": "full image-overlay--bg-shadow"
+      }
+    },
+    "rich_text_dRrMUb": {
+      "type": "rich-text",
+      "blocks": {
+        "image_BQibBV": {
+          "type": "image",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/hit-air.png",
+            "image_width": 180,
+            "url": ""
+          }
+        },
+        "text_7ngkpF": {
+          "type": "text",
+          "settings": {
+            "text": "<p>For your safety, peace of mind and correct use of your airbag jacket.<br\/>The correct set up to ensure maximum effectiveness in emergency is as follows. For your safety, peace of<br\/>mind and correct use of your airbag jacket.<\/p>",
+            "enlarge_text": true
+          }
+        },
+        "image_LTWXzY": {
+          "type": "image",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/bb.png",
+            "image_width": 700,
+            "url": ""
+          }
+        }
+      },
+      "block_order": [
+        "image_BQibBV",
+        "text_7ngkpF",
+        "image_LTWXzY"
+      ],
+      "name": "Rich text",
+      "settings": {
+        "height": "medium",
+        "text_alignment": "center",
+        "full_width": false,
+        "color_scheme": "default"
+      }
+    },
+    "rich_text_HCWrbg": {
+      "type": "rich-text",
+      "blocks": {
+        "image_iGEUAn": {
+          "type": "image",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/logo-helite.png",
+            "image_width": 180,
+            "url": ""
+          }
+        },
+        "text_VKn7RU": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Original horse-riding air vest design incorporating Helite's latest technological improvements. Click the<br\/>link below to find out more about our Helite Air Jackets:<\/p>",
+            "enlarge_text": true
+          }
+        },
+        "button_6c9gCp": {
+          "type": "button",
+          "settings": {
+            "button_label": "CLICK HERE FOR USER GUIDE",
+            "button_link": "\/pages\/sizing-guide",
+            "button_style": "primary"
+          }
+        }
+      },
+      "block_order": [
+        "image_iGEUAn",
+        "text_VKn7RU",
+        "button_6c9gCp"
+      ],
+      "name": "Rich text",
+      "settings": {
+        "height": "medium",
+        "text_alignment": "center",
+        "full_width": false,
+        "color_scheme": "1"
+      }
+    },
+    "newsletter_9pAigG": {
+      "type": "newsletter",
+      "name": "Newsletter",
+      "settings": {
+        "title": "Subscribe to our newsletter",
+        "subheading": "<p>Subscribe to get special offers, free giveaways, and once-in-a-lifetime deals.<\/p>",
+        "color_scheme": "1"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "image_with_text_overlay_Cxa6Ba",
+    "rich_text_gPVeHA",
+    "logo_list_8cc4n6",
+    "gallery_Vd79xJ",
+    "multi_column_XiqabE",
+    "multi_column_K3wifU",
+    "video_4KVg6n",
+    "rich_text_NyJKa4",
+    "video_8UPeCg",
+    "rich_text_inBn46",
+    "multi_column_BppHKT",
+    "custom_content_7FPRKx",
+    "video_xmXYej",
+    "rich_text_dRrMUb",
+    "rich_text_HCWrbg",
+    "newsletter_9pAigG"
+  ]
+}
