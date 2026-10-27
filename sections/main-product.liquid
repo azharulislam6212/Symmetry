@@ -492,7 +492,7 @@
                           {{- 'products.product.add_to_cart' | t -}}
                         {%- endif -%}
                       {%- endcapture -%}
-                      <button class="btn btn--large add-to-cart" type="submit" name="add" data-add-to-cart-text="{{ add_to_cart_text | escape }}"{% if product.available == false %} disabled{% endif %}>
+                      <button class="btn btn--large add-to-cart{% if block.settings.dark_add_to_cart %} btn--inherit{% endif %}" type="submit" name="add" data-add-to-cart-text="{{ add_to_cart_text | escape }}"{% if product.available == false %} disabled{% endif %}>
                         {%- if current_variant.available or current_variant == false -%}
                           {{- add_to_cart_text -}}
                         {%- else -%}
@@ -523,6 +523,28 @@
                   </div>
                 {% endif %}
               {% endform %}
+
+              {%- liquid
+                assign buyers_guide_url = product.metafields.custom.buyers_guide_url.value
+                assign show_booking = false
+                if block.settings.booking_label != blank and block.settings.booking_url != blank
+                  assign show_booking = true
+                endif
+              -%}
+              {%- if show_booking or buyers_guide_url != blank -%}
+                <div class="buy-buttons-extra not-in-quickbuy">
+                  {%- if show_booking -%}
+                    <a class="btn btn--large btn--wide btn--outline buy-buttons-extra__booking" href="{{ block.settings.booking_url }}"{% if block.settings.booking_new_tab %} target="_blank" rel="noopener"{% endif %}>
+                      {{- block.settings.booking_label | escape -}}
+                    </a>
+                  {%- endif -%}
+                  {%- if buyers_guide_url != blank and block.settings.guide_label != blank -%}
+                    <a class="buy-buttons-extra__guide" href="{{ buyers_guide_url }}">
+                      {{- block.settings.guide_label | escape -}}
+                    </a>
+                  {%- endif -%}
+                </div>
+              {%- endif -%}
 
               {%- if product.available and block.settings.show_pickup_availability -%}
                 {% render 'pickup-availability', current_variant: current_variant %}
@@ -1943,6 +1965,45 @@
           "default": false,
           "label": "Show recipient information form for gift cards",
           "info": "Allow customers to send gift cards to a recipient along with a personal message. When enabled, the dynamic checkout button will be disabled for gift cards. [Learn more](https://help.shopify.com/manual/online-store/themes/customizing-themes/add-gift-card-recipient-fields)"
+        },
+        {
+          "type": "checkbox",
+          "id": "dark_add_to_cart",
+          "label": "Dark add to cart button",
+          "info": "Uses the text color as the button color",
+          "default": false
+        },
+        {
+          "type": "header",
+          "content": "Booking button"
+        },
+        {
+          "type": "text",
+          "id": "booking_label",
+          "label": "Label",
+          "default": "Not sure about fit? Book a free virtual fitting"
+        },
+        {
+          "type": "url",
+          "id": "booking_url",
+          "label": "Link"
+        },
+        {
+          "type": "checkbox",
+          "id": "booking_new_tab",
+          "label": "Open in new tab",
+          "default": false
+        },
+        {
+          "type": "header",
+          "content": "Buyer's guide link"
+        },
+        {
+          "type": "text",
+          "id": "guide_label",
+          "label": "Label",
+          "info": "Link comes from the product metafield custom.buyers_guide_url. Hidden when empty.",
+          "default": "Read the buyer's guide before you choose"
         }
       ]
     },

@@ -11422,3 +11422,44 @@ body:has(.drawer):has(.boost-sd__modal){
         height: 28px;
     }
 }
+
+/* Outline button variant (transparent, text-colored border) */
+.btn--outline {
+    --btn-text-color: var(--text-color);
+    --btn-text-hover-color: var(--bg-color);
+    --btn-bg-color: var(--bg-color);
+    --btn-bg-hover-color: var(--text-color);
+    --btn-border-color: var(--text-color);
+    --btn-border-hover-color: var(--text-color);
+}
+
+/* Booking button + buyer's guide link under add to cart */
+.buy-buttons-extra {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    margin-top: 12px;
+    text-align: center;
+}
+
+.buy-buttons-extra__booking {
+    width: 100%;
+        width: 100%;
+    font-size: 16px;
+    line-height: 1.3;
+    font-weight: 600;
+    padding-left: 10px;
+    padding-right: 10px;
+    text-transform: none;
+}
+
+.buy-buttons-extra__guide {
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.buy-buttons-extra__guide:hover {
+    text-decoration: none;
+}
