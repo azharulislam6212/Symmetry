@@ -1,0 +1,180 @@
+{%- comment -%}
+  Comparison table for a comparison_group metaobject.
+
+  comparison_group fields used here:
+  - name                               (single line text)
+  - column_1_label … column_4_label    (single line text, empty columns are hidden)
+  - column_5_label                     (single line text, optional – price column label)
+  - rows                               (list of comparison_row metaobjects)
+
+  comparison_row fields:
+  - product            (product reference, optional)
+  - title              (single line text, optional – overrides the product title)
+  - value_1 … value_4  (single line text)
+  - price_text         (single line text, optional – overrides the product price)
+  - link_label         (single line text, optional – e.g. "Configure")
+  - link_url           (url, optional – used when there is no product)
+
+  Accepts:
+  - group: the comparison_group metaobject
+  - style: 'guide' (images, icons, buttons) or 'simple' (plain table)
+  - section: the section (icon settings for the 'guide' style)
+  - current_product: the product being viewed (optional, highlights its row)
+{%- endcomment -%}
+{%- liquid
+  assign view_label = section.settings.view_label | default: 'View'
+  assign current_label = section.settings.current_label | default: 'You are here'
+
+  # Custom columns to show: skip empty labels and any "Price" column (price has its own built-in column)
+  assign price_label = section.settings.price_label | default: 'Price'
+  if group.column_5_label != blank
+    assign price_label = group.column_5_label.value
+  endif
+  assign price_key = price_label | strip | downcase
+  assign visible_columns = '|'
+  for i in (1..4)
+    assign label_key = 'column_' | append: i | append: '_label'
+    assign column_key = group[label_key].value | strip | downcase
+    if column_key != blank and column_key != price_key and column_key != 'price'
+      assign visible_columns = visible_columns | append: i | append: '|'
+    endif
+  endfor
+-%}
+<div class="comparison-table-wrap comparison-table-wrap--{{ style }}">
+  <table class="comparison-table comparison-table--{{ style }}">
+    <thead>
+      <tr>
+        <th scope="col">
+          <span class="comparison-table__th">
+            {%- if style == 'guide' -%}{%- render 'comparison-icon', icon: section.settings.model_icon -%}{%- endif -%}
+            <span>{{ section.settings.model_label | default: 'Model' | escape }}</span>
+          </span>
+        </th>
+        {%- for i in (1..4) -%}
+          {%- assign label_key = 'column_' | append: i | append: '_label' -%}
+          {%- assign column_token = i | prepend: '|' | append: '|' -%}
+            {%- if visible_columns contains column_token -%}
+            {%- assign icon_key = 'column_' | append: i | append: '_icon' -%}
+            <th scope="col">
+              <span class="comparison-table__th">
+                {%- if style == 'guide' -%}{%- render 'comparison-icon', icon: section.settings[icon_key] -%}{%- endif -%}
+                <span>{{ group[label_key].value | escape }}</span>
+              </span>
+            </th>
+          {%- endif -%}
+        {%- endfor -%}
+        <th scope="col">
+          <span class="comparison-table__th">
+            {%- if style == 'guide' -%}{%- render 'comparison-icon', icon: section.settings.price_icon -%}{%- endif -%}
+            <span>{{ price_label | escape }}</span>
+          </span>
+        </th>
+        <th scope="col"><span class="visually-hidden">{{ view_label | escape }}</span></th>
+      </tr>
+    </thead>
+    <tbody>
+      {%- for row in group.rows.value -%}
+        {%- liquid
+          assign row_product = row.product.value
+          assign is_current = false
+          if row_product and current_product and row_product.id == current_product.id
+            assign is_current = true
+          endif
+
+          assign row_title = row_product.title
+          if row.title != blank
+            assign row_title = row.title.value
+          endif
+
+          assign row_url = row_product.url
+          if row.link_url != blank
+            assign row_url = row.link_url.value
+          endif
+
+          assign row_link_label = view_label
+          if row.link_label != blank
+            assign row_link_label = row.link_label.value
+          endif
+
+          # Lets the comparison block below switch its table to this model (see sections/comparison-block)
+          assign row_model_key = row_title | strip | handleize
+        -%}
+        <tr class="comparison-table__row{% if is_current %} is-current{% endif %}"{% if style == 'guide' %} data-model-row="{{ row_model_key }}"{% endif %}{% if is_current %} aria-current="page"{% endif %}>
+          <th scope="row" class="comparison-table__model">
+            <div class="comparison-table__model-inner">
+              {%- if style == 'guide' and row_product.featured_media -%}
+                <div class="comparison-table__image">
+                  {{ row_product.featured_media.preview_image | image_url: width: 200 | image_tag: loading: 'lazy', widths: '100, 200', sizes: '100px', alt: row_title }}
+                </div>
+              {%- endif -%}
+              <div class="comparison-table__model-text">
+                <span class="comparison-table__title">{{ row_title | escape }}</span>
+                {%- if is_current -%}
+                  <span class="comparison-table__this-page">{{ section.settings.this_page_label | default: 'This page' | escape }}</span>
+                {%- endif -%}
+              </div>
+            </div>
+          </th>
+          {%- for i in (1..4) -%}
+            {%- assign label_key = 'column_' | append: i | append: '_label' -%}
+            {%- assign column_token = i | prepend: '|' | append: '|' -%}
+            {%- if visible_columns contains column_token -%}
+              {%- liquid
+                assign value_key = 'value_' | append: i
+                assign icon_key = 'column_' | append: i | append: '_icon'
+                assign icon_in_cells_key = 'column_' | append: i | append: '_icon_in_cells'
+              -%}
+              <td>
+                {%- if row[value_key] != blank -%}
+                  <span class="comparison-table__cell">
+                    {%- if style == 'guide' and section.settings[icon_in_cells_key] -%}{%- render 'comparison-icon', icon: section.settings[icon_key] -%}{%- endif -%}
+                    <span>{{ row[value_key].value | escape }}</span>
+                  </span>
+                {%- endif -%}
+              </td>
+            {%- endif -%}
+          {%- endfor -%}
+          <td class="comparison-table__price">
+            {%- if row.price_text != blank -%}
+              {{ row.price_text.value | escape }}
+            {%- elsif row_product -%}
+              {%- liquid
+                if settings.product_currency_code_enabled
+                  assign row_price = row_product.price_min | money_with_currency
+                else
+                  assign row_price = row_product.price_min | money
+                endif
+              -%}
+              {%- if row_product.price_varies -%}
+                {{ 'products.product.from_lowest_price_html' | t: lowest_price: row_price }}
+              {%- else -%}
+                {{ row_price }}
+              {%- endif -%}
+            {%- endif -%}
+          </td>
+          <td class="comparison-table__action">
+            {%- if is_current -%}
+              {%- if style == 'guide' -%}
+                <span class="btn btn--inherit comparison-table__btn comparison-table__btn--current" data-model-key="{{ row_model_key }}">
+                  {%- render 'icon', icon: 'map_pin', size: 'small' -%}
+                  <span>{{ current_label | escape }}</span>
+                </span>
+              {%- else -%}
+                <span class="comparison-table__current">{{ current_label | escape }}</span>
+              {%- endif -%}
+            {%- elsif row_url != blank -%}
+              {%- if style == 'guide' -%}
+                <a class="btn btn--outline comparison-table__btn" href="{{ row_url }}" data-model-key="{{ row_model_key }}">
+                  <span>{{ row_link_label | escape }}</span>
+                  <svg aria-hidden="true" focusable="false" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><path d="M4 10h12M11 5l5 5-5 5"/></svg>
+                </a>
+              {%- else -%}
+                <a class="comparison-table__link" href="{{ row_url }}">{{ row_link_label | escape }}</a>
+              {%- endif -%}
+            {%- endif -%}
+          </td>
+        </tr>
+      {%- endfor -%}
+    </tbody>
+  </table>
+</div>

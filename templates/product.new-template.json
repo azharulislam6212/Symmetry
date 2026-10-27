@@ -12,7 +12,7 @@
           "settings": {}
         },
         "trustpilot_trustpilot_micro_review_count_widget_CCJaNV": {
-          "type": "shopify:\/\/apps\/trustpilot\/blocks\/trustpilot_micro_review_count_widget\/af628f2e-96c9-437f-bc0a-e8f7ff3fa8b4",
+          "type": "shopify://apps/trustpilot/blocks/trustpilot_micro_review_count_widget/af628f2e-96c9-437f-bc0a-e8f7ff3fa8b4",
           "settings": {
             "locale": "en-US",
             "width": 100,
@@ -71,7 +71,7 @@
             "show_gift_card_recipient": false,
             "dark_add_to_cart": true,
             "booking_label": "Not sure about fit? Book a free virtual fitting",
-            "booking_url": "shopify:\/\/pages\/book-a-consultation",
+            "booking_url": "shopify://pages/book-a-consultation",
             "booking_new_tab": false,
             "guide_label": "Read the buyer's guide before you choose"
           }
@@ -96,7 +96,7 @@
           }
         },
         "kiwi_size_chart_recommender_kiwi_sizing_yycANm": {
-          "type": "shopify:\/\/apps\/kiwi-size-chart\/blocks\/kiwiSizing\/b7369922-bf15-44ce-a121-a22a8fcbc4b0",
+          "type": "shopify://apps/kiwi-size-chart/blocks/kiwiSizing/b7369922-bf15-44ce-a121-a22a8fcbc4b0",
           "settings": {
             "fallbackToBlockPosition": false,
             "waitForElementSelector": "",
@@ -177,12 +177,23 @@
         "full_width": false,
         "show_space": true
       }
+    },
+    "comparison_guide": {
+      "type": "comparison-guide",
+      "settings": {}
+    },
+    "comparison_block": {
+      "type": "comparison-block",
+      "settings": {}
     }
   },
   "order": [
     "main",
     "custom_video_with_text_RGMkaV",
+    "comparison_guide",
+    "comparison_block",
     "related-products",
     "17916332236974912e"
   ]
 }
+

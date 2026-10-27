@@ -1,0 +1,328 @@
+{%- comment -%}
+  Comparison guide (product page).
+  Shows only when the product has a metafield custom.comparison_group (metaobject reference).
+  Lists every row of that group; the current product's row is highlighted.
+{%- endcomment -%}
+{%- assign group = product.metafields.custom.comparison_group.value -%}
+
+
+{%- if group != blank and group.rows.value.size > 0 -%}
+
+  {%- liquid
+    assign group_name = group.name.value | default: product.type
+    assign guide_heading = section.settings.heading | replace: '[name]', group_name | replace: '[Name]', group_name
+  -%}
+  <div class="comparison-guide {% if section.settings.color_scheme != 'default' %}use-color-scheme use-color-scheme--{{ section.settings.color_scheme }} fully-padded-row--{{ section.settings.height }}{% else %}fully-spaced-row--{{ section.settings.height }}{% endif %}" {%- render 'animation-attrs', attrs: 'data-cc-animate' -%}>
+    <div class="container">
+      <div class="comparison-guide__header">
+        {%- if section.settings.subheading != blank -%}
+          <div class="subheading comparison-guide__subheading">{{ section.settings.subheading | escape }}</div>
+        {%- endif -%}
+        {%- if guide_heading != blank -%}
+          <h2 class="majortitle h1 comparison-guide__heading">{{ guide_heading | escape }}</h2>
+        {%- endif -%}
+        {%- if section.settings.text != blank -%}
+          <div class="rte comparison-guide__text">{{ section.settings.text }}</div>
+        {%- endif -%}
+      </div>
+
+      {% render 'comparison-table', group: group, style: 'guide', section: section, current_product: product %}
+    </div>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Comparison guide",
+  "class": "section-comparison-guide",
+  "enabled_on": {
+    "templates": ["product"]
+  },
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Shows only when the product has the metafield custom.comparison_group (comparison_group metaobject). Use [name] to insert the group name."
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Find your perfect fit"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Find the right [name] for you"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text"
+    },
+    {
+      "type": "header",
+      "content": "Table"
+    },
+    {
+      "type": "text",
+      "id": "model_label",
+      "label": "Model column label",
+      "default": "Model"
+    },
+    {
+      "type": "select",
+      "id": "model_icon",
+      "label": "Model column icon",
+      "default": "box",
+      "options": [
+            { "value": "", "label": "None" },
+            { "value": "box", "label": "Box" },
+            { "value": "silhouette", "label": "Person" },
+            { "value": "star", "label": "Star" },
+            { "value": "shield", "label": "Shield" },
+            { "value": "award", "label": "Award" },
+            { "value": "price_tag", "label": "Price tag" },
+            { "value": "dollar_sign", "label": "Dollar sign" },
+            { "value": "check_mark_in_circle", "label": "Check mark" },
+            { "value": "shirt", "label": "Shirt" },
+            { "value": "pants", "label": "Pants" },
+            { "value": "shoe", "label": "Shoe" },
+            { "value": "ruler", "label": "Ruler" },
+            { "value": "heart", "label": "Heart" },
+            { "value": "feather", "label": "Feather" },
+            { "value": "leaf", "label": "Leaf" },
+            { "value": "lock", "label": "Lock" },
+            { "value": "eye", "label": "Eye" },
+            { "value": "world", "label": "World" },
+            { "value": "clock", "label": "Clock" },
+            { "value": "question_mark", "label": "Question mark" }
+          ]
+    },
+        {
+          "type": "select",
+          "id": "column_1_icon",
+          "label": "Column 1 icon",
+          "default": "silhouette",
+          "options": [
+            { "value": "", "label": "None" },
+            { "value": "box", "label": "Box" },
+            { "value": "silhouette", "label": "Person" },
+            { "value": "star", "label": "Star" },
+            { "value": "shield", "label": "Shield" },
+            { "value": "award", "label": "Award" },
+            { "value": "price_tag", "label": "Price tag" },
+            { "value": "dollar_sign", "label": "Dollar sign" },
+            { "value": "check_mark_in_circle", "label": "Check mark" },
+            { "value": "shirt", "label": "Shirt" },
+            { "value": "pants", "label": "Pants" },
+            { "value": "shoe", "label": "Shoe" },
+            { "value": "ruler", "label": "Ruler" },
+            { "value": "heart", "label": "Heart" },
+            { "value": "feather", "label": "Feather" },
+            { "value": "leaf", "label": "Leaf" },
+            { "value": "lock", "label": "Lock" },
+            { "value": "eye", "label": "Eye" },
+            { "value": "world", "label": "World" },
+            { "value": "clock", "label": "Clock" },
+            { "value": "question_mark", "label": "Question mark" }
+          ]
+        },
+        {
+          "type": "checkbox",
+          "id": "column_1_icon_in_cells",
+          "label": "Show column 1 icon in cells",
+          "default": false
+        },
+        {
+          "type": "select",
+          "id": "column_2_icon",
+          "label": "Column 2 icon",
+          "default": "star",
+          "options": [
+            { "value": "", "label": "None" },
+            { "value": "box", "label": "Box" },
+            { "value": "silhouette", "label": "Person" },
+            { "value": "star", "label": "Star" },
+            { "value": "shield", "label": "Shield" },
+            { "value": "award", "label": "Award" },
+            { "value": "price_tag", "label": "Price tag" },
+            { "value": "dollar_sign", "label": "Dollar sign" },
+            { "value": "check_mark_in_circle", "label": "Check mark" },
+            { "value": "shirt", "label": "Shirt" },
+            { "value": "pants", "label": "Pants" },
+            { "value": "shoe", "label": "Shoe" },
+            { "value": "ruler", "label": "Ruler" },
+            { "value": "heart", "label": "Heart" },
+            { "value": "feather", "label": "Feather" },
+            { "value": "leaf", "label": "Leaf" },
+            { "value": "lock", "label": "Lock" },
+            { "value": "eye", "label": "Eye" },
+            { "value": "world", "label": "World" },
+            { "value": "clock", "label": "Clock" },
+            { "value": "question_mark", "label": "Question mark" }
+          ]
+        },
+        {
+          "type": "checkbox",
+          "id": "column_2_icon_in_cells",
+          "label": "Show column 2 icon in cells",
+          "default": false
+        },
+        {
+          "type": "select",
+          "id": "column_3_icon",
+          "label": "Column 3 icon",
+          "default": "shield",
+          "options": [
+            { "value": "", "label": "None" },
+            { "value": "box", "label": "Box" },
+            { "value": "silhouette", "label": "Person" },
+            { "value": "star", "label": "Star" },
+            { "value": "shield", "label": "Shield" },
+            { "value": "award", "label": "Award" },
+            { "value": "price_tag", "label": "Price tag" },
+            { "value": "dollar_sign", "label": "Dollar sign" },
+            { "value": "check_mark_in_circle", "label": "Check mark" },
+            { "value": "shirt", "label": "Shirt" },
+            { "value": "pants", "label": "Pants" },
+            { "value": "shoe", "label": "Shoe" },
+            { "value": "ruler", "label": "Ruler" },
+            { "value": "heart", "label": "Heart" },
+            { "value": "feather", "label": "Feather" },
+            { "value": "leaf", "label": "Leaf" },
+            { "value": "lock", "label": "Lock" },
+            { "value": "eye", "label": "Eye" },
+            { "value": "world", "label": "World" },
+            { "value": "clock", "label": "Clock" },
+            { "value": "question_mark", "label": "Question mark" }
+          ]
+        },
+        {
+          "type": "checkbox",
+          "id": "column_3_icon_in_cells",
+          "label": "Show column 3 icon in cells",
+          "default": true
+        },
+        {
+          "type": "select",
+          "id": "column_4_icon",
+          "label": "Column 4 icon",
+          "default": "",
+          "options": [
+            { "value": "", "label": "None" },
+            { "value": "box", "label": "Box" },
+            { "value": "silhouette", "label": "Person" },
+            { "value": "star", "label": "Star" },
+            { "value": "shield", "label": "Shield" },
+            { "value": "award", "label": "Award" },
+            { "value": "price_tag", "label": "Price tag" },
+            { "value": "dollar_sign", "label": "Dollar sign" },
+            { "value": "check_mark_in_circle", "label": "Check mark" },
+            { "value": "shirt", "label": "Shirt" },
+            { "value": "pants", "label": "Pants" },
+            { "value": "shoe", "label": "Shoe" },
+            { "value": "ruler", "label": "Ruler" },
+            { "value": "heart", "label": "Heart" },
+            { "value": "feather", "label": "Feather" },
+            { "value": "leaf", "label": "Leaf" },
+            { "value": "lock", "label": "Lock" },
+            { "value": "eye", "label": "Eye" },
+            { "value": "world", "label": "World" },
+            { "value": "clock", "label": "Clock" },
+            { "value": "question_mark", "label": "Question mark" }
+          ]
+        },
+        {
+          "type": "checkbox",
+          "id": "column_4_icon_in_cells",
+          "label": "Show column 4 icon in cells",
+          "default": false
+        },
+    {
+      "type": "text",
+      "id": "price_label",
+      "label": "Price column label",
+      "default": "Price"
+    },
+    {
+      "type": "select",
+      "id": "price_icon",
+      "label": "Price column icon",
+      "default": "price_tag",
+      "options": [
+            { "value": "", "label": "None" },
+            { "value": "box", "label": "Box" },
+            { "value": "silhouette", "label": "Person" },
+            { "value": "star", "label": "Star" },
+            { "value": "shield", "label": "Shield" },
+            { "value": "award", "label": "Award" },
+            { "value": "price_tag", "label": "Price tag" },
+            { "value": "dollar_sign", "label": "Dollar sign" },
+            { "value": "check_mark_in_circle", "label": "Check mark" },
+            { "value": "shirt", "label": "Shirt" },
+            { "value": "pants", "label": "Pants" },
+            { "value": "shoe", "label": "Shoe" },
+            { "value": "ruler", "label": "Ruler" },
+            { "value": "heart", "label": "Heart" },
+            { "value": "feather", "label": "Feather" },
+            { "value": "leaf", "label": "Leaf" },
+            { "value": "lock", "label": "Lock" },
+            { "value": "eye", "label": "Eye" },
+            { "value": "world", "label": "World" },
+            { "value": "clock", "label": "Clock" },
+            { "value": "question_mark", "label": "Question mark" }
+          ]
+    },
+    {
+      "type": "text",
+      "id": "view_label",
+      "label": "View button label",
+      "default": "View"
+    },
+    {
+      "type": "text",
+      "id": "current_label",
+      "label": "Current product label",
+      "default": "You are here"
+    },
+    {
+      "type": "text",
+      "id": "this_page_label",
+      "label": "Current product badge",
+      "default": "This page"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "height",
+      "label": "Section height",
+      "default": "medium",
+      "options": [
+        { "value": "small", "label": "Small" },
+        { "value": "medium", "label": "Medium" },
+        { "value": "large", "label": "Large" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "default",
+      "options": [
+        { "value": "default", "label": "Default" },
+        { "value": "1", "label": "1" },
+        { "value": "2", "label": "2" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Comparison guide"
+    }
+  ]
+}
+{% endschema %}

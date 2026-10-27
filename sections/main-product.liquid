@@ -17,7 +17,7 @@
   assign product_form_id = 'product-form-' | append: section.id | append: '-' | append: product.id
 
   # Per-product video, shown as the last gallery item
-  assign product_video = product.metafields.custom.product_video_url
+  assign product_video = product.metafields.custom.product_video
   assign product_video_id = 'product-video-' | append: product.id
   assign gallery_count = product.media.size
   if product_video.value != blank
