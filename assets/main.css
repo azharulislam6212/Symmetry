@@ -11268,3 +11268,157 @@ body:has(.drawer):has(.boost-sd__modal){
     z-index: 9999999;
   }
 }
+
+
+
+
+/* custom css */
+ 
+.product-column-right .trustpilot-widget {
+    padding: 0 !important;
+    justify-content: start !important;
+}
+
+.product-trustpilot .trustpilot-widget {
+    text-align: left;
+    margin-left: 0;
+    margin-right: auto;
+}
+
+/* TrustBox content lives inside a cross-origin iframe and is centered there,
+   so shrink the iframe to its content width to make it sit on the left */
+.product-column-right .trustpilot-widget iframe {
+    width: 243px !important;
+    max-width: 100%;
+    margin-left: 0 !important;
+}
+/* Price block badges (SATRA / CE / ISO etc.) */
+.price-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 15px;
+}
+
+.price-row .price-container {
+    flex: 1 1 auto;
+    min-width: 0;
+    margin-bottom: 0;
+}
+
+.price-badges-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    flex: 0 1 auto;
+    max-width: 65%;
+}
+
+.price-badges__heading {
+    margin: 0 0 8px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-align: right;
+}
+
+.price-badges {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 12px;
+}
+
+.price-badges__item {
+    flex-shrink: 0;
+    height: var(--price-badge-size, 80px);
+}
+
+/* keep each badge's own aspect ratio, only the height is controlled */
+.price-badges__item img {
+    display: block;
+    width: auto;
+    height: 100%;
+    max-width: none;
+    border-radius: 6px;
+}
+
+@media (max-width: 767px) {
+    .price-row .price-badges {
+        gap: 8px;
+    }
+
+    .price-badges__item {
+        height: calc(var(--price-badge-size, 80px) * 0.7);
+    }
+}
+
+/* Who this fits block (metafield custom.fit_sentence) */
+.fit-sentence-block {
+    margin: 20px 0;
+}
+
+.fit-sentence {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 24px 28px;
+    border: 1.5px solid var(--fit-accent, #c8650f);
+    border-radius: 10px;
+    background: var(--fit-bg, #fdf3ea);
+}
+
+.fit-sentence + .fit-sentence {
+    margin-top: 12px;
+}
+
+.fit-sentence__icon {
+    flex-shrink: 0;
+    width: 36px;
+    height: 36px;
+    color: var(--fit-accent, #c8650f);
+}
+
+.fit-sentence__icon svg,
+.fit-sentence__icon img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.fit-sentence__heading {
+    margin: 0 0 6px;
+    color: var(--fit-accent, #c8650f);
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.fit-sentence__text {
+    line-height: 1.6;
+}
+
+.fit-sentence__text p {
+    margin: 0;
+}
+
+.fit-sentence__text p + p {
+    margin-top: 0.5em;
+}
+
+@media (max-width: 767px) {
+    .fit-sentence {
+        gap: 14px;
+        padding: 18px;
+    }
+
+    .fit-sentence__icon {
+        width: 28px;
+        height: 28px;
+    }
+}

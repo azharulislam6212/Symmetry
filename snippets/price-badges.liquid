@@ -1,0 +1,18 @@
+{%- comment -%}
+  Certification badges shown next to the product price.
+  Source: product.metafields.custom.safety_certifications (type: list of files / images)
+
+  Accepts:
+  - badges: the metafield
+{%- endcomment -%}
+{%- for item in badges.value -%}
+  {%- if item.media_type == 'image' -%}
+    <div class="price-badges__item">
+      {{ item | image_url: width: 400 | image_tag: loading: 'lazy', srcset: nil, alt: item.alt }}
+    </div>
+  {%- elsif item.url != blank -%}
+    <div class="price-badges__item">
+      <img src="{{ item.url }}" alt="{{ item.alt | escape }}" loading="lazy">
+    </div>
+  {%- endif -%}
+{%- endfor -%}

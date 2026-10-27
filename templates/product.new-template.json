@@ -3,6 +3,10 @@
     "main": {
       "type": "main-product",
       "blocks": {
+        "vendor": {
+          "type": "vendor",
+          "settings": {}
+        },
         "title": {
           "type": "title",
           "settings": {}
@@ -24,12 +28,11 @@
           "type": "price",
           "settings": {
             "show_tax_and_shipping": false,
-            "enable_product_reviews_by_price": false
+            "enable_product_reviews_by_price": false,
+            "show_badges": true,
+            "badge_heading": "Safety certifications",
+            "badge_size": 80
           }
-        },
-        "vendor": {
-          "type": "vendor",
-          "settings": {}
         },
         "divider": {
           "type": "divider",
@@ -47,6 +50,15 @@
             "size_chart_label": "Size guide",
             "size_chart_variant": "Size",
             "size_chart_page": ""
+          }
+        },
+        "fit_sentence": {
+          "type": "fit_sentence",
+          "settings": {
+            "heading": "Who this fits",
+            "accent_color": "#c8650f",
+            "background_color": "#fdf3ea",
+            "show_in_quickbuy": false
           }
         },
         "buy-buttons": {
@@ -79,12 +91,13 @@
         }
       },
       "block_order": [
+        "vendor",
         "title",
         "trustpilot_trustpilot_micro_review_count_widget_CCJaNV",
         "price",
-        "vendor",
         "divider",
         "variant-picker",
+        "fit_sentence",
         "buy-buttons",
         "description",
         "kiwi_size_chart_recommender_kiwi_sizing_yycANm"

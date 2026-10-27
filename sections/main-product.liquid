@@ -263,9 +263,6 @@
               {% render block %}
             </div>
             {%- if is_trustpilot -%}
-              <style>
-                #product-trustpilot-{{ block.id }} .trustpilot-widget { text-align: left; margin-left: 0; margin-right: auto; }
-              </style>
               <script>
                 {%- comment -%} Left-align the stars inside the TrustBox iframe (set before the Trustpilot loader runs) {%- endcomment -%}
                 document.querySelectorAll('#product-trustpilot-{{ block.id }} .trustpilot-widget').forEach(function(el) {
@@ -280,7 +277,15 @@
             </div>
 
           {% when 'price' %}
-            <div class="price-container" {{ block.shopify_attributes }}>
+            {%- liquid
+              assign safety_certifications = product.metafields.custom.safety_certifications
+              assign has_price_badges = false
+              if block.settings.show_badges and safety_certifications.value != blank
+                assign has_price_badges = true
+              endif
+            -%}
+            {%- if has_price_badges -%}<div class="price-row" {{ block.shopify_attributes }}>{%- endif -%}
+            <div class="price-container" {% unless has_price_badges %}{{ block.shopify_attributes }}{% endunless %}>
               <div class="product-info__price product-price product-price--large" role="status">
                 {% render 'price-product', product: product, show_currency_code: settings.product_currency_code_enabled, for_variant_picker: true, current_variant: current_variant %}
               </div>
@@ -341,6 +346,32 @@
                 {%- endif -%}
               {%- endif -%}
             </div>
+            {%- if has_price_badges -%}
+              <div class="price-badges-wrap" style="--price-badge-size: {{ block.settings.badge_size }}px;">
+                {%- if block.settings.badge_heading != blank -%}
+                  <p class="price-badges__heading">{{ block.settings.badge_heading | escape }}</p>
+                {%- endif -%}
+                <div class="price-badges">
+                  {% render 'price-badges', badges: safety_certifications %}
+                </div>
+              </div>
+            </div>
+            {%- endif -%}
+
+          {% when 'fit_sentence' %}
+            {%- assign fit_sentence = product.metafields.custom.fit_sentence -%}
+
+            {%- if fit_sentence.value != blank -%}
+              <div class="fit-sentence-block{% unless block.settings.show_in_quickbuy %} not-in-quickbuy{% endunless %}" style="--fit-accent: {{ block.settings.accent_color }}; --fit-bg: {{ block.settings.background_color }};" {{ block.shopify_attributes }}>
+                {%- if fit_sentence.type contains 'list.' -%}
+                  {%- for entry in fit_sentence.value -%}
+                    {% render 'fit-sentence', entry: entry, block: block %}
+                  {%- endfor -%}
+                {%- else -%}
+                  {% render 'fit-sentence', entry: fit_sentence.value, block: block %}
+                {%- endif -%}
+              </div>
+            {%- endif -%}
 
           {% when 'description' %}
             {%- if product.description != blank -%}
@@ -1516,6 +1547,74 @@
           "id": "enable_product_reviews_by_price",
           "info": "Add reviews by installing [an app](https://apps.shopify.com/search?q=reviews). App must support Shopify's standard rating metafield.",
           "default": true
+        },
+        {
+          "type": "header",
+          "content": "Badges"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_badges",
+          "label": "Show certification badges",
+          "info": "Badge images come from the product metafield custom.safety_certifications (list of files)",
+          "default": true
+        },
+        {
+          "type": "text",
+          "id": "badge_heading",
+          "label": "Badges heading",
+          "default": "Safety certifications"
+        },
+        {
+          "type": "range",
+          "id": "badge_size",
+          "label": "Badge size",
+          "min": 30,
+          "max": 120,
+          "step": 2,
+          "unit": "px",
+          "default": 80
+        }
+      ]
+    },
+    {
+      "type": "fit_sentence",
+      "name": "Who this fits",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "Content comes from the product metafield custom.fit_sentence (metaobject reference with fields: heading, sentence, icon). Hidden when empty."
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Who this fits"
+        },
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon",
+          "info": "Used when the metaobject has no icon. Falls back to the default person icon."
+        },
+        {
+          "type": "color",
+          "id": "accent_color",
+          "label": "Accent color",
+          "default": "#c8650f"
+        },
+        {
+          "type": "color",
+          "id": "background_color",
+          "label": "Background color",
+          "default": "#fdf3ea"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_in_quickbuy",
+          "label": "Show in quick buy",
+          "default": false
         }
       ]
     },

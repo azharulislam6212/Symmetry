@@ -1,0 +1,51 @@
+{%- comment -%}
+  "Who this fits" box on the product page.
+  Source: product.metafields.custom.fit_sentence -> metaobject with fields:
+  - heading  (single line text, optional – overrides the block heading)
+  - sentence (multi-line text or rich text)
+  - icon     (file / image, optional – overrides the block icon)
+
+  Accepts:
+  - entry: the metaobject
+  - block: the section block
+{%- endcomment -%}
+{%- liquid
+  assign fit_heading = block.settings.heading
+  if entry.heading != blank
+    assign fit_heading = entry.heading.value
+  endif
+
+  assign fit_icon = block.settings.icon
+  if entry.icon != blank
+    assign fit_icon = entry.icon.value
+  endif
+-%}
+<div class="fit-sentence">
+  <div class="fit-sentence__icon">
+    {%- if fit_icon.media_type == 'image' or fit_icon.src != blank -%}
+      {{ fit_icon | image_url: width: 160 | image_tag: loading: 'lazy', srcset: nil, alt: fit_heading }}
+    {%- elsif fit_icon.url != blank -%}
+      <img src="{{ fit_icon.url }}" alt="{{ fit_heading | escape }}" loading="lazy">
+    {%- else -%}
+      <svg aria-hidden="true" focusable="false" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="16" cy="9" r="5"/>
+        <path d="M6 29v-6a6 6 0 0 1 6-6h8a6 6 0 0 1 6 6v6z"/>
+        <path d="M11 29v-5M21 29v-5"/>
+      </svg>
+    {%- endif -%}
+  </div>
+  <div class="fit-sentence__content">
+    {%- if fit_heading != blank -%}
+      <p class="fit-sentence__heading">{{ fit_heading | escape }}</p>
+    {%- endif -%}
+    {%- if entry.sentence != blank -%}
+      <div class="fit-sentence__text">
+        {%- if entry.sentence.type == 'rich_text_field' -%}
+          {{ entry.sentence | metafield_tag }}
+        {%- else -%}
+          {{ entry.sentence.value | escape | newline_to_br }}
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+  </div>
+</div>
