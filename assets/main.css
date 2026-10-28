@@ -11810,8 +11810,20 @@ body:has(.drawer):has(.boost-sd__modal){
 
 .comparison-block__cards {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 24px;
+}
+
+@media (max-width: 991px) {
+    .comparison-block__cards {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 599px) {
+    .comparison-block__cards {
+        grid-template-columns: minmax(0, 1fr);
+    }
 }
 
 .comparison-block__card {
@@ -11921,8 +11933,22 @@ a.comparison-block__option:hover {
 
 .comparison-table__btn--current.is-clickable {
     cursor: pointer;
+    pointer-events: auto;
 }
 
-.comparison-block__compare {
-    scroll-margin-top: 100px;
+.comparison-block[hidden],
+.comparison-block__panel[hidden],
+.comparison-block__empty[hidden] {
+    display: none;
+}
+
+.comparison-block__empty {
+    padding: 40px 24px;
+    border: 1px solid rgb(var(--text-color) / 0.2);
+    text-align: center;
+}
+
+.comparison-block__empty p {
+    margin: 0;
+    opacity: 0.8;
 }

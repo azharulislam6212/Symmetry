@@ -1,33 +1,28 @@
 {%- comment -%}
-  Comparison block (product or collection page) – shows a model_group metaobject.
+  Comparison block (product or collection page) – question boxes, products and table of one model.
 
-  Model: the model_group and model_chooser only show when their `model` field matches a model
-  in the comparison guide (custom.comparison_group): a row title, or the row's product title.
-  Collection page: the model of collection.metafields.custom.model_group.
-  The model is added after the table title and the question heading, or replaces [name] in them.
+  Metafields (both lists of metaobject references):
+  - custom.model_group    (list of model_group metaobjects – the tables)
+  - custom.model_chooser  (list of model_chooser metaobjects – question boxes, note and products)
 
-  Which model group is shown:
-  - Product page: product.metafields.custom.model_group (when its model is in the guide).
-    Else the model_group whose model matches the current product's guide row, else the first guide row.
-    The tables of all guide models are also output as a JSON object, so clicking View in the
-    comparison guide swaps this table to that model without leaving the page.
-  - Collection page: collection.metafields.custom.model_group.
+  Product page: every row of the comparison guide (custom.comparison_group) is a model – the row
+  title, or the row's product title. Each model gets a panel built from the model_group and
+  model_chooser whose `model` field matches it. Clicking View in the comparison guide shows that
+  model's panel (no page change); when nothing matches, or the match is empty, a not-found message
+  is shown instead. Shown first: the current product's model, else the first model with content.
+  Collection page: the first model_group, with the model_chooser of the same model.
 
   model_group fields (table fields, see snippets/comparison-table):
   - model                            (single line text – must match a comparison guide row title, e.g. "Voronoi helmets")
   - title                            (single line text – table heading, the model is added after it, e.g. "Compare all")
-  - column_1_label … column_4_label  (single line text, e.g. Shell, Style, Finish, Best for)
-  - column_5_label                   (single line text – price column label, e.g. Price)
-  - rows                             (list of comparison_row metaobjects)
+  - rows                            (list of comparison_row metaobjects)
   - table_intro                      (rich text – shown above the table)
   - table_footer                     (rich text – shown below the table)
+  Table column labels (Model, Shell, Style, Finish, Best for, Price) come from the section settings.
 
-  Order on the page: question boxes + note → products → table.
-
-  Question boxes, note and products come from a separate model_chooser metaobject
-  (product.metafields.custom.model_chooser or collection.metafields.custom.model_chooser):
+  model_chooser fields:
   - model     (single line text – must match a comparison guide row title, e.g. "Voronoi helmets")
-  - heading   (single line text, optional – the model is added after it, e.g. "Comparison block: FreeJump")
+  - heading   (single line text, optional – the model is added after it, e.g. "Comparison: FreeJump")
   - questions (list of comparison_question metaobjects)
   - note      (rich text or multi-line text – e.g. "Not sure? Book a free fitting…")
   - products  (list of product references – theme product cards, 4 per row)
@@ -36,347 +31,222 @@
   - title   (single line text)
   - text    (rich text)
   - options (list of links – shown as pill buttons)
+
+  Panel markup: snippets/comparison-model-panel.
 {%- endcomment -%}
 {%- liquid
-  assign group = nil
-  assign first_group = nil
-
-  assign models_json = ''
+  assign panels = ''
+  assign panel_keys = '|'
+  assign first_key = ''
   assign current_model_key = ''
-
-  # Models of the comparison guide: every row title (or its product title), as |model a|model b|
-  # Collection page: the model of the collection's model group.
-  # model_group.model and model_chooser.model must be one of them.
-  assign guide_models = '|'
+  assign has_guide = false
 
   if product
-    assign guide_group = product.metafields.custom.comparison_group.value
+    assign groups = product.metafields.custom.model_group.value
+    assign choosers = product.metafields.custom.model_chooser.value
+  elsif collection
+    assign groups = collection.metafields.custom.model_group.value
+    assign choosers = collection.metafields.custom.model_chooser.value
+  endif
 
-    # Every guide row → the model_group with the same model.
-    # Collected as JSON so the guide's View buttons can switch the table (see script below).
-    # The current product's row gives the model group shown first (else the first row).
-    for row in guide_group.rows.value
-      assign row_product = row.product.value
-      assign row_title = row_product.title
+  if product
+    assign guide_rows = product.metafields.custom.comparison_group.value.rows.value
+    if guide_rows.size > 0
+      assign has_guide = true
+    endif
+
+    # The current product's guide row is the model shown first
+    for row in guide_rows
+      if row.product.value.id == product.id
+        assign row_title = row.product.value.title
+        if row.title != blank
+          assign row_title = row.title.value
+        endif
+        assign current_model_key = row_title | strip | handleize
+        break
+      endif
+    endfor
+
+    # One panel per guide model, keyed like the guide's View buttons (snippets/comparison-table)
+    for row in guide_rows
+      assign row_title = row.product.value.title
       if row.title != blank
         assign row_title = row.title.value
       endif
-      assign row_key = row_title | strip | downcase
+      assign row_name = row_title | strip | downcase
       assign row_model_key = row_title | strip | handleize
-      assign guide_models = guide_models | append: row_key | append: '|'
-
-      assign is_current_row = false
-      if row_product and row_product.id == product.id
-        assign is_current_row = true
-        assign current_model_key = row_model_key
+      assign row_token = row_model_key | prepend: '|' | append: '|'
+      if row_model_key == blank or panel_keys contains row_token
+        continue
       endif
 
-      for model_group in shop.metaobjects.model_group.values
-        assign model_group_key = model_group.model.value | strip | downcase
-        if model_group_key == row_key
-          if is_current_row and group == nil
-            assign group = model_group
-          endif
-          if first_group == nil
-            assign first_group = model_group
-          endif
-
-          assign model_json_key = row_model_key | json
-          if model_group.rows.value.size > 0
-            unless models_json contains model_json_key
-              assign model_heading = model_group.title.value
-              assign model_name = model_group.model.value | strip
-              if model_heading contains '[name]'
-                assign model_heading = model_heading | replace: '[name]', model_name
-              else
-                assign model_heading = model_heading | append: ' ' | append: model_name | strip
-              endif
-              assign model_heading = model_heading | escape
-              assign model_intro = ''
-              if model_group.table_intro != blank
-                assign model_intro = model_group.table_intro | metafield_tag
-              endif
-              assign model_footer = ''
-              if model_group.table_footer != blank
-                assign model_footer = model_group.table_footer | metafield_tag
-              endif
-              capture model_table
-                render 'comparison-table', group: model_group, style: 'simple', section: section, current_product: product
-              endcapture
-
-              if models_json != blank
-                assign models_json = models_json | append: ','
-              endif
-              capture model_json
-                echo model_json_key
-                echo ':{"heading":'
-                echo model_heading | json
-                echo ',"intro":'
-                echo model_intro | json
-                echo ',"footer":'
-                echo model_footer | json
-                echo ',"table":'
-                echo model_table | strip | json
-                echo '}'
-              endcapture
-              assign models_json = models_json | append: model_json
-            endunless
-          endif
+      assign row_group = nil
+      for model_group in groups
+        assign model_name = model_group.model.value | strip | downcase
+        if model_name == row_name
+          assign row_group = model_group
           break
         endif
       endfor
+
+      assign row_chooser = nil
+      for chooser in choosers
+        assign model_name = chooser.model.value | strip | downcase
+        if model_name == row_name
+          assign row_chooser = chooser
+          break
+        endif
+      endfor
+
+      if row_group == nil and row_chooser == nil
+        continue
+      endif
+
+      capture panel
+        render 'comparison-model-panel', group: row_group, chooser: row_chooser, section: section, current_product: product
+      endcapture
+      if panel == blank
+        continue
+      endif
+
+      assign panel_keys = panel_keys | append: row_model_key | append: '|'
+      if first_key == blank
+        assign first_key = row_model_key
+      endif
+
+      capture panel
+        echo '<div class="comparison-block__panel" data-model-panel="' | append: row_model_key | append: '" hidden>'
+        echo panel
+        echo '</div>'
+      endcapture
+      assign panels = panels | append: panel
+    endfor
+  elsif collection
+    assign row_group = groups | first
+    assign row_name = row_group.model.value | strip | downcase
+    assign row_chooser = nil
+    for chooser in choosers
+      assign model_name = chooser.model.value | strip | downcase
+      if model_name == row_name
+        assign row_chooser = chooser
+        break
+      endif
     endfor
 
-    # Model group set directly on the product wins, when its model is in the guide
-    assign product_group = product.metafields.custom.model_group.value
-    assign product_group_token = product_group.model.value | strip | downcase | prepend: '|' | append: '|'
-    if product_group and product_group_token != '||' and guide_models contains product_group_token
-      assign group = product_group
-    endif
-    if group == nil
-      assign group = first_group
-    endif
-  elsif collection
-    assign group = collection.metafields.custom.model_group.value
-    assign group_key = group.model.value | strip | downcase
-    if group_key != blank
-      assign guide_models = guide_models | append: group_key | append: '|'
-    else
-      assign group = nil
+    if row_name != blank
+      capture panels
+        render 'comparison-model-panel', group: row_group, chooser: row_chooser, section: section, current_product: nil
+      endcapture
+      if panels != blank
+        assign first_key = row_name | handleize
+        assign panels = '<div class="comparison-block__panel" data-model-panel="' | append: first_key | append: '">' | append: panels | append: '</div>'
+      endif
     endif
   endif
 
-  # Question boxes, note and images: separate model_chooser metaobject, only when its model is in the guide
-  if product
-    assign chooser = product.metafields.custom.model_chooser.value
-  elsif collection
-    assign chooser = collection.metafields.custom.model_chooser.value
+  # Panel shown first: the current product's model, else the first one with content
+  assign initial_key = first_key
+  assign current_token = current_model_key | prepend: '|' | append: '|'
+  if current_model_key != blank and panel_keys contains current_token
+    assign initial_key = current_model_key
   endif
-  assign chooser_token = chooser.model.value | strip | downcase | prepend: '|' | append: '|'
-  unless chooser_token != '||' and guide_models contains chooser_token
-    assign chooser = nil
-  endunless
-
-  # Headings: the model is added at the end, or replaces [name]
-  assign group_model = group.model.value | strip
-  assign table_heading = group.title.value
-  if table_heading contains '[name]'
-    assign table_heading = table_heading | replace: '[name]', group_model
-  elsif table_heading != blank
-    assign table_heading = table_heading | append: ' ' | append: group_model | strip
+  if product and initial_key != blank
+    assign hidden_attr = 'data-model-panel="' | append: initial_key | append: '" hidden'
+    assign shown_attr = 'data-model-panel="' | append: initial_key | append: '"'
+    assign panels = panels | replace_first: hidden_attr, shown_attr
   endif
 
-  assign chooser_model = chooser.model.value | strip
-  assign questions_heading = chooser.heading.value | default: section.settings.questions_heading
-  if questions_heading contains '[name]'
-    assign questions_heading = questions_heading | replace: '[name]', chooser_model
-  elsif questions_heading != blank
-    assign questions_heading = questions_heading | append: ' ' | append: chooser_model | strip
-  endif
-
-  assign has_group_rows = false
-  if group.rows.value.size > 0
-    assign has_group_rows = true
-  endif
-
-  # Also shown (hidden at first) when only other guide models have a table, so View can reveal it
-  assign show_table = false
-  if section.settings.show_table
-    if has_group_rows or models_json != blank
-      assign show_table = true
-    endif
-  endif
-
-  assign show_questions = false
-  if section.settings.show_questions and chooser.questions.value.size > 0
-    assign show_questions = true
-  endif
-
-  assign show_products = false
-  if section.settings.show_products and chooser.products.value.size > 0
-    assign show_products = true
-  endif
-
+  # Product page: also output (hidden) when no model has content yet, so View can show the not-found message
   assign show_section = false
-  if show_table or show_questions or show_products
+  if panels != blank or has_guide
     assign show_section = true
   endif
 -%}
 
 
 {%- if show_section -%}
-  <div id="ComparisonBlock-{{ section.id }}" class="comparison-block {% if section.settings.color_scheme != 'default' %}use-color-scheme use-color-scheme--{{ section.settings.color_scheme }} fully-padded-row--{{ section.settings.height }}{% else %}fully-spaced-row--{{ section.settings.height }}{% endif %}" {%- render 'animation-attrs', attrs: 'data-cc-animate' -%}>
+  <div id="ComparisonBlock-{{ section.id }}" class="comparison-block {% if section.settings.color_scheme != 'default' %}use-color-scheme use-color-scheme--{{ section.settings.color_scheme }} fully-padded-row--{{ section.settings.height }}{% else %}fully-spaced-row--{{ section.settings.height }}{% endif %}"{% if initial_key == blank %} hidden{% endif %} {%- render 'animation-attrs', attrs: 'data-cc-animate' -%}>
     <div class="container">
-      {%- if show_questions -%}
-        <div class="comparison-block__questions">
-          {%- if questions_heading != blank -%}
-            <h2 class="h3 comparison-block__heading">{{ questions_heading | escape }}</h2>
-          {%- endif -%}
-          <div class="comparison-block__cards">
-            {%- for question in chooser.questions.value -%}
-              <div class="comparison-block__card">
-                {%- if question.title != blank -%}
-                  <h3 class="comparison-block__card-title">{{ question.title.value | escape }}</h3>
-                {%- endif -%}
-                {%- if question.text != blank -%}
-                  <div class="rte comparison-block__card-text">{{ question.text | metafield_tag }}</div>
-                {%- endif -%}
-                {%- if question.options != blank -%}
-                  <div class="comparison-block__options">
-                    {%- for option in question.options.value -%}
-                      {%- if option.text != blank -%}
-                        {%- if option.url != blank -%}
-                          <a class="comparison-block__option" href="{{ option.url }}">{{ option.text | escape }}</a>
-                        {%- else -%}
-                          <span class="comparison-block__option">{{ option.text | escape }}</span>
-                        {%- endif -%}
-                      {%- endif -%}
-                    {%- endfor -%}
-                  </div>
-                {%- endif -%}
-              </div>
-            {%- endfor -%}
-          </div>
-          {%- if chooser.note != blank -%}
-            <div class="rte comparison-block__note">
-              {%- if chooser.note.type == 'rich_text_field' -%}
-                {{ chooser.note | metafield_tag }}
-              {%- else -%}
-                {{ chooser.note.value | escape | newline_to_br }}
-              {%- endif -%}
-            </div>
-          {%- endif -%}
+      {{ panels }}
+
+      {%- if has_guide -%}
+        <div class="comparison-block__empty" data-model-empty hidden>
+          <p>{{ section.settings.not_found_text | escape }}</p>
         </div>
-      {%- endif -%}
-
-      {%- if show_products -%}
-        <div class="comparison-block__products collection-listing">
-          <div class="product-grid product-grid--per-row-4 product-grid--per-row-mob-2">
-            {%- liquid
-              # Same image shape as the theme's product grids
-              if settings.prod_thumb_shape == 'portrait-23'
-                assign chosen_aspect_ratio = 0.67
-              elsif settings.prod_thumb_shape == 'portrait-45'
-                assign chosen_aspect_ratio = 0.8
-              elsif settings.prod_thumb_shape == 'square'
-                assign chosen_aspect_ratio = 1.0
-              elsif settings.prod_thumb_shape == 'landscape-54'
-                assign chosen_aspect_ratio = 1.25
-              elsif settings.prod_thumb_shape == 'landscape-32'
-                assign chosen_aspect_ratio = 1.50
-              elsif settings.prod_thumb_shape == 'tallest'
-                assign chosen_aspect_ratio = 99
-                for chooser_product in chooser.products.value
-                  if chooser_product.featured_media.preview_image.aspect_ratio < chosen_aspect_ratio
-                    assign chosen_aspect_ratio = chooser_product.featured_media.preview_image.aspect_ratio
-                  endif
-                endfor
-              else
-                assign chosen_aspect_ratio = 0
-                for chooser_product in chooser.products.value
-                  if chooser_product.featured_media.preview_image.aspect_ratio > chosen_aspect_ratio
-                    assign chosen_aspect_ratio = chooser_product.featured_media.preview_image.aspect_ratio
-                  endif
-                endfor
-              endif
-
-              for chooser_product in chooser.products.value
-                render 'product-block', product: chooser_product, custom_aspect_ratio: chosen_aspect_ratio
-              endfor
-            -%}
-          </div>
-        </div>
-      {%- endif -%}
-
-      {%- if show_table -%}
-        <div class="comparison-block__compare" data-model-compare{% unless has_group_rows %} hidden{% endunless %}>
-          <h2 class="h3 comparison-block__heading" data-model-heading{% if table_heading == blank %} hidden{% endif %}>{{ table_heading | escape }}</h2>
-          <div class="rte comparison-block__intro" data-model-intro{% if group.table_intro == blank %} hidden{% endif %}>
-            {%- if group.table_intro != blank -%}{{ group.table_intro | metafield_tag }}{%- endif -%}
-          </div>
-
-          <div data-model-table>
-            {%- if has_group_rows -%}
-              {% render 'comparison-table', group: group, style: 'simple', section: section, current_product: product %}
-            {%- endif -%}
-          </div>
-
-          <div class="rte comparison-block__footer" data-model-footer{% if group.table_footer == blank %} hidden{% endif %}>
-            {%- if group.table_footer != blank -%}{{ group.table_footer | metafield_tag }}{%- endif -%}
-          </div>
-        </div>
-
-        {%- if models_json != blank -%}
-          <script type="application/json" data-comparison-models>{% echo models_json | prepend: '{' | append: '}' %}</script>
-          <script>
-            (() => {
-              const block = document.getElementById('ComparisonBlock-{{ section.id }}');
-              const data = block && block.querySelector('[data-comparison-models]');
-              if (!data) return;
-
-              const models = JSON.parse(data.textContent);
-              const compare = block.querySelector('[data-model-compare]');
-              const parts = {
-                heading: compare.querySelector('[data-model-heading]'),
-                intro: compare.querySelector('[data-model-intro]'),
-                table: compare.querySelector('[data-model-table]'),
-                footer: compare.querySelector('[data-model-footer]')
-              };
-
-              const markSelected = (key) => {
-                document.querySelectorAll('[data-model-row]').forEach((row) => {
-                  row.classList.toggle('is-selected', row.dataset.modelRow === key);
-                });
-              };
-
-              const showModel = (key) => {
-                const model = models[key];
-                if (!model) return false;
-
-                Object.keys(parts).forEach((name) => {
-                  parts[name].innerHTML = model[name] || '';
-                  parts[name].hidden = !model[name];
-                });
-                compare.hidden = false;
-                markSelected(key);
-                compare.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                return true;
-              };
-
-              // The current product's label switches back to its own model
-              document.querySelectorAll('span[data-model-key]').forEach((label) => {
-                if (!models[label.dataset.modelKey]) return;
-                label.setAttribute('role', 'button');
-                label.tabIndex = 0;
-                label.classList.add('is-clickable');
-              });
-
-              const onTrigger = (event) => {
-                if (!block.isConnected) return;
-                const trigger = event.target.closest('[data-model-key]');
-                if (!trigger || !models[trigger.dataset.modelKey]) return;
-
-                if (event.type === 'keydown') {
-                  // Links already turn Enter into a click
-                  if (trigger.tagName === 'A' || (event.key !== 'Enter' && event.key !== ' ')) return;
-                } else if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey) {
-                  // Ctrl/Cmd/Shift-click still opens the product page
-                  return;
-                }
-
-                event.preventDefault();
-                showModel(trigger.dataset.modelKey);
-              };
-
-              document.addEventListener('click', onTrigger);
-              document.addEventListener('keydown', onTrigger);
-              markSelected('{{ current_model_key }}');
-            })();
-          </script>
-        {%- endif -%}
       {%- endif -%}
     </div>
   </div>
+
+  {%- if has_guide -%}
+    <script>
+      (() => {
+        const block = document.getElementById('ComparisonBlock-{{ section.id }}');
+        if (!block) return;
+
+        const panels = block.querySelectorAll('[data-model-panel]');
+        const empty = block.querySelector('[data-model-empty]');
+
+        const markSelected = (key) => {
+          document.querySelectorAll('[data-model-row]').forEach((row) => {
+            row.classList.toggle('is-selected', row.dataset.modelRow === key);
+          });
+        };
+
+        // Shows the model's panel, or the not-found message when it has none
+        const showModel = (key) => {
+          let found = false;
+          panels.forEach((panel) => {
+            const match = panel.dataset.modelPanel === key;
+            panel.hidden = !match;
+            if (match) found = true;
+          });
+          empty.hidden = found;
+          block.hidden = false;
+          markSelected(key);
+          scrollToBlock();
+        };
+
+        // Scrolls to the top of the section (its top spacing included), below a sticky header
+        const scrollToBlock = () => {
+          const pageHeader = document.getElementById('pageheader');
+          const headerSection = pageHeader && (pageHeader.closest('.shopify-section') || pageHeader);
+          let headerHeight = 0;
+          if (headerSection && ['sticky', 'fixed'].includes(getComputedStyle(headerSection).position)) {
+            headerHeight = headerSection.offsetHeight;
+          }
+
+          const spacing = parseFloat(getComputedStyle(block).marginTop) || 0;
+          const top = block.getBoundingClientRect().top + window.scrollY - spacing - headerHeight;
+          window.scrollTo({ top: Math.max(top, 0), behavior: 'smooth' });
+        };
+
+        // The current product's label switches back to its own model
+        document.querySelectorAll('span[data-model-key]').forEach((label) => {
+          label.setAttribute('role', 'button');
+          label.tabIndex = 0;
+          label.classList.add('is-clickable');
+        });
+
+        const onTrigger = (event) => {
+          if (!block.isConnected) return;
+          const trigger = event.target.closest('[data-model-key]');
+          if (!trigger) return;
+
+          if (event.type === 'keydown') {
+            // Buttons already turn Enter and Space into a click
+            if (trigger.tagName === 'BUTTON' || (event.key !== 'Enter' && event.key !== ' ')) return;
+          }
+
+          event.preventDefault();
+          showModel(trigger.dataset.modelKey);
+        };
+
+        document.addEventListener('click', onTrigger);
+        document.addEventListener('keydown', onTrigger);
+        markSelected('{{ initial_key }}');
+      })();
+    </script>
+  {%- endif -%}
 {%- endif -%}
 
 {% schema %}
@@ -389,7 +259,7 @@
   "settings": [
     {
       "type": "paragraph",
-      "content": "Table: metafield custom.model_group (model_group metaobject – heading, intro, table and footer all come from it). Question boxes, note and products: metafield custom.model_chooser (model_chooser metaobject). Each only shows when its model field matches the comparison guide's model. The model is added after the headings, or use [name] to place it."
+      "content": "Table: metafield custom.model_group (list of model_group metaobjects). Question boxes, note and products: metafield custom.model_chooser (list of model_chooser metaobjects). On product pages, View in the comparison guide shows the model_group and model_chooser whose model field matches that row. The model is added after the headings, or use [name] to place it."
     },
     {
       "type": "header",
@@ -400,6 +270,43 @@
       "id": "show_table",
       "label": "Show comparison table",
       "default": true
+    },
+    {
+      "type": "text",
+      "id": "model_label",
+      "label": "Model column label",
+      "default": "Model"
+    },
+    {
+      "type": "text",
+      "id": "column_1_label",
+      "label": "Column 1 label",
+      "info": "Leave empty to hide the column",
+      "default": "Shell"
+    },
+    {
+      "type": "text",
+      "id": "column_2_label",
+      "label": "Column 2 label",
+      "default": "Style"
+    },
+    {
+      "type": "text",
+      "id": "column_3_label",
+      "label": "Column 3 label",
+      "default": "Finish"
+    },
+    {
+      "type": "text",
+      "id": "column_4_label",
+      "label": "Column 4 label",
+      "default": "Best for"
+    },
+    {
+      "type": "text",
+      "id": "price_label",
+      "label": "Price column label",
+      "default": "Price"
     },
     {
       "type": "header",
@@ -424,6 +331,17 @@
       "label": "Show products",
       "info": "Products from the model_chooser (4 per row, 2 on mobile)",
       "default": true
+    },
+    {
+      "type": "header",
+      "content": "Not found"
+    },
+    {
+      "type": "text",
+      "id": "not_found_text",
+      "label": "Message",
+      "info": "Shown when the model clicked in the comparison guide has no model_group or model_chooser, or they are empty",
+      "default": "No comparison found for this model."
     },
     {
       "type": "header",

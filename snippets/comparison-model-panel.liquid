@@ -1,0 +1,144 @@
+{%- comment -%}
+  One model of the comparison block: question boxes + note → products → table.
+
+  Accepts:
+  - group: the model_group metaobject (optional – table)
+  - chooser: the model_chooser metaobject (optional – question boxes, note and products)
+  - section: the comparison block section (settings)
+  - current_product: the product being viewed (optional, highlights its table row)
+{%- endcomment -%}
+{%- liquid
+  # Headings: the model is added at the end, or replaces [name]
+  assign group_model = group.model.value | strip
+  assign table_heading = group.title.value
+  if table_heading contains '[name]'
+    assign table_heading = table_heading | replace: '[name]', group_model
+  elsif table_heading != blank
+    assign table_heading = table_heading | append: ' ' | append: group_model | strip
+  endif
+
+  assign chooser_model = chooser.model.value | strip
+  assign questions_heading = chooser.heading.value | default: section.settings.questions_heading
+  if questions_heading contains '[name]'
+    assign questions_heading = questions_heading | replace: '[name]', chooser_model
+  elsif questions_heading != blank
+    assign questions_heading = questions_heading | append: ' ' | append: chooser_model | strip
+  endif
+
+  assign show_table = false
+  if section.settings.show_table and group.rows.value.size > 0
+    assign show_table = true
+  endif
+
+  assign show_questions = false
+  if section.settings.show_questions
+    if chooser.questions.value.size > 0 or chooser.note != blank
+      assign show_questions = true
+    endif
+  endif
+
+  assign show_products = false
+  if section.settings.show_products and chooser.products.value.size > 0
+    assign show_products = true
+  endif
+-%}
+
+{%- if show_questions -%}
+  <div class="comparison-block__questions">
+    {%- if questions_heading != blank -%}
+      <h2 class="h3 comparison-block__heading">{{ questions_heading | escape }}</h2>
+    {%- endif -%}
+    {%- if chooser.questions.value.size > 0 -%}
+      <div class="comparison-block__cards">
+        {%- for question in chooser.questions.value -%}
+          <div class="comparison-block__card">
+            {%- if question.title != blank -%}
+              <h3 class="comparison-block__card-title">{{ question.title.value | escape }}</h3>
+            {%- endif -%}
+            {%- if question.text != blank -%}
+              <div class="rte comparison-block__card-text">{{ question.text | metafield_tag }}</div>
+            {%- endif -%}
+            {%- if question.options != blank -%}
+              <div class="comparison-block__options">
+                {%- for option in question.options.value -%}
+                  {%- if option.text != blank -%}
+                    {%- if option.url != blank -%}
+                      <a class="comparison-block__option" href="{{ option.url }}">{{ option.text | escape }}</a>
+                    {%- else -%}
+                      <span class="comparison-block__option">{{ option.text | escape }}</span>
+                    {%- endif -%}
+                  {%- endif -%}
+                {%- endfor -%}
+              </div>
+            {%- endif -%}
+          </div>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+    {%- if chooser.note != blank -%}
+      <div class="rte comparison-block__note">
+        {%- if chooser.note.type == 'rich_text_field' -%}
+          {{ chooser.note | metafield_tag }}
+        {%- else -%}
+          {{ chooser.note.value | escape | newline_to_br }}
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+  </div>
+{%- endif -%}
+
+{%- if show_products -%}
+  <div class="comparison-block__products collection-listing">
+    <div class="product-grid product-grid--per-row-4 product-grid--per-row-mob-2">
+      {%- liquid
+        # Same image shape as the theme's product grids
+        if settings.prod_thumb_shape == 'portrait-23'
+          assign chosen_aspect_ratio = 0.67
+        elsif settings.prod_thumb_shape == 'portrait-45'
+          assign chosen_aspect_ratio = 0.8
+        elsif settings.prod_thumb_shape == 'square'
+          assign chosen_aspect_ratio = 1.0
+        elsif settings.prod_thumb_shape == 'landscape-54'
+          assign chosen_aspect_ratio = 1.25
+        elsif settings.prod_thumb_shape == 'landscape-32'
+          assign chosen_aspect_ratio = 1.50
+        elsif settings.prod_thumb_shape == 'tallest'
+          assign chosen_aspect_ratio = 99
+          for chooser_product in chooser.products.value
+            if chooser_product.featured_media.preview_image.aspect_ratio < chosen_aspect_ratio
+              assign chosen_aspect_ratio = chooser_product.featured_media.preview_image.aspect_ratio
+            endif
+          endfor
+        else
+          assign chosen_aspect_ratio = 0
+          for chooser_product in chooser.products.value
+            if chooser_product.featured_media.preview_image.aspect_ratio > chosen_aspect_ratio
+              assign chosen_aspect_ratio = chooser_product.featured_media.preview_image.aspect_ratio
+            endif
+          endfor
+        endif
+
+        for chooser_product in chooser.products.value
+          render 'product-block', product: chooser_product, custom_aspect_ratio: chosen_aspect_ratio
+        endfor
+      -%}
+    </div>
+  </div>
+{%- endif -%}
+
+{%- if show_table -%}
+  <div class="comparison-block__compare">
+    {%- if table_heading != blank -%}
+      <h2 class="h3 comparison-block__heading">{{ table_heading | escape }}</h2>
+    {%- endif -%}
+    {%- if group.table_intro != blank -%}
+      <div class="rte comparison-block__intro">{{ group.table_intro | metafield_tag }}</div>
+    {%- endif -%}
+
+    {% render 'comparison-table', group: group, style: 'simple', section: section, current_product: current_product, section_labels: true %}
+
+    {%- if group.table_footer != blank -%}
+      <div class="rte comparison-block__footer">{{ group.table_footer | metafield_tag }}</div>
+    {%- endif -%}
+  </div>
+{%- endif -%}

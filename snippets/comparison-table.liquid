@@ -20,21 +20,35 @@
   - style: 'guide' (images, icons, buttons) or 'simple' (plain table)
   - section: the section (icon settings for the 'guide' style)
   - current_product: the product being viewed (optional, highlights its row)
+  - section_labels: true to take the column labels from the section settings
+    (column_1_label … column_4_label, price_label) instead of the group's fields
 {%- endcomment -%}
 {%- liquid
   assign view_label = section.settings.view_label | default: 'View'
   assign current_label = section.settings.current_label | default: 'You are here'
 
-  # Custom columns to show: skip empty labels and any "Price" column (price has its own built-in column)
+  # Column labels: the group's fields, or the section settings
   assign price_label = section.settings.price_label | default: 'Price'
-  if group.column_5_label != blank
+  if group.column_5_label != blank and section_labels != true
     assign price_label = group.column_5_label.value
   endif
+  assign column_labels = ''
+  for i in (1..4)
+    assign label_key = 'column_' | append: i | append: '_label'
+    if section_labels
+      assign column_label = section.settings[label_key] | strip | replace: '^', ''
+    else
+      assign column_label = group[label_key].value | strip | replace: '^', ''
+    endif
+    assign column_labels = column_labels | append: column_label | append: '^'
+  endfor
+  assign column_labels = column_labels | split: '^'
+
+  # Custom columns to show: skip empty labels and any "Price" column (price has its own built-in column)
   assign price_key = price_label | strip | downcase
   assign visible_columns = '|'
   for i in (1..4)
-    assign label_key = 'column_' | append: i | append: '_label'
-    assign column_key = group[label_key].value | strip | downcase
+    assign column_key = column_labels[forloop.index0] | downcase
     if column_key != blank and column_key != price_key and column_key != 'price'
       assign visible_columns = visible_columns | append: i | append: '|'
     endif
@@ -51,14 +65,13 @@
           </span>
         </th>
         {%- for i in (1..4) -%}
-          {%- assign label_key = 'column_' | append: i | append: '_label' -%}
           {%- assign column_token = i | prepend: '|' | append: '|' -%}
             {%- if visible_columns contains column_token -%}
             {%- assign icon_key = 'column_' | append: i | append: '_icon' -%}
             <th scope="col">
               <span class="comparison-table__th">
                 {%- if style == 'guide' -%}{%- render 'comparison-icon', icon: section.settings[icon_key] -%}{%- endif -%}
-                <span>{{ group[label_key].value | escape }}</span>
+                <span>{{ column_labels[forloop.index0] | escape }}</span>
               </span>
             </th>
           {%- endif -%}
@@ -96,7 +109,7 @@
             assign row_link_label = row.link_label.value
           endif
 
-          # Lets the comparison block below switch its table to this model (see sections/comparison-block)
+          # Lets the comparison block below switch to this model (see sections/comparison-block)
           assign row_model_key = row_title | strip | handleize
         -%}
         <tr class="comparison-table__row{% if is_current %} is-current{% endif %}"{% if style == 'guide' %} data-model-row="{{ row_model_key }}"{% endif %}{% if is_current %} aria-current="page"{% endif %}>
@@ -116,7 +129,6 @@
             </div>
           </th>
           {%- for i in (1..4) -%}
-            {%- assign label_key = 'column_' | append: i | append: '_label' -%}
             {%- assign column_token = i | prepend: '|' | append: '|' -%}
             {%- if visible_columns contains column_token -%}
               {%- liquid
@@ -162,15 +174,14 @@
               {%- else -%}
                 <span class="comparison-table__current">{{ current_label | escape }}</span>
               {%- endif -%}
+            {%- elsif style == 'guide' -%}
+              {%- comment -%} No link: shows this model in the comparison block below {%- endcomment -%}
+              <button type="button" class="btn btn--outline comparison-table__btn" data-model-key="{{ row_model_key }}">
+                <span>{{ row_link_label | escape }}</span>
+                <svg aria-hidden="true" focusable="false" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><path d="M4 10h12M11 5l5 5-5 5"/></svg>
+              </button>
             {%- elsif row_url != blank -%}
-              {%- if style == 'guide' -%}
-                <a class="btn btn--outline comparison-table__btn" href="{{ row_url }}" data-model-key="{{ row_model_key }}">
-                  <span>{{ row_link_label | escape }}</span>
-                  <svg aria-hidden="true" focusable="false" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><path d="M4 10h12M11 5l5 5-5 5"/></svg>
-                </a>
-              {%- else -%}
-                <a class="comparison-table__link" href="{{ row_url }}">{{ row_link_label | escape }}</a>
-              {%- endif -%}
+              <a class="comparison-table__link" href="{{ row_url }}">{{ row_link_label | escape }}</a>
             {%- endif -%}
           </td>
         </tr>
