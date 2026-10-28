@@ -12,7 +12,7 @@
           "settings": {}
         },
         "trustpilot_trustpilot_micro_review_count_widget_CCJaNV": {
-          "type": "shopify://apps/trustpilot/blocks/trustpilot_micro_review_count_widget/af628f2e-96c9-437f-bc0a-e8f7ff3fa8b4",
+          "type": "shopify:\/\/apps\/trustpilot\/blocks\/trustpilot_micro_review_count_widget\/af628f2e-96c9-437f-bc0a-e8f7ff3fa8b4",
           "settings": {
             "locale": "en-US",
             "width": 100,
@@ -71,7 +71,7 @@
             "show_gift_card_recipient": false,
             "dark_add_to_cart": true,
             "booking_label": "Not sure about fit? Book a free virtual fitting",
-            "booking_url": "shopify://pages/book-a-consultation",
+            "booking_url": "shopify:\/\/pages\/book-a-consultation",
             "booking_new_tab": false,
             "guide_label": "Read the buyer's guide before you choose"
           }
@@ -96,7 +96,7 @@
           }
         },
         "kiwi_size_chart_recommender_kiwi_sizing_yycANm": {
-          "type": "shopify://apps/kiwi-size-chart/blocks/kiwiSizing/b7369922-bf15-44ce-a121-a22a8fcbc4b0",
+          "type": "shopify:\/\/apps\/kiwi-size-chart\/blocks\/kiwiSizing\/b7369922-bf15-44ce-a121-a22a8fcbc4b0",
           "settings": {
             "fallbackToBlockPosition": false,
             "waitForElementSelector": "",
@@ -153,6 +153,7 @@
       "block_order": [
         "text_naEJQr"
       ],
+      "disabled": true,
       "name": "Custom Video with text",
       "settings": {
         "video_shopify": "{{ product.metafields.custom.product_video.value }}",
@@ -160,6 +161,47 @@
         "autoplay": true,
         "video_position": "left",
         "text_alignment": "left",
+        "color_scheme": "default"
+      }
+    },
+    "comparison_guide": {
+      "type": "comparison-guide",
+      "settings": {
+        "subheading": "Find your perfect fit",
+        "heading": "Find the right [name] for you",
+        "text": "",
+        "model_label": "Model",
+        "model_icon": "box",
+        "column_1_icon": "silhouette",
+        "column_1_icon_in_cells": false,
+        "column_2_icon": "star",
+        "column_2_icon_in_cells": false,
+        "column_3_icon": "shield",
+        "column_3_icon_in_cells": true,
+        "column_4_icon": "",
+        "column_4_icon_in_cells": false,
+        "price_label": "Price",
+        "price_icon": "price_tag",
+        "view_label": "View",
+        "current_label": "You are here",
+        "this_page_label": "This page",
+        "height": "medium",
+        "color_scheme": "default"
+      }
+    },
+    "comparison_block": {
+      "type": "comparison-block",
+      "settings": {
+        "show_questions": true,
+        "questions_heading": "Which [name] is right for you?",
+        "show_table": true,
+        "table_heading": "Compare all [name]",
+        "model_label": "Model",
+        "price_label": "Price",
+        "view_label": "View",
+        "current_label": "You are here",
+        "this_page_label": "This page",
+        "height": "medium",
         "color_scheme": "default"
       }
     },
@@ -177,14 +219,6 @@
         "full_width": false,
         "show_space": true
       }
-    },
-    "comparison_guide": {
-      "type": "comparison-guide",
-      "settings": {}
-    },
-    "comparison_block": {
-      "type": "comparison-block",
-      "settings": {}
     }
   },
   "order": [
@@ -196,4 +230,3 @@
     "17916332236974912e"
   ]
 }
-
