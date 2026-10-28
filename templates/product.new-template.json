@@ -87,11 +87,46 @@
         },
         "description": {
           "type": "description",
-          "disabled": true,
           "settings": {
-            "show_in_tab": false,
+            "show_in_tab": true,
             "open_tab": false,
             "icon": "",
+            "show_in_quickbuy": false
+          }
+        },
+        "accordion_D9rfGL": {
+          "type": "accordion",
+          "settings": {
+            "title": "How the safety criteria were tested",
+            "icon": "",
+            "content": "<p>We review safety certifications, manufacturer testing standards, and product-specific performance requirements when evaluating equestrian safety gear. Helmets and body protectors are assessed against applicable safety standards, while air vests are reviewed for their deployment systems and manufacturer specifications. We also consider fit, construction, durability, and practical use to help riders make informed decisions. Always check each product’s certification and testing details before purchase.<\/p>",
+            "page": "",
+            "custom_liquid": "",
+            "open": false,
+            "show_in_quickbuy": false
+          }
+        },
+        "accordion_TAxddB": {
+          "type": "accordion",
+          "settings": {
+            "title": "Care and replacement (3 to 5 year cycle)",
+            "icon": "",
+            "content": "<p>Proper care helps extend the life of your equestrian safety gear. Store helmets, body protectors, and air vests in a cool, dry place, clean them according to the manufacturer’s instructions, and inspect them regularly for wear or damage. Replace equipment every 3–5 years as recommended, depending on the product, frequency of use, and condition. Always replace a helmet after an impact, and follow the manufacturer’s guidance after a fall or air vest deployment.<\/p>",
+            "page": "",
+            "custom_liquid": "",
+            "open": false,
+            "show_in_quickbuy": false
+          }
+        },
+        "accordion_kahrG4": {
+          "type": "accordion",
+          "settings": {
+            "title": "Shipping and returns",
+            "icon": "",
+            "content": "<p>We aim to make every order as smooth and straightforward as possible. Shipping options, delivery estimates, and applicable costs are provided at checkout. Once your order is dispatched, tracking information will be shared when available.<\/p><p>If your purchase isn’t the right fit, please review our returns policy for eligibility, return timeframes, and instructions. For safety reasons, helmets, body protectors, and air vests may be subject to specific return conditions. Please contact our team before returning an item to ensure it meets the applicable requirements.<\/p>",
+            "page": "",
+            "custom_liquid": "",
+            "open": false,
             "show_in_quickbuy": false
           }
         },
@@ -115,6 +150,9 @@
         "buy-buttons",
         "brand_why_i_carry",
         "description",
+        "accordion_D9rfGL",
+        "accordion_TAxddB",
+        "accordion_kahrG4",
         "kiwi_size_chart_recommender_kiwi_sizing_yycANm"
       ],
       "settings": {
@@ -189,18 +227,76 @@
         "color_scheme": "default"
       }
     },
+    "works_well_with": {
+      "type": "works-well-with",
+      "settings": {
+        "heading": "Works well with",
+        "text": "<p>Curated, not \"customers also bought\". First slot is always the brand-matched canister.<\/p>",
+        "required_label": "Required for this vest",
+        "grid": 4,
+        "autoplay": true,
+        "autoplay_speed": 5,
+        "height": "medium",
+        "color_scheme": "default"
+      }
+    },
+    "posts_reviews": {
+      "type": "posts-and-reviews",
+      "blocks": {
+        "blog_posts": {
+          "type": "blog_posts",
+          "settings": {
+            "heading": "Read before you buy",
+            "text": "",
+            "limit": 6,
+            "show_excerpt": true
+          }
+        },
+        "trustpilot_trustpilot_flex_widget_PVdM8q": {
+          "type": "shopify:\/\/apps\/trustpilot\/blocks\/trustpilot_flex_widget\/af628f2e-96c9-437f-bc0a-e8f7ff3fa8b4",
+          "settings": {
+            "trustscore_size": "XL",
+            "vertical_space": 10,
+            "locale": "en-US",
+            "reviews-language": true,
+            "trustscore_headline": "star",
+            "trustscore_star_support-text": "review-number",
+            "trustscore_review-number_support-text": "star",
+            "trustscore_word_support-text": "review-number",
+            "trustscore_add-reviews": true,
+            "theme-color": "#b2f8cc",
+            "trustscore_category-icon": true,
+            "trustscore_category-name": true,
+            "background-color": "light",
+            "text-color": "dark",
+            "external-elements": "dark",
+            "border": "no-border"
+          }
+        }
+      },
+      "block_order": [
+        "blog_posts",
+        "trustpilot_trustpilot_flex_widget_PVdM8q"
+      ],
+      "settings": {
+        "height": "medium",
+        "color_scheme": "default"
+      }
+    },
     "comparison_block": {
       "type": "comparison-block",
       "settings": {
+        "show_table": true,
+        "model_label": "Model",
+        "column_1_label": "Shell",
+        "column_2_label": "Style",
+        "column_3_label": "Finish",
+        "column_4_label": "Best for",
+        "price_label": "Price",
         "show_questions": true,
         "questions_heading": "Which [name] is right for you?",
-        "show_table": true,
-        "table_heading": "Compare all [name]",
-        "model_label": "Model",
-        "price_label": "Price",
-        "view_label": "View",
-        "current_label": "You are here",
-        "this_page_label": "This page",
+        "show_products": true,
+        "not_found_text": "No comparison found for this model.",
         "height": "medium",
         "color_scheme": "default"
       }
@@ -225,6 +321,8 @@
     "main",
     "custom_video_with_text_RGMkaV",
     "comparison_guide",
+    "works_well_with",
+    "posts_reviews",
     "comparison_block",
     "related-products",
     "17916332236974912e"

@@ -2621,7 +2621,8 @@ const MediaGallery = class extends HTMLElement {
           mediaItem.classList.add('is-active');
           const carousel = mediaItem.closest('carousel-slider');
           if (carousel && carousel.offsetParent) {
-            carousel.scrollToElement(mediaItem);
+            // No sliding animation on first load
+            carousel.scrollToElement(mediaItem, firstLoad ? 'instant' : undefined);
           }
         } else {
           mediaItem.classList.remove('is-active');

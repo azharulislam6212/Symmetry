@@ -221,6 +221,33 @@
           </div>
         </carousel-slider>
       {% endif %}
+
+      {%- if gallery_count > 1 -%}
+        <script>
+          {%- comment -%}
+            Start the main image and thumbnail sliders at the active media before the page paints,
+            so they don't visibly jump/slide to it when the gallery script loads.
+          {%- endcomment -%}
+          (function() {
+            var gallery = document.currentScript.closest('.media-gallery__inner');
+            if (!gallery) return;
+            gallery.querySelectorAll('.slider').forEach(function(slider) {
+              var active = slider.querySelector('.slider__item.is-active');
+              if (!active || !slider.offsetParent) return;
+              var itemRect = active.getBoundingClientRect();
+              var sliderRect = slider.getBoundingClientRect();
+              // Already fully visible (e.g. the first slide): leave it
+              if (itemRect.left >= sliderRect.left - 1 && itemRect.right <= sliderRect.right + 1) return;
+              // .slider has scroll-behavior: smooth; jump without animating
+              slider.style.scrollBehavior = 'auto';
+              slider.scrollLeft += document.dir === 'rtl'
+                ? itemRect.right - sliderRect.right
+                : itemRect.left - sliderRect.left;
+              slider.style.removeProperty('scroll-behavior');
+            });
+          })();
+        </script>
+      {%- endif -%}
     </div>
 
     {%- if section.settings.enable_zoom -%}

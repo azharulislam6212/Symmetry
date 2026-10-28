@@ -1,0 +1,319 @@
+{%- comment -%}
+  Works well with (product page) – curated products, as a carousel.
+
+  Metafields:
+  - custom.compatible_canister  (metaobject reference – the brand-matched canister, always the first slide,
+                                 labelled e.g. "Required for this vest")
+  - custom.works_well_with      (list of product references – the slides after it)
+
+  Canister metaobject fields:
+  - image  (file – image)
+  - title  (single line text)
+  - link   (link or URL)
+
+  The current product and duplicate products are skipped. Autoplay: moves one slide every [autoplay_speed] seconds,
+  back to the start at the end; pauses on hover/focus and when off screen.
+{%- endcomment -%}
+{%- liquid
+  assign canister = product.metafields.custom.compatible_canister.value
+  assign canister_image = canister.image.value.preview_image
+  assign canister_title = canister.title.value
+  if canister.link.type == 'link'
+    assign canister_url = canister.link.value.url
+  else
+    assign canister_url = canister.link.value
+  endif
+
+  assign show_canister = false
+  if canister_title != blank or canister_image != blank
+    assign show_canister = true
+  endif
+
+  assign related_products = product.metafields.custom.works_well_with.value
+
+  # Slides to show (skips the current product and duplicates)
+  assign shown_ids = '|' | append: product.id | append: '|'
+  assign product_count = 0
+  if show_canister
+    assign product_count = 1
+  endif
+  for item in related_products
+    assign item_token = item.id | prepend: '|' | append: '|'
+    unless item == blank or shown_ids contains item_token
+      assign shown_ids = shown_ids | append: item.id | append: '|'
+      assign product_count = product_count | plus: 1
+    endunless
+  endfor
+-%}
+
+{%- if product_count > 0 -%}
+  {%- liquid
+    # Same image shape as the theme's product grids
+    if settings.prod_thumb_shape == 'portrait-23'
+      assign chosen_aspect_ratio = 0.67
+    elsif settings.prod_thumb_shape == 'portrait-45'
+      assign chosen_aspect_ratio = 0.8
+    elsif settings.prod_thumb_shape == 'square'
+      assign chosen_aspect_ratio = 1.0
+    elsif settings.prod_thumb_shape == 'landscape-54'
+      assign chosen_aspect_ratio = 1.25
+    elsif settings.prod_thumb_shape == 'landscape-32'
+      assign chosen_aspect_ratio = 1.50
+    elsif settings.prod_thumb_shape == 'tallest'
+      assign chosen_aspect_ratio = 99
+      if canister_image and canister_image.aspect_ratio < chosen_aspect_ratio
+        assign chosen_aspect_ratio = canister_image.aspect_ratio
+      endif
+      for item in related_products
+        if item.featured_media.preview_image.aspect_ratio < chosen_aspect_ratio
+          assign chosen_aspect_ratio = item.featured_media.preview_image.aspect_ratio
+        endif
+      endfor
+    else
+      assign chosen_aspect_ratio = 0
+      if canister_image and canister_image.aspect_ratio > chosen_aspect_ratio
+        assign chosen_aspect_ratio = canister_image.aspect_ratio
+      endif
+      for item in related_products
+        if item.featured_media.preview_image.aspect_ratio > chosen_aspect_ratio
+          assign chosen_aspect_ratio = item.featured_media.preview_image.aspect_ratio
+        endif
+      endfor
+    endif
+
+    assign rendered_ids = '|' | append: product.id | append: '|'
+  -%}
+  <div id="WorksWellWith-{{ section.id }}" class="section-id-{{ section.id }} works-well-with collection-slider-row {% if section.settings.color_scheme != 'default' %}use-color-scheme use-color-scheme--{{ section.settings.color_scheme }} fully-padded-row--{{ section.settings.height }}{% else %}fully-spaced-row--{{ section.settings.height }}{% endif %}">
+    <div class="container container--not-mobile">
+      <carousel-slider class="carousel block collection-slider">
+        <div class="works-well-with__header slider-nav" {%- render 'animation-attrs', attrs: 'data-cc-animate data-cc-animate-delay="0.3s"' -%}>
+          <div class="works-well-with__intro">
+            {%- if section.settings.heading != blank -%}
+              <h2 class="h3 works-well-with__heading">{{ section.settings.heading | escape }}</h2>
+            {%- endif -%}
+            {%- if section.settings.text != blank -%}
+              <div class="rte works-well-with__text">{{ section.settings.text }}</div>
+            {%- endif -%}
+          </div>
+          <div class="works-well-with__nav">
+            <button name="prev" class="slider-nav__btn has-ltr-icon">
+              <span class="visually-hidden">{{ 'general.slider.previous' | t }}</span>
+              {% render 'icon-chevron-left' %}
+            </button>
+            <button name="next" class="slider-nav__btn has-ltr-icon">
+              <span class="visually-hidden">{{ 'general.slider.next' | t }}</span>
+              {% render 'icon-chevron-right' %}
+            </button>
+          </div>
+        </div>
+
+        <div class="collection-listing slider slider--mobile-container-pad slider--no-scrollbar" {%- render 'animation-attrs', attrs: 'data-cc-animate' -%}>
+          <div class="product-grid product-grid--per-row-{{ section.settings.grid }} product-grid--per-row-mob-{{ settings.prod_thumb_mob_per_row }} slider__grid product-grid--carousel">
+            {%- if show_canister -%}
+              {%- comment -%} Canister card: same look as the product cards, from the canister metaobject {%- endcomment -%}
+              <div class="slider__item works-well-with__item works-well-with__item--required">
+                <div class="product-block works-well-with__canister">
+                  <div class="block-inner">
+                    <div class="block-inner-inner">
+                      <div class="image-cont">
+                        {%- if canister_url != blank -%}<a class="product-link" href="{{ canister_url }}" aria-hidden="true" tabindex="-1">{%- endif -%}
+                          {%- if canister_image -%}
+                            <div class="product-block__image product-block__image--primary product-block__image--active">
+                              {%- liquid
+                                if settings.prod_thumb_crop
+                                  assign custom_crop = settings.prod_thumb_crop_align
+                                else
+                                  assign custom_crop = 'contain'
+                                endif
+                                render 'image' with canister_image, size_cols_mobile: 2, size_cols_desktop: section.settings.grid, custom_aspect_ratio: chosen_aspect_ratio, custom_crop: custom_crop
+                              -%}
+                            </div>
+                          {%- else -%}
+                            <div class="placeholder-image">{{ 'product-1' | placeholder_svg_tag }}</div>
+                          {%- endif -%}
+                        {%- if canister_url != blank -%}</a>{%- endif -%}
+                      </div>
+
+                      <div class="product-block__detail align-ltr-{{ settings.prod_thumb_text_align }}">
+                        <div class="inner">
+                          <div class="innerer">
+                            {%- if canister_title != blank -%}
+                              {%- if canister_url != blank -%}
+                                <a class="product-link" href="{{ canister_url }}"><div class="product-block__title">{{ canister_title | escape }}</div></a>
+                              {%- else -%}
+                                <div class="product-block__title">{{ canister_title | escape }}</div>
+                              {%- endif -%}
+                            {%- endif -%}
+                            {%- if section.settings.required_label != blank -%}
+                              <p class="works-well-with__required">{{ section.settings.required_label | escape }}</p>
+                            {%- endif -%}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {%- endif -%}
+            {%- for item in related_products -%}
+              {%- assign item_token = item.id | prepend: '|' | append: '|' -%}
+              {%- unless item == blank or rendered_ids contains item_token -%}
+                {%- assign rendered_ids = rendered_ids | append: item.id | append: '|' -%}
+                <div class="slider__item works-well-with__item">
+                  {%- render 'product-block', product: item, custom_aspect_ratio: chosen_aspect_ratio, grid: section.settings.grid, no_swiping: true, no_quick_buy_markup: true -%}
+                </div>
+              {%- endunless -%}
+            {%- endfor -%}
+          </div>
+        </div>
+      </carousel-slider>
+    </div>
+
+    {% if settings.quickbuy_style != 'off' %}
+      <div class="quickbuy-container use-color-scheme use-color-scheme--{{ settings.quickbuy_color_scheme }}">
+        <a href="#" class="close-detail" aria-label="{{ 'accessibility.close' | t }}" tabindex="-1" aria-hidden="true">{% render 'icon-close', stroke_width: 1 %}</a>
+        <div class="inner"></div>
+      </div>
+    {% endif %}
+  </div>
+
+  {%- if section.settings.autoplay -%}
+    <script>
+      (() => {
+        const section = document.getElementById('WorksWellWith-{{ section.id }}');
+        const carousel = section && section.querySelector('carousel-slider');
+        if (!carousel) return;
+
+        const speed = {{ section.settings.autoplay_speed | times: 1000 }};
+        let paused = false;
+        let inView = false;
+
+        // Next slide, or back to the start at the end (uses the carousel's own next button)
+        const showNext = () => {
+          if (paused || !inView || document.hidden || carousel.hasAttribute('inactive')) return;
+          const slider = carousel.querySelector('.slider');
+          const nextBtn = carousel.querySelector('button[name="next"]');
+          if (!slider || !nextBtn) return;
+
+          if (nextBtn.disabled) {
+            slider.scrollTo({ left: 0, behavior: 'smooth' });
+          } else {
+            nextBtn.click();
+          }
+        };
+
+        let timer = setInterval(showNext, speed);
+        const restart = () => {
+          clearInterval(timer);
+          timer = setInterval(showNext, speed);
+        };
+
+        // Pause while the customer is using the carousel
+        carousel.addEventListener('mouseenter', () => { paused = true; });
+        carousel.addEventListener('mouseleave', () => { paused = false; restart(); });
+        carousel.addEventListener('focusin', () => { paused = true; });
+        carousel.addEventListener('focusout', () => { paused = false; restart(); });
+        carousel.addEventListener('touchstart', restart, { passive: true });
+
+        new IntersectionObserver((entries) => {
+          inView = entries[0].isIntersecting;
+        }).observe(carousel);
+      })();
+    </script>
+  {%- endif -%}
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Works well with",
+  "class": "section-works-well-with",
+  "enabled_on": {
+    "templates": ["product"]
+  },
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "First slide: metafield custom.compatible_canister (canister metaobject – image, title, link). Then: custom.works_well_with (list of products). Hidden when both are empty."
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Works well with"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text",
+      "default": "<p>Curated, not \"customers also bought\". First slot is always the brand-matched canister.</p>"
+    },
+    {
+      "type": "text",
+      "id": "required_label",
+      "label": "Canister label",
+      "info": "Shown under the compatible canister",
+      "default": "Required for this vest"
+    },
+    {
+      "type": "range",
+      "id": "grid",
+      "label": "Products per row",
+      "min": 2,
+      "max": 5,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "header",
+      "content": "Autoplay"
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Auto-rotate products",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "autoplay_speed",
+      "label": "Change every",
+      "min": 3,
+      "max": 10,
+      "step": 1,
+      "unit": "s",
+      "default": 5
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "height",
+      "label": "Section height",
+      "default": "medium",
+      "options": [
+        { "value": "small", "label": "Small" },
+        { "value": "medium", "label": "Medium" },
+        { "value": "large", "label": "Large" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "default",
+      "options": [
+        { "value": "default", "label": "Default" },
+        { "value": "1", "label": "1" },
+        { "value": "2", "label": "2" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Works well with"
+    }
+  ]
+}
+{% endschema %}

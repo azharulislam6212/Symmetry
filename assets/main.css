@@ -11273,7 +11273,42 @@ body:has(.drawer):has(.boost-sd__modal){
 
 
 /* custom css */
- 
+
+/* Product page: gallery must not move when the product info column arrives.
+   The page HTML streams in, so on a first (uncached) visit the gallery is painted before the
+   right column exists. With the theme's `justify-content: center` it was centered on its own,
+   then jumped left once the right column arrived. Instead: align to the start and give the
+   gallery the same offset centering would give it, worked out from the column widths only
+   (gallery + 44px gap + right column, max 490px), so it is the same before and after. */
+@media (min-width: 768px) {
+    .product-info {
+        justify-content: flex-start;
+    }
+
+    .product-info .product-column-left {
+        margin-inline-start: max(0px, (100% - 50% - 44px - min(50% - 44px, 490px)) / 2);
+    }
+
+    .product-info .product-column-left,
+    .product-info .product-column-right {
+        min-width: 0;
+    }
+}
+
+@media (min-width: 1040px) {
+    .product-info .media-gallery-size-small {
+        margin-inline-start: max(0px, (100% - 35% - 44px - min(65% - 44px, 490px)) / 2);
+    }
+
+    .product-info .media-gallery-size-medium {
+        margin-inline-start: max(0px, (100% - 45% - 44px - min(55% - 44px, 490px)) / 2);
+    }
+
+    .product-info .media-gallery-size-large {
+        margin-inline-start: max(0px, (100% - 62% - 44px - min(38% - 44px, 490px)) / 2);
+    }
+}
+
 .product-column-right .trustpilot-widget {
     padding: 0 !important;
     justify-content: start !important;
@@ -11951,4 +11986,215 @@ a.comparison-block__option:hover {
 .comparison-block__empty p {
     margin: 0;
     opacity: 0.8;
+}
+
+/* Works well with */
+.works-well-with__header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 24px;
+}
+
+.works-well-with__heading {
+    margin: 0;
+}
+
+.works-well-with__text {
+    margin-top: 8px;
+    opacity: 0.8;
+}
+
+.works-well-with__text > :first-child {
+    margin-top: 0;
+}
+
+.works-well-with__text > :last-child {
+    margin-bottom: 0;
+}
+
+.works-well-with__nav {
+    display: flex;
+    flex-shrink: 0;
+    gap: 8px;
+}
+
+.works-well-with__nav .slider-nav__btn {
+    padding: 8px;
+    color: rgb(var(--heading-color));
+}
+
+.works-well-with__nav .slider-nav__btn[disabled] {
+    opacity: 0.3;
+}
+
+.works-well-with__required {
+    margin: 4px 0 0;
+    color: #c8650f;
+    font-size: 0.9em;
+}
+
+@media (max-width: 767px) {
+    .works-well-with__header {
+        padding: 0 var(--container-pad-x);
+    }
+}
+
+/* Posts and reviews */
+.posts-reviews__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 48px;
+    align-items: start;
+}
+
+.posts-reviews__heading {
+    margin: 0 0 20px;
+}
+
+.posts-reviews__text {
+    margin-bottom: 20px;
+    opacity: 0.8;
+}
+
+.posts-reviews__text > :first-child {
+    margin-top: 0;
+}
+
+.posts-reviews__text > :last-child {
+    margin-bottom: 0;
+}
+
+.posts-reviews__posts {
+    --post-card-height: 112px;
+    --post-gap: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: var(--post-gap);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    /* "Visible posts" cards high (3 → 368px); the rest show on hover-scroll */
+    max-height: calc(var(--visible-posts, 3) * var(--post-card-height) + (var(--visible-posts, 3) - 1) * var(--post-gap));
+    overflow: hidden;
+}
+
+.posts-reviews__posts.is-scrollable {
+    padding-right: 12px;
+}
+
+/* Scrolls on hover (or keyboard focus); touch screens have no hover, so always scrollable there */
+.posts-reviews__posts:hover,
+.posts-reviews__posts:focus-within {
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+    scrollbar-color: rgb(var(--text-color) / 0.35) rgb(var(--text-color) / 0.08);
+}
+
+@media (hover: none) {
+    .posts-reviews__posts {
+        overflow-y: auto;
+        overscroll-behavior: contain;
+    }
+}
+
+.posts-reviews__posts::-webkit-scrollbar {
+    width: 6px;
+}
+
+.posts-reviews__posts::-webkit-scrollbar-track {
+    border-radius: 6px;
+    background: rgb(var(--text-color) / 0.08);
+}
+
+.posts-reviews__posts::-webkit-scrollbar-thumb {
+    border-radius: 6px;
+    background: rgb(var(--text-color) / 0.35);
+}
+
+.posts-reviews__posts::-webkit-scrollbar-thumb:hover {
+    background: rgb(var(--text-color) / 0.6);
+}
+
+.posts-reviews__posts > li {
+    flex-shrink: 0;
+}
+
+/* Fixed height, so "Visible posts" cards fit the scroll area exactly */
+.posts-reviews__post {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    box-sizing: border-box;
+    height: var(--post-card-height);
+    overflow: hidden;
+    padding: 12px;
+    border: 1px solid rgb(var(--text-color) / 0.2);
+    border-radius: 4px;
+    color: inherit;
+    text-decoration: none;
+    transition: border-color 0.2s;
+}
+
+.posts-reviews__post:hover {
+    border-color: rgb(var(--text-color));
+}
+
+.posts-reviews__post-image {
+    flex-shrink: 0;
+    width: 96px;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    border-radius: 4px;
+    background: rgb(var(--text-color) / 0.06);
+}
+
+.posts-reviews__post-image img,
+.posts-reviews__post-image svg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.posts-reviews__post-text {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 0;
+    max-height: 100%;
+    overflow: hidden;
+}
+
+.posts-reviews__post-title,
+.posts-reviews__post-excerpt {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    overflow: hidden;
+}
+
+.posts-reviews__post-title {
+    font-weight: 600;
+    line-height: 1.35;
+}
+
+.posts-reviews__post-excerpt {
+    font-size: 0.9em;
+    line-height: 1.45;
+    opacity: 0.8;
+}
+
+.posts-reviews__empty {
+    margin: 0;
+    opacity: 0.6;
+}
+
+@media (max-width: 767px) {
+    .posts-reviews__grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 40px;
+    }
 }

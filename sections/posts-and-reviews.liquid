@@ -1,0 +1,238 @@
+{%- comment -%}
+  Posts and reviews (product page) – two columns: the blog posts block, then app blocks
+  (e.g. the Trustpilot product widget, added with Add block → Apps).
+
+  Blocks:
+  - blog_posts: heading + the product's blog posts, from metafield custom.related_blog_posts.
+                Hidden when the product has none.
+  - @app:       app blocks – each one is a column after the posts.
+
+  custom.related_blog_posts can be:
+  - Blog post (single or list)
+  - URL or Link (single or list) – links to blog posts, e.g. /blogs/news/how-air-vests-work
+{%- endcomment -%}
+{%- liquid
+  # Posts as blog/article keys, e.g. news/how-air-vests-work (looked up with articles[key])
+  assign posts_field = product.metafields.custom.related_blog_posts
+  assign post_urls = ''
+  if posts_field.type contains 'list.'
+    for post_value in posts_field.value
+      assign post_url = post_value.url | default: post_value
+      assign post_urls = post_urls | append: post_url | append: ' '
+    endfor
+  elsif posts_field != blank
+    assign post_urls = posts_field.value.url | default: posts_field.value
+  endif
+
+  assign post_urls = post_urls | split: ' '
+  assign post_keys = ''
+  for post_url in post_urls
+    if post_url contains '/blogs/'
+      assign post_key = post_url | split: '/blogs/' | last | split: '?' | first | split: '#' | first
+      assign post_keys = post_keys | append: post_key | append: ' '
+    endif
+  endfor
+  assign post_keys = post_keys | split: ' '
+-%}
+
+{%- capture columns -%}
+  {%- for block in section.blocks -%}
+    {%- case block.type -%}
+      {%- when 'blog_posts' -%}
+        {%- assign post_count = 0 -%}
+        {%- capture post_items -%}
+          {%- for post_key in post_keys limit: 50 -%}
+            {%- assign post = articles[post_key] -%}
+            {%- if post != blank -%}
+              {%- assign post_count = post_count | plus: 1 -%}
+              <li>
+                <a class="posts-reviews__post" href="{{ post.url }}">
+                  <div class="posts-reviews__post-image">
+                    {%- if post.image -%}
+                      {{ post.image | image_url: width: 300 | image_tag: loading: 'lazy', widths: '150, 300', sizes: '150px', alt: post.image.alt | default: post.title }}
+                    {%- else -%}
+                      {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                    {%- endif -%}
+                  </div>
+                  <div class="posts-reviews__post-text">
+                    <span class="posts-reviews__post-title">{{ post.title | escape }}</span>
+                    {%- if block.settings.show_excerpt -%}
+                      {%- assign post_excerpt = post.excerpt | default: post.content | strip_html | truncatewords: 20 -%}
+                      {%- if post_excerpt != blank -%}
+                        <span class="posts-reviews__post-excerpt">{{ post_excerpt }}</span>
+                      {%- endif -%}
+                    {%- endif -%}
+                  </div>
+                </a>
+              </li>
+            {%- endif -%}
+          {%- endfor -%}
+        {%- endcapture -%}
+
+        {%- if post_items != blank or request.design_mode -%}
+          <div class="posts-reviews__column" {{ block.shopify_attributes }}>
+            {%- if block.settings.heading != blank -%}
+              <h2 class="h3 posts-reviews__heading">{{ block.settings.heading | escape }}</h2>
+            {%- endif -%}
+            {%- if block.settings.text != blank -%}
+              <div class="rte posts-reviews__text">{{ block.settings.text }}</div>
+            {%- endif -%}
+            {%- if post_items != blank -%}
+              {%- comment -%} More posts than "Visible posts": the list is that many cards high and scrolls {%- endcomment -%}
+              <ul class="posts-reviews__posts{% if post_count > block.settings.limit %} is-scrollable{% endif %}" role="list" style="--visible-posts: {{ block.settings.limit }};">{{ post_items }}</ul>
+            {%- else -%}
+              {%- comment -%} Theme editor only: why no posts show {%- endcomment -%}
+              <p class="posts-reviews__empty">
+                No posts found in custom.related_blog_posts (hidden on the live store).
+                {%- if posts_field != blank %} Metafield type: {{ posts_field.type }}.{% endif -%}
+              </p>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+
+      {%- when '@app' -%}
+        <div class="posts-reviews__column">{% render block %}</div>
+    {%- endcase -%}
+  {%- endfor -%}
+{%- endcapture -%}
+
+{%- if columns != blank -%}
+  {%- comment -%}
+    Scroll list rules live with the section, so they always ship with it:
+    "Visible posts" cards high, the rest scroll (on hover; always on touch screens).
+  {%- endcomment -%}
+  {%- style -%}
+    #shopify-section-{{ section.id }} .posts-reviews__posts {
+      --post-card-height: 112px;
+      --post-gap: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: var(--post-gap);
+      max-height: 385px; /* 3 cards + 2 gaps */
+      overflow: auto;
+    }
+    #shopify-section-{{ section.id }} .posts-reviews__posts > li {
+      flex-shrink: 0;
+    }
+    #shopify-section-{{ section.id }} .posts-reviews__post {
+      box-sizing: border-box;
+      height: var(--post-card-height);
+      overflow: hidden;
+    }
+    #shopify-section-{{ section.id }} .posts-reviews__posts.is-scrollable {
+      padding-right: 12px;
+    }
+    #shopify-section-{{ section.id }} .posts-reviews__posts:hover,
+    #shopify-section-{{ section.id }} .posts-reviews__posts:focus-within {
+      overflow-y: auto;
+      overscroll-behavior: contain;
+    }
+    @media (hover: none) {
+      #shopify-section-{{ section.id }} .posts-reviews__posts {
+        overflow-y: auto;
+        overscroll-behavior: contain;
+      }
+    }
+  {%- endstyle -%}
+  <div class="posts-reviews {% if section.settings.color_scheme != 'default' %}use-color-scheme use-color-scheme--{{ section.settings.color_scheme }} fully-padded-row--{{ section.settings.height }}{% else %}fully-spaced-row--{{ section.settings.height }}{% endif %}" {%- render 'animation-attrs', attrs: 'data-cc-animate' -%}>
+    <div class="container">
+      <div class="posts-reviews__grid">
+        {{ columns }}
+      </div>
+    </div>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Posts and reviews",
+  "class": "section-posts-reviews",
+  "enabled_on": {
+    "templates": ["product"]
+  },
+  "max_blocks": 4,
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Two columns: blog posts from the product metafield custom.related_blog_posts, then app blocks (Add block → Apps, e.g. Trustpilot product widget)."
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "select",
+      "id": "height",
+      "label": "Section height",
+      "default": "medium",
+      "options": [
+        { "value": "small", "label": "Small" },
+        { "value": "medium", "label": "Medium" },
+        { "value": "large", "label": "Large" }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "default",
+      "options": [
+        { "value": "default", "label": "Default" },
+        { "value": "1", "label": "1" },
+        { "value": "2", "label": "2" }
+      ]
+    }
+  ],
+  "blocks": [
+    {
+      "type": "blog_posts",
+      "name": "Blog posts",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "Posts: product metafield custom.related_blog_posts (blog posts, or links to blog posts). Hidden when empty."
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Read before you buy"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text"
+        },
+        {
+          "type": "range",
+          "id": "limit",
+          "label": "Visible posts",
+          "info": "More posts scroll inside the list",
+          "min": 1,
+          "max": 6,
+          "step": 1,
+          "default": 3
+        },
+        {
+          "type": "checkbox",
+          "id": "show_excerpt",
+          "label": "Show excerpt",
+          "default": false
+        }
+      ]
+    },
+    {
+      "type": "@app"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Posts and reviews",
+      "blocks": [
+        { "type": "blog_posts" }
+      ]
+    }
+  ]
+}
+{% endschema %}
