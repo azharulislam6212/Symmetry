@@ -1,0 +1,60 @@
+{%- comment -%}
+  Person schema (JSON-LD) built from an Author metaobject.
+  Output on any page with the page metafield custom.author.
+  Blog posts reference the same @id, so Google links each post to this person.
+
+  Author metaobject fields used:
+  - name          (single line text)            → name
+  - credentials   (single line text)            → jobTitle
+  - bio           (multi-line or rich text)     → description
+  - photo         (file – image)                → image
+  - page URL: the entry's own webpage, else its `page` field → url + @id
+  - same_as       (list of URLs)                → sameAs (LinkedIn, Instagram, BHS profile…)
+  - knows_about   (list of single line text)    → knowsAbout (optional)
+
+  Accepts:
+  - author: the Author metaobject
+{%- endcomment -%}
+{%- liquid
+  assign person_url = author.system.url | default: author.page.value.url
+  if person_url != blank
+    assign person_url = shop.url | append: person_url
+    assign person_id = person_url | append: '#person'
+  else
+    assign person_id = shop.url | append: '/#author-' | append: author.system.handle
+  endif
+-%}
+{%- if author.name != blank -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "@id": {{ person_id | json }},
+  "name": {{ author.name.value | json }}
+  {%- if person_url != blank -%},
+  "url": {{ person_url | json }},
+  "mainEntityOfPage": {{ person_url | json }}
+  {%- endif -%}
+  {%- if author.credentials != blank -%},
+  "jobTitle": {{ author.credentials.value | json }}
+  {%- endif -%}
+  {%- if author.bio != blank -%},
+  "description": {{ author.bio | metafield_text | strip_newlines | strip | json }}
+  {%- endif -%}
+  {%- if author.photo != blank -%},
+  "image": {{ author.photo.value | image_url: width: 800 | prepend: 'https:' | json }}
+  {%- endif -%}
+  {%- if author.same_as.value.size > 0 -%},
+  "sameAs": {{ author.same_as.value | json }}
+  {%- endif -%}
+  {%- if author.knows_about.value.size > 0 -%},
+  "knowsAbout": {{ author.knows_about.value | json }}
+  {%- endif -%},
+  "worksFor": {
+    "@type": "Organization",
+    "name": {{ shop.name | json }},
+    "url": {{ shop.url | json }}
+  }
+}
+</script>
+{%- endif -%}

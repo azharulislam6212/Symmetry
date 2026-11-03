@@ -184,6 +184,10 @@
   {%- endif -%}
 
   
+  {%- comment -%} Person schema on an author's page (page metafield custom.author → Author metaobject) {%- endcomment -%}
+  {%- if template.name == 'page' and page.metafields.custom.author.value != blank -%}
+    {% render 'structured-data-person', author: page.metafields.custom.author.value %}
+  {%- endif -%}
 </head>
 
 <body class="template-{{ template | split: '.' | first | handle }}

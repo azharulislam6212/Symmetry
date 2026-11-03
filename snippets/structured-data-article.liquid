@@ -1,11 +1,60 @@
 {%- comment -%}
   Parameters:
   - article {Object} - Article object.
+  - author {Object} - Author metaobject (optional). When set, a BlogPosting schema is output
+    whose author points to the same Person @id as the author's page (snippets/structured-data-person).
+    Without it, Shopify's default article schema is used.
 
   Usage:
-  {% render 'structured-data-article', article: article %}
+  {% render 'structured-data-article', article: article, author: author %}
 {%- endcomment -%}
 
-<script type="application/ld+json">
-  {{ article | structured_data }}
-</script>
+{%- if author != blank and author.name != blank -%}
+  {%- liquid
+    assign article_url = shop.url | append: article.url
+    assign person_url = author.system.url | default: author.page.value.url
+    if person_url != blank
+      assign person_url = shop.url | append: person_url
+      assign person_id = person_url | append: '#person'
+    else
+      assign person_id = shop.url | append: '/#author-' | append: author.system.handle
+    endif
+  -%}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "mainEntityOfPage": {{ article_url | json }},
+    "url": {{ article_url | json }},
+    "headline": {{ article.title | strip_html | truncate: 110 | json }},
+    {%- if article.excerpt != blank %}
+    "description": {{ article.excerpt | strip_html | strip_newlines | truncate: 300 | json }},
+    {%- endif %}
+    {%- if article.image %}
+    "image": [{{ article.image | image_url: width: 1600 | prepend: 'https:' | json }}],
+    {%- endif %}
+    "datePublished": {{ article.published_at | date: '%Y-%m-%dT%H:%M:%S%z' | json }},
+    "dateModified": {{ article.updated_at | date: '%Y-%m-%dT%H:%M:%S%z' | json }},
+    "author": {
+      "@type": "Person",
+      "@id": {{ person_id | json }},
+      "name": {{ author.name.value | json }}
+      {%- if person_url != blank -%},
+      "url": {{ person_url | json }}
+      {%- endif -%}
+      {%- if author.credentials != blank -%},
+      "jobTitle": {{ author.credentials.value | json }}
+      {%- endif %}
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": {{ shop.name | json }},
+      "url": {{ shop.url | json }}
+    }
+  }
+  </script>
+{%- else -%}
+  <script type="application/ld+json">
+    {{ article | structured_data }}
+  </script>
+{%- endif -%}

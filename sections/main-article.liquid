@@ -1,3 +1,25 @@
+{%- comment -%}
+  Author (Author metaobject): blog post metafield custom.author, else the entry whose name matches
+  the post author, else the section's default author. Used for the byline, the author box and the schema.
+{%- endcomment -%}
+{%- liquid
+    # Author: blog post metafield custom.author, else the Author entry whose name matches the post author
+    assign author = article.metafields.custom.author.value
+    if author == blank and article.author != blank
+      assign author_key = article.author | strip | downcase
+      for author_entry in shop.metaobjects.author.values
+        assign author_entry_key = author_entry.name.value | strip | downcase
+        if author_entry_key == author_key
+          assign author = author_entry
+          break
+        endif
+      endfor
+    endif
+    if author == blank
+      assign author = section.settings.default_author
+    endif
+-%}
+
 {% if section.settings.show_featured_image and article.image != blank %}
   <div class="article-image article-image--large align-center {% unless section.settings.full_width_image %}container{% endunless %}">
     {% if section.settings.featured_image_height == 'natural' %}
@@ -55,6 +77,10 @@
       {{ article.content }}
     </div>
 
+    {%- if section.settings.show_author_box and author != blank -%}
+      {% render 'author-box', author: author, heading: section.settings.author_box_heading, link_label: section.settings.author_box_link_label %}
+    {%- endif -%}
+
     {% if section.settings.show_sharing_icons %}
     <div class="lightly-spaced-row" {%- render 'animation-attrs', attrs: 'data-cc-animate', always: true -%}>
       <div class="social-share flex items-center">
@@ -89,7 +115,7 @@
           {% endif %}
           {% if section.settings.show_author %}
             {% if section.settings.show_date %}&mdash;{% endif %}
-            <span class="author">{{ article.author }}</span>
+            {% render 'author-byline', author: author, fallback_name: article.author %}
           {% endif %}
         </div>
       {% endif %}
@@ -182,7 +208,7 @@
   </div>
 {% endif %}
 
-{% render 'structured-data-article', article: article %}
+{% render 'structured-data-article', article: article, author: author %}
 
 {% schema %}
 {
@@ -200,6 +226,39 @@
       "id": "show_author",
       "label": "Show author",
       "default": true
+    },
+    {
+      "type": "header",
+      "content": "Author"
+    },
+    {
+      "type": "paragraph",
+      "content": "Author details come from the blog post metafield custom.author (Author metaobject). Posts without it use the default author below."
+    },
+    {
+      "type": "metaobject",
+      "id": "default_author",
+      "label": "Default author",
+      "metaobject_type": "author"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_author_box",
+      "label": "Show \"About the author\" box",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "author_box_heading",
+      "label": "Author box heading",
+      "default": "About the author"
+    },
+    {
+      "type": "text",
+      "id": "author_box_link_label",
+      "label": "Author box link label",
+      "info": "Use [name] to insert the author name",
+      "default": "More about [name]"
     },
     {
       "type": "checkbox",

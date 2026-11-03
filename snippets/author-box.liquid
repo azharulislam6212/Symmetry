@@ -1,0 +1,62 @@
+{%- comment -%}
+  "About the author" box shown under the blog post content.
+
+  Source: Author metaobject (type: author)
+  - name, credentials, bio (multi-line or rich text), photo (file – image)
+  Link: the entry's own webpage (/pages/author/<handle>), else its `page` field
+
+  Accepts:
+  - author: the Author metaobject
+  - heading: box heading (section setting)
+  - link_label: link label (section setting)
+{%- endcomment -%}
+{%- liquid
+  assign author_name = author.name.value
+  assign author_url = author.system.url
+  if author_url == blank
+    assign author_url = author.page.value.url
+  endif
+  assign author_photo = author.photo.value
+-%}
+{%- if author_name != blank -%}
+  <aside class="author-box" aria-label="{{ heading | default: author_name | escape }}">
+    {%- if author_photo != blank -%}
+      <div class="author-box__photo">
+        {{ author_photo | image_url: width: 240 | image_tag: loading: 'lazy', widths: '120, 240', sizes: '96px', alt: author_name }}
+      </div>
+    {%- endif -%}
+    <div class="author-box__content">
+      {%- if heading != blank -%}
+        <p class="author-box__heading small-text">{{ heading | escape }}</p>
+      {%- endif -%}
+      <p class="author-box__name">{{ author_name | escape }}</p>
+      {%- if author.credentials != blank -%}
+        <p class="author-box__credentials">{{ author.credentials.value | escape }}</p>
+      {%- endif -%}
+      {%- if author.bio != blank -%}
+        <div class="author-box__bio rte">
+          {%- if author.bio.type == 'rich_text_field' -%}
+            {{ author.bio | metafield_tag }}
+          {%- else -%}
+            {{ author.bio.value | escape | newline_to_br }}
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+      {%- if author_url != blank and link_label != blank -%}
+        <a class="author-box__link" href="{{ author_url }}" rel="author">{{ link_label | replace: '[name]', author_name | escape }} &rarr;</a>
+      {%- endif -%}
+    </div>
+  </aside>
+
+  <style>
+    .author-box { display: flex; gap: 20px; align-items: flex-start; margin: 40px 0 10px; padding: 24px; border: 1px solid rgba(0,0,0,.1); border-radius: 6px; }
+    .author-box__photo { flex: 0 0 96px; }
+    .author-box__photo img { width: 96px; height: 96px; object-fit: cover; border-radius: 50%; display: block; }
+    .author-box__heading { margin: 0 0 4px; text-transform: uppercase; letter-spacing: .08em; opacity: .7; }
+    .author-box__name { margin: 0; font-weight: 700; font-size: 1.1em; }
+    .author-box__credentials { margin: 2px 0 10px; opacity: .8; }
+    .author-box__bio p:last-child { margin-bottom: 0; }
+    .author-box__link { display: inline-block; margin-top: 10px; font-weight: 600; }
+    @media (max-width: 599px) { .author-box { flex-direction: column; padding: 18px; } }
+  </style>
+{%- endif -%}

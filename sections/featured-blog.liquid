@@ -13,6 +13,20 @@
 
         <div class="article-list article-layout--columns article-layout--one-row">
           {% for article in blog.articles limit: section.settings.post_limit %}
+  {%- liquid
+    # Author: blog post metafield custom.author, else the Author entry whose name matches the post author
+    assign author = article.metafields.custom.author.value
+    if author == blank and article.author != blank
+      assign author_key = article.author | strip | downcase
+      for author_entry in shop.metaobjects.author.values
+        assign author_entry_key = author_entry.name.value | strip | downcase
+        if author_entry_key == author_key
+          assign author = author_entry
+          break
+        endif
+      endfor
+    endif
+  -%}
           {%- assign animation_delay = forloop.index | times: 0.15 | append: 's' -%}
           {%- assign animation_attrs = 'data-cc-animate data-cc-animate-delay="' | append: animation_delay | append: '"' -%}
           <div class="article" {%- render 'animation-attrs', attrs: animation_attrs -%}>
@@ -35,7 +49,7 @@
                     {% endif %}
                     {% if section.settings.show_author %}
                       {% if section.settings.show_date %}&mdash;{% endif %}
-                      <span class="author">{{ article.author }}</span>
+                      {% render 'author-byline', author: author, fallback_name: article.author, show_credentials: false %}
                     {% endif %}
                   </div>
                 </div>

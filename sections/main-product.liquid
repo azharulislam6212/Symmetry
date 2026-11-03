@@ -616,7 +616,18 @@
               {% endform %}
 
               {%- liquid
-                assign buyers_guide_url = product.metafields.custom.buyers_guide_url.value
+                # Buyer's guide link is built from product.type: the buyers-guides/<type> article if it exists,
+                # otherwise the product type collection page. No product type = no link.
+                assign buyers_guide_url = blank
+                if product.type != blank
+                  assign guide_article_handle = product.type | handleize | prepend: 'buyers-guides/'
+                  assign guide_article = articles[guide_article_handle]
+                  if guide_article != blank
+                    assign buyers_guide_url = guide_article.url
+                  else
+                    assign buyers_guide_url = product.type | url_for_type
+                  endif
+                endif
                 assign show_booking = false
                 if block.settings.booking_label != blank and block.settings.booking_url != blank
                   assign show_booking = true
@@ -2135,7 +2146,7 @@
           "type": "text",
           "id": "guide_label",
           "label": "Label",
-          "info": "Link comes from the product metafield custom.buyers_guide_url. Hidden when empty.",
+          "info": "Link is created automatically from the product type. Hidden when the product has no product type.",
           "default": "Read the buyer's guide before you choose"
         }
       ]

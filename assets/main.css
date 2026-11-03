@@ -12198,3 +12198,11 @@ a.comparison-block__option:hover {
         gap: 40px;
     }
 }
+
+/* Product page: gallery stays fixed on the left while the product info column scrolls */
+@media (min-width: 768px) {
+    .product-info .media-gallery__inner {
+        position: sticky;
+        top: calc(30px + var(--theme-sticky-header-height));
+    }
+}
